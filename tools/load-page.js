@@ -35,12 +35,12 @@ function loadPage({ withSample = false } = {}) {
     };
   }
   const claude = { use: async k => (k === "sample" ? sample : null) };
-  const window = { scrollTo() {}, claude };
-  const fn = new Function("window", "claude", "localStorage", "document", "setTimeout", "setInterval", "clearInterval",
+  const window = { scrollTo() {}, claude, addEventListener() {}, location: { hash: "" }, history: { pushState() {}, replaceState() {}, back() {} } };
+  const fn = new Function("window", "claude", "localStorage", "document", "setTimeout", "setInterval", "clearInterval", "location", "history",
     m[1] + "\n;return {GAMES,BANK,LISTS,WHO,TABOO,PROVERBS,FLAGS,QUOTES,PHRASES,HUROF,idOf,seen,unseenItems,undot,checkWin," +
     "get deck(){return deck},get pos(){return pos},set revealed(v){revealed=v},openGame,next,render,show,dealCards,flipCard,closeCard,get cardsArr(){return cardsArr}," +
     "toggleSlot,x_all,get listOpen(){return listOpen},newBoard,pick,take,get winner(){return winner},get hq(){return hq},get board(){return board},get SAMPLE(){return SAMPLE}};");
-  const api = fn(window, claude, ctx.localStorage, ctx.document, setTimeout, () => 0, () => {});
+  const api = fn(window, claude, ctx.localStorage, ctx.document, setTimeout, () => 0, () => {}, window.location, window.history);
   api._ctx = ctx; api._store = store;
   return api;
 }

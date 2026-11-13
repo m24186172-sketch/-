@@ -13,7 +13,7 @@ function dupCheck(name, g, arr) {
 }
 const byCat = (arr, f) => arr.reduce((m, x) => ((m[f(x)] = (m[f(x)] || 0) + 1), m), {});
 
-console.log("بنك الأسئلة:", P.BANK.length, JSON.stringify(byCat(P.BANK, x => x[0])));
+console.log("بنك الأسئلة:", P.BANK.length, JSON.stringify(byCat(P.BANK, x => x[0])), "المستويات:", JSON.stringify(byCat(P.BANK, x => ({1:"سهل",2:"متوسط",3:"صعب"})[x[3] || 2])));
 console.log("اذكر وتكشف:", P.LISTS.length, JSON.stringify(byCat(P.LISTS, x => x.c)));
 console.log("من أنا:", P.WHO.length, JSON.stringify(byCat(P.WHO, x => x.c)));
 console.log("لا تقول الكلمة:", P.TABOO.length);
@@ -30,7 +30,7 @@ dupCheck("الأمثال", "prov", P.PROVERBS);
 dupCheck("الأعلام", "flag", P.FLAGS);
 dupCheck("بدون نقاط", "dots", P.GAMES.dots.data);
 
-P.BANK.forEach(x => { if (x.length !== 3 || !x[1] || !x[2]) { problems++; console.log("  ✗ سؤال ناقص:", x); } });
+P.BANK.forEach(x => { if (x.length < 3 || x.length > 4 || !x[1] || !x[2] || (x.length === 4 && ![1, 2, 3].includes(x[3]))) { problems++; console.log("  ✗ سؤال ناقص:", x); } });
 const sport = /كرة|كأس العالم|أولمبي|منتخب|هوكي|ملعب|دوري|بطولة/;
 const all = JSON.stringify([P.BANK, P.LISTS, P.TABOO, P.WHO, P.GAMES.dots.data]);
 P.BANK.forEach(x => { if (sport.test(x[1] + x[2])) { problems++; console.log("  ✗ محتوى رياضي:", x[1]); } });
