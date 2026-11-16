@@ -362,6 +362,7 @@ body{background:var(--bg)}
 .pr{position:relative;display:flex;align-items:center;gap:10px;background:var(--card2);border-radius:14px;padding:10px 12px;overflow:hidden}
 .pr i{position:absolute;right:0;top:0;bottom:0;background:var(--tc);opacity:.18;border-radius:14px;transition:width .8s}
 .pr .md{font-size:1.4rem;position:relative}.pr b{flex:1;position:relative;color:var(--navy);font-size:1.05rem}.pr em{position:relative;font-style:normal;font-weight:900;color:var(--tc);font-size:1.3rem}
+.hideb{flex-basis:100%}
 </style>
 </head>
 <body>
@@ -2248,6 +2249,7 @@ function render(){
   b=revealed?`<button class="btn p" onclick="next()">التالي</button>`:`<button class="btn s" onclick="step=1;render()" ${step?'disabled':''}>تلميح</button><button class="btn p" onclick="revealed=true;render()">اكشف</button><button class="btn s" onclick="next()">تخطّى ⏭</button>`;
  }
  if(TEAMG.has(cur)){h=teamBar()+h;if(revealed||cur==="taboo")b=awardRow(ptsOf(x),cur==="taboo"?"stay":"next")+b}
+ if(revealed&&["rb","bank","who","prov","flag","dots"].includes(cur))b+=`<button class="btn s hideb" onclick="hideAns()">🙈 إخفاء الجواب</button>`;
  S.innerHTML=`<div class="orn"><i></i><i></i><i></i></div>`+h;B.innerHTML=b;
  if(cur==="list"){let o=document.getElementById("ov");if(o)o.remove();if(listPick){o=document.createElement("div");o.id="ov";o.className="ov";o.onclick=e=>{if(e.target===o){listPick=false;render()}};
   o.innerHTML=`<div class="ovc"><div class="tturn">وش قالوا؟</div><div style="color:var(--muted);font-size:.85rem">(الأجوبة تشوفها أنت بس.. اختر اللي قالوه)</div><div class="pick">${x.a.map((w,i)=>listOpen.has(i)?"":`<button onclick="listOpen.add(${i});listPick=false;render()">${w}</button>`).join("")}</div><div class="btns"><button class="btn r" onclick="listPick=false;render()">❌ ما هي موجودة</button></div></div>`;document.body.appendChild(o)}}const left=deck.length-pos-1;$("count").textContent=loading?"⏳ جاري أجهّز أسئلة جديدة...":`${cur!=="bank"?LVINFO[lvOf(cur,x)][1]+" "+LVINFO[lvOf(cur,x)][0]+" • ":""}باقي ${left} جاهزة${SAMPLE?" (وتتجدد تلقائياً)":""}`;
@@ -2280,7 +2282,7 @@ function renderCards(S,B){
  B.innerHTML=`<button class="btn ${left?'s':'p'}" onclick="dealCards()">🔀 وزّع أوراق جديدة</button>`;$("count").textContent=`${left} ورقة باقية`;
  let ov=document.getElementById("ov");if(ov)ov.remove();
  if(cardOpen>=0){const c=cardsArr[cardOpen];ov=document.createElement("div");ov.id="ov";ov.className="ov";
-  ov.innerHTML=`<div class="ovc">${c.s?`<div class="spc"><span>${c.s.i}</span><div><b>${c.s.t}</b><small>${c.s.d}</small></div></div>`:''}${c.s&&c.s.tm?`<div class="ct ${cLeft<=3?'low':''}" id="ct">${cTimer?cLeft:(cLeft>0?cLeft:'انتهى الوقت!')}</div>`:''}<span class="tag" style="background:${BCOL[c.q[0]]};color:#fff">${c.q[0]}</span><div class="big">${c.q[1]}</div>${optMode?optsHTML(c.q,optPick,revealed):''}${revealed?`<div class="answer">${optPick>=0&&optsFor(c.q)?(optsFor(c.q)[optPick]===c.q[2]?"✅ صح! ":"❌ "):""}${c.q[2]}</div>`:''}${revealed?awardRow(ptsOf(c.q),"card"):""}<div class="btns">${revealed?'':`<button class="btn p" onclick="revealed=true;stopCT();render()">اكشف الجواب</button>`}<button class="btn s" onclick="closeCard()">رجوع للأوراق</button></div></div>`;
+  ov.innerHTML=`<div class="ovc">${c.s?`<div class="spc"><span>${c.s.i}</span><div><b>${c.s.t}</b><small>${c.s.d}</small></div></div>`:''}${c.s&&c.s.tm?`<div class="ct ${cLeft<=3?'low':''}" id="ct">${cTimer?cLeft:(cLeft>0?cLeft:'انتهى الوقت!')}</div>`:''}<span class="tag" style="background:${BCOL[c.q[0]]};color:#fff">${c.q[0]}</span><div class="big">${c.q[1]}</div>${optMode?optsHTML(c.q,optPick,revealed):''}${revealed?`<div class="answer">${optPick>=0&&optsFor(c.q)?(optsFor(c.q)[optPick]===c.q[2]?"✅ صح! ":"❌ "):""}${c.q[2]}</div>`:''}${revealed?awardRow(ptsOf(c.q),"card"):""}<div class="btns">${revealed?`<button class="btn s" onclick="revealed=false;optPick=-1;render()">🙈 إخفاء الجواب</button>`:`<button class="btn p" onclick="revealed=true;stopCT();render()">اكشف الجواب</button>`}<button class="btn s" onclick="closeCard()">رجوع للأوراق</button></div></div>`;
   document.body.appendChild(ov)}
 }
 
@@ -2356,6 +2358,8 @@ function confetti(){sfx('win');const c=document.createElement("div");c.className
  for(let i=0;i<70;i++){const p=document.createElement("i");p.style.left=Math.random()*100+"%";p.style.background=cols[i%5];p.style.animationDelay=Math.random()*.8+"s";p.style.borderRadius=i%3?"2px":"50%";c.appendChild(p)}
  document.body.appendChild(c);setTimeout(()=>c.remove(),3800)}
 function stopTimer(){if(timerId){clearInterval(timerId);timerId=null}}
+function hideAns(){revealed=false;optPick=-1;if(cur==="rb")step=0;sfx("pop");render()}
+
 /* ---------- نهاية المسابقة ---------- */
 function endMatch(){const T=topTeams.map((t,i)=>({...t,i})).sort((a,b)=>b.s-a.s);const max=T[0].s;let o=document.getElementById("endov");if(o)o.remove();
  o=document.createElement("div");o.id="endov";o.className="ov";
