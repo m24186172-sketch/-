@@ -2820,7 +2820,8 @@ const wdSave=()=>ls("wd_v1",WD);
 const wdN=i=>esc(WD.n[i]||("اللاعب "+(i+1)));
 function esc(t){return String(t).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
 function wdStart(){WD.n=[($("wdn0")||{}).value||"",($("wdn1")||{}).value||""].map(v=>v.trim().slice(0,20));WD.s=[0,0];WD.a=0;WD.st="hide";wdSave();sfx("pop");render()}
-function wdT(t){WD.t=t;wdSave();render()}
+function wdKeep(){const a=$("wdn0"),b=$("wdn1");if(a&&b)WD.n=[a.value,b.value].map(v=>v.trim().slice(0,20))}
+function wdT(t){wdKeep();WD.t=t;wdSave();render()}
 function wdSee(){WD.st="view";wdSave();sfx("flip");render()}
 function wdSaid(lie){WD.lie=lie;WD.st="guess";wdSave();sfx("pop");render()}
 function wdGuess(saysLie){const A=WD.a,B=1-A,ok=saysLie===WD.lie;WD.ok=ok;WD.s[ok?B:A]++;WD.st=WD.s[ok?B:A]>=WD.t?"win":"reveal";wdSave();sfx(ok?"ok":"no");render();if(WD.st==="win")setTimeout(confetti,250)}
@@ -2832,7 +2833,7 @@ function renderWeird(S,B){const x=deck[pos],A=WD.a,O=1-A;let h="",b="";
  const sc=`<div class="wdsc">${[0,1].map(i=>`<div class="${i===A&&WD.st!=="win"?"on":""}"><b>${wdN(i)}</b><span>${WD.s[i]}</span></div>`).join(`<small>🏁 الفوز عند<br><b>${WD.t}</b> نقاط</small>`)}</div>`;
  if(WD.st==="setup"){
   S.innerHTML=`<div class="huge">🤥</div><div class="big">صادق ولا كذاب؟</div><div style="color:var(--muted)">واحد ضد واحد.. اكتبوا أسماءكم</div>
-  <div class="wdin"><input id="wdn0" maxlength="20" placeholder="اللاعب 1" value="${esc(WD.n[0])}"><span>ضد</span><input id="wdn1" maxlength="20" placeholder="اللاعب 2" value="${esc(WD.n[1])}"></div>
+  <div class="wdin"><input id="wdn0" maxlength="20" placeholder="اللاعب 1" value="${esc(WD.n[0])}" oninput="wdKeep();wdSave()"><span>ضد</span><input id="wdn1" maxlength="20" placeholder="اللاعب 2" value="${esc(WD.n[1])}" oninput="wdKeep();wdSave()"></div>
   <div style="color:var(--muted)">كم نقطة للفوز؟</div><div class="wdt">${[5,10].map(t=>`<button class="${WD.t===t?"on":""}" onclick="wdT(${t})">${t} نقاط</button>`).join("")}</div>`;
   B.innerHTML=`<button class="btn p" onclick="wdStart()">🚀 ابدأوا</button>`;return}
  if(!x){S.innerHTML=sc+`<div class="huge">👏</div><div class="big">خلصت الصور</div>`;B.innerHTML=`<button class="btn p" onclick="doReset()">♻️ رجّعها من جديد</button>`;return}
