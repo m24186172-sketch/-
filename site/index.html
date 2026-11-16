@@ -4,6 +4,14 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>أثر</title>
+<meta name="theme-color" content="#1f2151">
+<meta name="description" content="أثر: مسابقات وألعاب ثقافية للمجالس والقعدات والرحلات">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="أثر">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Amiri:wght@700&family=Noto+Kufi+Arabic:wght@700;800&display=swap">
 <style>
 :root{--navy:#1f2151;--blue:#3286c2;--bg:#f3f7fb;--card:#ffffff;--card2:#eaf2f9;--gold:#3286c2;--text:#1f2151;--muted:#6b7896;--green:#2e9e74;--red:#d9534f;--line:#d6e3f0}
@@ -291,12 +299,15 @@ body{background:var(--bg)}
 .rbt.let b{font-family:'Noto Kufi Arabic','Somar',sans-serif;font-weight:800;font-size:2.6rem;color:#fff}
 .rbt small{font-size:.85rem;font-weight:800;color:var(--blue);background:#fff;border-radius:999px;padding:1px 10px;animation:pop .3s}
 .rbp{font-style:normal;font-size:2rem;font-weight:900;color:var(--blue)}
+.rbr.n3{flex-wrap:nowrap;gap:5px}.rbr.n3 .rbt{min-width:0;flex:1;max-width:96px;min-height:92px;padding:8px 4px}.rbr.n3 .rbt b{font-size:2.5rem}.rbr.n3 .rbt.let b{font-size:1.9rem}.rbr.n3 .rbp{font-size:1.5rem}
 @keyframes rbin{from{opacity:0;transform:translateY(16px) scale(.8) rotate(-4deg)}to{opacity:1;transform:none}}
 /* طريقة اللعب */
 .howto{width:100%;background:#fff;border:1px solid var(--line);border-right:5px solid var(--blue);border-radius:14px;padding:8px 12px;margin-bottom:10px;box-shadow:0 4px 12px rgba(31,33,81,.06)}
 .howto summary{cursor:pointer;font-weight:800;color:var(--navy);list-style:none}
 .howto summary::-webkit-details-marker{display:none}
 .howto p{margin-top:6px;color:var(--text);line-height:1.8;font-size:.95rem}
+
+.inst{position:relative;display:block;margin:14px auto 0;background:#fff;color:var(--navy);border:none;border-radius:999px;padding:9px 18px;font:inherit;font-weight:800;font-size:.95rem;box-shadow:0 6px 16px rgba(0,0,0,.2);cursor:pointer;animation:pop .4s}
 </style>
 </head>
 <body>
@@ -1621,7 +1632,62 @@ const RB = [
  {c:"حيوانات وأشياء",a:"سنابل",p:[["🦷", "سن"], ["🐪🐪", "إبل"]],_l:3},
  {c:"حيوانات وأشياء",a:"تمرين",p:[["🌴", "تمر"], ["💴", "ين"]],_l:3},
  {c:"أسماء",a:"سلمان",p:[["🪜", "سلم"], ["ان", ""]],_l:2},
- {c:"أسماء",a:"موسى",p:[["🪒", "موس"], ["ى", ""]],_l:2}
+ {c:"أسماء",a:"موسى",p:[["🪒", "موس"], ["ى", ""]],_l:2},
+ {c:"حيوانات وأشياء",a:"مخدة",p:[["🧠", "مخ"], ["دة", ""]],_l:1},
+ {c:"حيوانات وأشياء",a:"مخيم",p:[["🧠", "مخ"], ["🌊", "يمّ (البحر)"]],_l:3},
+ {c:"أكل",a:"بيتزا",p:[["🏠", "بيت"], ["زا", ""]],_l:1},
+ {c:"أسماء",a:"فارس",p:[["🐭", "فار"], ["س", ""]],_l:2},
+ {c:"حيوانات وأشياء",a:"حجر",p:[["🕋", "حج"], ["ر", ""]],_l:2},
+ {c:"حيوانات وأشياء",a:"تلفون",p:[["⛰️", "تل"], ["📞", "فون"]],_l:2},
+ {c:"حيوانات وأشياء",a:"تلفاز",p:[["⛰️", "تل"], ["🏆", "فاز"]],_l:2},
+ {c:"حيوانات وأشياء",a:"قفل",p:[["🛑", "قف"], ["ل", ""]],_l:2},
+ {c:"حيوانات وأشياء",a:"قفص",p:[["🛑", "قف"], ["ص", ""]],_l:2},
+ {c:"حيوانات وأشياء",a:"شوكة",p:[["🌵", "شوك"], ["ة", ""]],_l:1},
+ {c:"حيوانات وأشياء",a:"صحن",p:[["✅", "صح"], ["ن", ""]],_l:1},
+ {c:"حيوانات وأشياء",a:"صحراء",p:[["✅", "صح"], ["راء", ""]],_l:3},
+ {c:"أسماء",a:"بنت",p:[["☕", "بنّ (حبوب القهوة)"], ["ت", ""]],_l:2},
+ {c:"حيوانات وأشياء",a:"بنك",p:[["☕", "بنّ (حبوب القهوة)"], ["ك", ""]],_l:2},
+ {c:"حيوانات وأشياء",a:"بنزين",p:[["☕", "بنّ"], ["👍", "زين"]],_l:3},
+ {c:"أسماء",a:"زينب",p:[["👍", "زين"], ["ب", ""]],_l:2},
+ {c:"أسماء",a:"مريم",p:[["🍋", "مُر"], ["🌊", "يمّ (البحر)"]],_l:3},
+ {c:"أسماء",a:"سلمى",p:[["🪜", "سلّم"], ["ى", ""]],_l:2},
+ {c:"أسماء",a:"نورة",p:[["💡", "نور"], ["ة", ""]],_l:1},
+ {c:"حيوانات وأشياء",a:"نمر",p:[["😴", "نَم"], ["ر", ""]],_l:2},
+ {c:"أسماء",a:"بدرية",p:[["🌕", "بدر"], ["ية", ""]],_l:2},
+ {c:"أسماء",a:"شمسة",p:[["☀️", "شمس"], ["ة", ""]],_l:2},
+ {c:"أسماء",a:"أمل",p:[["👩", "أم"], ["ل", ""]],_l:1},
+ {c:"دول",a:"بنما",p:[["☕", "بنّ"], ["💧", "ماء"]],_l:3},
+ {c:"دول",a:"فيتنام",p:[["في", ""], ["😴", "تنام"]],_l:3},
+ {c:"دول",a:"اليمن",p:[["ال", ""], ["🌊", "يمّ (البحر)"], ["ن", ""]],_l:3},
+ {c:"مدن",a:"الدرعية",p:[["ال", ""], ["🛡️", "درع"], ["ية", ""]],_l:2},
+ {c:"مدن",a:"الليث",p:[["ال", ""], ["🦁", "ليث"]],_l:2},
+ {c:"مدن",a:"القنفذة",p:[["ال", ""], ["🦔", "قنفذ"], ["ة", ""]],_l:2},
+ {c:"أكل",a:"بسبوسة",p:[["🐱", "بسّ"], ["😘", "بوسة"]],_l:3},
+ {c:"أكل",a:"معمول",p:[["مع", ""], ["🏬", "مول"]],_l:2},
+ {c:"أكل",a:"بطيخ",p:[["🦆", "بط"], ["🤢", "يخ!"]],_l:2},
+ {c:"أكل",a:"أناناس",p:[["🙋", "أنا"], ["👥", "ناس"]],_l:2},
+ {c:"حيوانات وأشياء",a:"سفرة",p:[["✈️", "سفر"], ["ة", ""]],_l:2},
+ {c:"حيوانات وأشياء",a:"دمية",p:[["🩸", "دم"], ["ية", ""]],_l:2},
+ {c:"حيوانات وأشياء",a:"فنجان",p:[["🎨", "فن"], ["🧞", "جانّ"]],_l:3},
+ {c:"حيوانات وأشياء",a:"سبحة",p:[["🏊", "سبح"], ["ة", ""]],_l:2},
+ {c:"حيوانات وأشياء",a:"مسبح",p:[["م", ""], ["🏊", "سبح"]],_l:2},
+ {c:"حيوانات وأشياء",a:"زهرة",p:[["🎲", "زهر (النرد)"], ["ة", ""]],_l:3},
+ {c:"أكل",a:"ريحان",p:[["💨", "ريح"], ["ان", ""]],_l:2},
+ {c:"حيوانات وأشياء",a:"عشب",p:[["🪺", "عش"], ["ب", ""]],_l:2},
+ {c:"حيوانات وأشياء",a:"بطريق",p:[["🦆", "بط"], ["🤤", "ريق"]],_l:3},
+ {c:"حيوانات وأشياء",a:"بطل",p:[["🦆", "بط"], ["ل", ""]],_l:1},
+ {c:"حيوانات وأشياء",a:"بطن",p:[["🦆", "بط"], ["ن", ""]],_l:1},
+ {c:"حيوانات وأشياء",a:"حجرة",p:[["🪨", "حجر"], ["ة", ""]],_l:1},
+ {c:"أكل",a:"موزة",p:[["🍌", "موز"], ["ة", ""]],_l:1},
+ {c:"أسماء",a:"ماما",p:[["💧", "ما"], ["💧", "ما"]],_l:1},
+ {c:"أسماء",a:"قمرية",p:[["🌙", "قمر"], ["ية", ""]],_l:2},
+ {c:"أسماء",a:"زيد",p:[["👘", "زيّ"], ["د", ""]],_l:2},
+ {c:"حيوانات وأشياء",a:"مطرقة",p:[["🌧️", "مطر"], ["قة", ""]],_l:2},
+ {c:"حيوانات وأشياء",a:"عيدية",p:[["🎉", "عيد"], ["ية", ""]],_l:1},
+ {c:"حيوانات وأشياء",a:"عيدان",p:[["🎉", "عيد"], ["ان", ""]],_l:2},
+ {c:"حيوانات وأشياء",a:"جمرة",p:[["🔥", "جمر"], ["ة", ""]],_l:2},
+ {c:"حيوانات وأشياء",a:"عنبر",p:[["🍇", "عنب"], ["ر", ""]],_l:2},
+ {c:"حيوانات وأشياء",a:"بحرية",p:[["🌊", "بحر"], ["ية", ""]],_l:2}
 ];
 const LV={"سهل":1,"متوسط":2,"صعب":3};let level="الكل";
 const LVINFO=[["الكل","✨","#606060"],["سهل","🌱","#3a9e88"],["متوسط","⚖️","#285CA0"],["صعب","🔥","#c8553d"]];
@@ -1787,7 +1853,7 @@ function render(){
  }
  if(cur==="rb"){
   const tiles=x.p.map(([v,w],i)=>{const em=/\p{Extended_Pictographic}/u.test(v);return `<div class="rbt ${em?'':'let'}" style="animation-delay:${i*.12}s"><b>${v}</b>${em&&(step>0||revealed)?`<small>${w}</small>`:''}</div>`}).join('<i class="rbp">+</i>');
-  h=`<span class="tag">${x.c}</span><div class="rbq">وش الكلمة؟ 🤔</div><div class="rbr">${tiles}</div>`;if(revealed)h+=`<div class="answer">${x.a}<small>${x.p.map(q=>q[1]||q[0]).join(" + ")}</small></div>`;
+  h=`<span class="tag">${x.c}</span><div class="rbq">وش الكلمة؟ 🤔</div><div class="rbr ${x.p.length>2?"n3":""}">${tiles}</div>`;if(revealed)h+=`<div class="answer">${x.a}<small>${x.p.map(q=>q[1]||q[0]).join(" + ")}</small></div>`;
   b=revealed?`<button class="btn p" onclick="next()">اللغز التالي</button>`:`<button class="btn s" onclick="step=1;render()" ${step?'disabled':''}>💡 تلميح</button><button class="btn p" onclick="revealed=true;render()">اكشف</button><button class="btn s" onclick="next()">تخطّى ⏭</button>`;
  }
  if(cur==="dots"){
@@ -1900,6 +1966,14 @@ function confetti(){const c=document.createElement("div");c.className="confetti"
  for(let i=0;i<70;i++){const p=document.createElement("i");p.style.left=Math.random()*100+"%";p.style.background=cols[i%5];p.style.animationDelay=Math.random()*.8+"s";p.style.borderRadius=i%3?"2px":"50%";c.appendChild(p)}
  document.body.appendChild(c);setTimeout(()=>c.remove(),3800)}
 function stopTimer(){if(timerId){clearInterval(timerId);timerId=null}}
+/* ---------- تطبيق: تثبيت على الشاشة الرئيسية + بدون إنترنت ---------- */
+const onClaude=/claude\.ai|claudeusercontent|anthropic/.test(location.host);
+if(!onClaude&&location.protocol==="https:"&&"serviceWorker" in navigator){try{navigator.serviceWorker.register("sw.js").catch(()=>{})}catch(e){}}
+let instEvt=null;
+function showInstall(){const h=document.getElementById("stats");if(!h||document.getElementById("inst"))return;const b=document.createElement("button");b.id="inst";b.className="inst";b.textContent="📲 ثبّت «أثر» كتطبيق";b.onclick=async()=>{if(instEvt){instEvt.prompt();try{await instEvt.userChoice}catch(e){}instEvt=null;b.remove()}else{b.textContent="من قائمة المتصفح اختر «إضافة إلى الشاشة الرئيسية» 📲"}};h.after(b)}
+window.addEventListener("beforeinstallprompt",e=>{e.preventDefault();instEvt=e;showInstall()});
+window.addEventListener("appinstalled",()=>{const b=document.getElementById("inst");if(b)b.remove()});
+try{const sa=window.matchMedia&&matchMedia("(display-mode: standalone)").matches||navigator.standalone;if(!onClaude&&!sa&&/iphone|ipad|ipod/i.test(navigator.userAgent))setTimeout(showInstall,800)}catch(e){}
 /* ---------- توب 10: فرق ونقاط بحسب رقم الخانة ---------- */
 const TCOL=[["الأزرق","#3286c2"],["الأخضر","#2e9e74"],["الأحمر","#d9534f"],["البرتقالي","#e08a1e"]];
 let topTeams=ls("top_teams_v1")||[{n:"الأزرق",col:"#3286c2",s:0},{n:"الأخضر",col:"#2e9e74",s:0}];
