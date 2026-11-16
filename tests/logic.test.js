@@ -18,7 +18,7 @@ const ok = (c, msg) => { console.log((c ? "✓ " : "✗ ") + msg); if (!c) fails
       P.openGame(g);
       ok(P.deck.length === 0, `${P.GAMES[g].t}: بعد ما خلصت ما يرجع ولا عنصر`);
     }
-    ok(P._store["seen2_bank"] && JSON.parse(P._store["seen2_bank"]).ids.length === P.BANK.length, "الحفظ في localStorage يشمل كل أسئلة البنك");
+    ok(P._store["seen2_bank"] && JSON.parse(P._store["seen2_bank"]).ids.length === P.BANK.filter(x => x[3] !== 4).length, "الحفظ في localStorage يشمل كل أسئلة البنك (غير مستوى الصغار)");
   }
   // ---- مع sample: تجديد لا نهائي
   {
