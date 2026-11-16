@@ -26,6 +26,8 @@ console.log("حروف:", Object.keys(P.HUROF).length, "حرف،", Object.values(
 dupCheck("البنك", "bank", P.BANK);
 dupCheck("القوائم", "list", P.LISTS);
 dupCheck("توب 10", "top", P.TOP);
+dupCheck("تحدي الصور", "rb", P.RB);
+console.log("تحدي الصور:", P.RB.length, "/ صور أعلام:", Object.keys(P.FLAGSVG).length, "من", P.FLAGS.length);
 P.TOP.forEach(x => { if (x.a.length < 5 || (x.v && x.v.length !== x.a.length) || (x.r && x.r.length !== x.a.length)) { problems++; console.log("  ✗ قائمة توب ناقصة:", x.t); } });
 dupCheck("من أنا", "who", P.WHO);
 dupCheck("لا تقول الكلمة", "taboo", P.TABOO);
