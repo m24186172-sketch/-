@@ -1,0 +1,4 @@
+# Netlify: ينشر مجلد site مباشرة بدون بناء
+[build]
+  publish = "site"
+  command = "echo no build"
