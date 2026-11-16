@@ -363,6 +363,25 @@ body{background:var(--bg)}
 .pr i{position:absolute;right:0;top:0;bottom:0;background:var(--tc);opacity:.18;border-radius:14px;transition:width .8s}
 .pr .md{font-size:1.4rem;position:relative}.pr b{flex:1;position:relative;color:var(--navy);font-size:1.05rem}.pr em{position:relative;font-style:normal;font-weight:900;color:var(--tc);font-size:1.3rem}
 .hideb{flex-basis:100%}
+.wdsc{display:flex;align-items:stretch;gap:8px;width:100%;max-width:420px;margin-bottom:6px}
+.wdsc>div{flex:1;background:var(--card2);border-radius:16px;padding:8px;display:flex;flex-direction:column;align-items:center;border:2px solid transparent}
+.wdsc>div.on{border-color:#285CA0;background:#e3eefa}
+.wdsc>div b{font-size:.95rem;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.wdsc>div span{font-size:1.8rem;font-weight:800;color:#285CA0}
+.wdsc>small{align-self:center;color:var(--muted);font-size:.75rem;text-align:center;line-height:1.4}
+.wdbox{width:100%;max-width:340px;aspect-ratio:1;border-radius:22px;overflow:hidden;box-shadow:0 6px 18px rgba(0,0,0,.15)}
+.wdimg{width:100%;height:100%;display:block}
+.wdtr{background:var(--card2);border-radius:14px;padding:8px 14px;font-size:1.05rem}
+.wdlie{background:#fff3e8;color:#9a4b12;border-radius:14px;padding:8px 14px;font-size:.95rem}
+.wdwarn{background:#fdecec;color:#b33a36;border-radius:14px;padding:8px 14px;font-weight:700}
+.wdnm{color:#285CA0}
+.wdres{border-radius:16px;padding:10px 16px;font-size:1.15rem;display:flex;flex-direction:column;gap:2px}
+.wdres.ok{background:#e6f6ef;color:#1e7a55}.wdres.no{background:#fff3e0;color:#a35a00}
+.wdres small{font-size:.9rem;color:var(--muted)}
+.wdin{display:flex;gap:8px;align-items:center;width:100%;max-width:400px}
+.wdin input{flex:1;min-width:0;font:inherit;font-size:1rem;padding:10px;border-radius:12px;border:1px solid var(--line);text-align:center}
+.wdt{display:flex;gap:10px}.wdt button{font:inherit;font-size:1.05rem;padding:10px 22px;border-radius:14px;border:2px solid var(--line);background:var(--card);cursor:pointer}
+.wdt button.on{border-color:#285CA0;background:#285CA0;color:#fff}
 </style>
 </head>
 <body>
@@ -2557,6 +2576,80 @@ const RB = [
 ];
 const LV={"سهل":1,"متوسط":2,"صعب":3,"صغار":4};let level="الكل";
 const LVINFO=[["الكل","✨","#606060"],["سهل","🌱","#3a9e88"],["متوسط","⚖️","#285CA0"],["صعب","🔥","#c8553d"],["صغار","👦","#e08a1e"]];
+/* ---------- صور غريبة للعبة «صادق ولا كذاب؟» ---------- */
+// كل عنصر: t وصف حقيقي، f اقتراح كذبة، bg خلفية، L طبقات [رمز, x, y, حجم, دوران, قلب]
+const WBODY=(head,hs=30,extra=[])=>[["👖",50,80,30],["👕",50,58,34],[head,50,30,hs],...extra];
+const WEIRD=[
+{t:"أخطبوط راسه على جسم إنسان لابس تيشيرت وجينز",f:"رجال لابس خوذة بنفسجية",bg:"room",L:WBODY("🐙",34)},
+{t:"إنسان راسه بطيخة",f:"رجال ماسك كورة خضرا",bg:"grass",L:WBODY("🍉",30)},
+{t:"إنسان راسه سمكة",f:"غواص لابس قناع",bg:"sea",L:WBODY("🐟",32)},
+{t:"إنسان راسه تلفزيون",f:"رجال واقف قدام شاشة",bg:"room",L:WBODY("📺",30)},
+{t:"إنسان راسه دجاجة",f:"مزارع شايل دجاجة",bg:"grass",L:WBODY("🐔",30)},
+{t:"إنسان راسه برقر",f:"رجال ياكل برقر",bg:"room",L:WBODY("🍔",28)},
+{t:"إنسان راسه صبّارة",f:"رجال واقف جنب صبّارة",bg:"desert",L:WBODY("🌵",30)},
+{t:"إنسان راسه حلزونة",f:"رجال يطالع حلزونة",bg:"grass",L:WBODY("🐌",30)},
+{t:"إنسان راسه بيضة مكسورة",f:"طبّاخ ماسك بيضة",bg:"room",L:WBODY("🥚",28,[["⚡",56,24,10,30]])},
+{t:"إنسان راسه سلطعون",f:"صياد ماسك سلطعون",bg:"sea",L:WBODY("🦀",32)},
+{t:"سمكة لها رجلين إنسان وتمشي",f:"سمكة تسبح في البحر",bg:"grass",L:[["🦵",42,76,26],["🦵",58,76,26,0,1],["🐟",50,45,46]]},
+{t:"فيل جالس داخل فنجان قهوة",f:"فيل يشرب من النهر",bg:"room",L:[["🐘",50,40,40],["☕",50,68,56]]},
+{t:"بقرة طايرة بالبالونات",f:"بقرة ترعى في المزرعة",bg:"sky",L:[["🎈",36,18,20,-15],["🎈",50,13,22],["🎈",64,18,20,15],["🐄",50,56,42]]},
+{t:"جمل واقف على القمر",f:"جمل في الصحراء",bg:"space",L:[["🌕",50,92,90],["🐪",50,42,40]]},
+{t:"قرش يسبح في رمل الصحراء",f:"قرش في البحر",bg:"desert",L:[["🌵",20,58,22],["🦈",56,70,46]]},
+{t:"بيت مبني على ظهر سلحفاة",f:"سلحفاة تمشي جنب بيت",bg:"grass",L:[["🏠",50,36,34],["🐢",50,68,60]]},
+{t:"غيمة تمطر سمك",f:"غيمة تمطر مطر عادي",bg:"sky",L:[["☁️",50,22,56],["🐟",32,52,14,80],["🐟",52,62,14,80],["🐟",70,48,14,80],["🐟",42,80,14,80],["🐟",62,84,14,80]]},
+{t:"موزة لابسة نظارة شمسية وتسوق سيارة",f:"رجال يسوق سيارة صفرا",bg:"sky",L:[["🚗",50,70,60],["🍌",44,46,28,20],["🕶️",44,44,14]]},
+{t:"زرافة في حوض استحمام",f:"زرافة تاكل من شجرة",bg:"room",L:[["🦒",50,40,52],["🛁",50,74,58]]},
+{t:"بطيخة لها عيون وفم",f:"بطيخة مقطعة في صحن",bg:"grass",L:[["🍉",50,55,70],["👀",50,48,22],["👄",50,66,14]]},
+{t:"قطار طالع من إبريق شاي",f:"إبريق شاي على النار",bg:"room",L:[["🫖",36,62,46],["🚂",72,40,30,-20]]},
+{t:"حوت طاير في السماء فوق المدينة",f:"حوت يسبح في المحيط",bg:"sky",L:[["🏙️",50,82,60],["🐋",50,32,50]]},
+{t:"ديناصور جالس قدام لابتوب يشتغل",f:"ديناصور في الغابة",bg:"room",L:[["🦖",40,48,52,0,1],["💻",68,72,30]]},
+{t:"خنزير بأجنحة طاير",f:"خنزير في المزرعة",bg:"sky",L:[["🪽",36,44,26,0,1],["🪽",64,44,26],["🐖",50,55,40]]},
+{t:"رجل ثلج في الصحراء جنب جمل",f:"رجل ثلج في الثلج",bg:"desert",L:[["🐪",28,64,34],["⛄",68,60,40]]},
+{t:"نملة صغيرة شايلة فيل فوق راسها",f:"فيل يدعس نملة",bg:"grass",L:[["🐘",50,50,40],["🐜",50,78,20]]},
+{t:"بيضة يطلع منها روبوت",f:"كتكوت يطلع من البيضة",bg:"grass",L:[["🥚",50,70,46],["🤖",50,38,30]]},
+{t:"فراولة كبيرة صايرة بيت بباب وشباك",f:"سلة فراولة",bg:"grass",L:[["🍓",50,52,76],["🚪",50,66,18],["🪟",40,44,12],["🪟",60,44,12]]},
+{t:"سلّم واصل للقمر",f:"سلّم على جدار بيت",bg:"space",L:[["🌙",68,18,30],["🪜",44,48,30,25],["🪜",30,78,30,25]]},
+{t:"إعصار مليان قطاوة",f:"إعصار في البحر",bg:"sky",L:[["🌪️",50,55,72],["🐈",40,30,14],["🐈",60,45,14,40],["🐈",46,62,14,-30],["🐈",56,78,12]]},
+{t:"شمس لابسة نظارة وتاكل آيسكريم",f:"شمس تغيب ورا البحر",bg:"sky",L:[["☀️",50,40,56],["🕶️",50,36,24],["🍦",72,62,22,-20]]},
+{t:"القمر عبارة عن دونات",f:"القمر بدر",bg:"space",L:[["🍩",50,50,60],["⭐",20,20,8],["⭐",80,30,6],["⭐",30,82,7]]},
+{t:"قطوة راسها على جسم سمكة",f:"قطوة تاكل سمكة",bg:"sea",L:[["🐟",56,55,56],["🐱",30,50,30]]},
+{t:"يد في وسطها عين",f:"يد تأشر باي باي",bg:"room",L:[["✋",50,55,64],["👁️",50,58,20]]},
+{t:"جبل له عيون وفم يبتسم",f:"جبل عليه ثلج",bg:"sky",L:[["🏔️",50,60,80],["👀",50,58,20],["👄",50,72,12]]},
+{t:"باص داخل حوض سمك",f:"باص في الشارع",bg:"room",tank:1,L:[["🫧",30,30,12],["🫧",70,24,10],["🚌",50,58,46],["🐠",76,40,14]]},
+{t:"بعوضة عملاقة جنب رجال صغير",f:"رجال يطارد بعوضة",bg:"grass",L:[["🦟",46,42,70],["🧍",80,78,16]]},
+{t:"زهرة فيها أسنان وتعض",f:"زهرة في مزهرية",bg:"grass",L:[["🌻",50,48,70],["🦷",44,48,12],["🦷",56,48,12],["👅",50,58,10]]},
+{t:"أسد معلّق بالبالونات",f:"أسد في الغابة",bg:"sky",L:[["🎈",38,16,18],["🎈",62,16,18],["🦁",50,56,46]]},
+{t:"عصفور يسبح داخل حوض سمك",f:"سمكة في حوض",bg:"room",tank:1,L:[["🫧",34,30,10],["🐦",50,54,34],["🐠",72,68,14]]},
+{t:"بطريق في الصحراء مع جمل",f:"بطريق في الثلج",bg:"desert",L:[["🐪",30,62,38],["🐧",70,66,30]]},
+{t:"كلب يقرأ جريدة ولابس نظارة",f:"رجال يقرأ جريدة",bg:"room",L:[["🐕",46,58,50],["👓",36,40,14],["📰",66,62,26]]},
+{t:"شجرة تطلع منها برقرات بدل الثمر",f:"شجرة تفاح",bg:"grass",L:[["🌳",50,54,82],["🍔",34,36,11],["🍔",58,28,11],["🍔",66,48,11],["🍔",42,52,11]]},
+{t:"سيارة لها رجول دجاجة",f:"دجاجة تقطع الشارع",bg:"sky",L:[["🦵",34,90,22],["🦵",66,90,22,0,1],["🚗",50,56,56]]},
+{t:"حلزونة قوقعتها كرة أرضية",f:"حلزونة على ورقة شجر",bg:"grass",L:[["🐌",50,60,66],["🌍",56,50,30]]},
+{t:"قطوة طايرة بأجنحة فراشة",f:"قطوة تطارد فراشة",bg:"sky",L:[["🦋",50,48,70],["🐈",50,52,30]]},
+{t:"صاروخ طالع من فنجان قهوة",f:"صاروخ ينطلق من قاعدته",bg:"room",L:[["🚀",52,34,40,-45],["☕",50,74,44]]},
+{t:"قرد يسوق دبّاب",f:"قرد على شجرة",bg:"grass",L:[["🏍️",50,66,58],["🐒",50,40,32]]},
+{t:"ضفدع لابس تاج ملك على عرش",f:"ضفدع في البركة",bg:"room",L:[["🪑",50,70,50],["🐸",50,50,36],["👑",50,30,20]]},
+{t:"سحابة لها رجول تمشي",f:"سحابة عادية في السما",bg:"sky",L:[["🦵",42,84,22],["🦵",58,84,22,0,1],["☁️",50,44,56]]},
+{t:"بومة لابسة قبعة تخرج",f:"بومة على غصن",bg:"space",L:[["🦉",50,56,52],["🎓",50,26,26]]},
+{t:"فيل يتزحلق على لوح",f:"فيل يمشي",bg:"sky",L:[["🛹",50,78,48],["🐘",50,52,44]]},
+{t:"برتقالة مقشورة يطلع منها بطريق",f:"برتقالة مقطعة",bg:"room",L:[["🍊",50,66,56],["🐧",50,36,30]]},
+{t:"عين وحدة كبيرة لابسة قبعة",f:"رجال لابس قبعة",bg:"room",L:[["👁️",50,58,60],["🎩",50,24,36]]},
+{t:"جمل يغوص تحت البحر مع السمك",f:"جمل يشرب من البحر",bg:"sea",L:[["🐪",50,56,44],["🐠",20,30,14],["🐡",80,70,14],["🫧",60,22,10]]},
+{t:"بيتزا مع مظلة في المطر",f:"بيتزا في الفرن",bg:"sky",L:[["☂️",50,30,44],["🍕",50,66,40],["💧",20,40,8],["💧",80,50,8]]},
+{t:"حمامة لابسة نظارة ومعها شنطة سفر",f:"حمامة على سطح",bg:"sky",L:[["🕊️",48,46,44],["🕶️",36,38,14],["🧳",74,72,22]]},
+{t:"سلحفاة تطير بصاروخ على ظهرها",f:"سلحفاة على الشاطئ",bg:"sky",L:[["🚀",50,40,30,-45],["🐢",50,62,42]]},
+{t:"كعكة عيد ميلاد فيها شموع على شكل صواريخ",f:"كعكة عيد ميلاد عادية",bg:"room",L:[["🎂",50,64,60],["🚀",38,30,14,-45],["🚀",62,30,14,-45]]},
+];
+
+const WBG={sky:'<defs><linearGradient id="g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7cc4f2"/><stop offset="1" stop-color="#dff3ff"/></linearGradient></defs><rect width="100" height="100" fill="url(#g)"/>',
+grass:'<defs><linearGradient id="g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8fd0f5"/><stop offset="1" stop-color="#e6f6ff"/></linearGradient></defs><rect width="100" height="100" fill="url(#g)"/><path d="M0 72Q25 66 50 71T100 70V100H0z" fill="#7cc46b"/><path d="M0 80Q30 75 60 80T100 79V100H0z" fill="#5fae52"/>',
+desert:'<defs><linearGradient id="g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffd58a"/><stop offset="1" stop-color="#fff1d2"/></linearGradient></defs><rect width="100" height="100" fill="url(#g)"/><circle cx="82" cy="18" r="9" fill="#ffb347"/><path d="M0 70Q30 60 55 70T100 66V100H0z" fill="#e9b96a"/><path d="M0 82Q35 74 70 82T100 80V100H0z" fill="#d9a352"/>',
+sea:'<defs><linearGradient id="g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3fa9d6"/><stop offset="1" stop-color="#0d4f7a"/></linearGradient></defs><rect width="100" height="100" fill="url(#g)"/><path d="M0 92Q20 86 40 92T80 92T100 90V100H0z" fill="#e2c88f"/><circle cx="14" cy="60" r="2" fill="#ffffff55"/><circle cx="86" cy="28" r="2.5" fill="#ffffff55"/>',
+space:'<rect width="100" height="100" fill="#141a3a"/><g fill="#fff"><circle cx="10" cy="12" r=".7"/><circle cx="30" cy="30" r=".5"/><circle cx="88" cy="10" r=".8"/><circle cx="72" cy="40" r=".5"/><circle cx="15" cy="55" r=".6"/><circle cx="90" cy="62" r=".6"/><circle cx="45" cy="8" r=".5"/></g>',
+room:'<rect width="100" height="100" fill="#f3e3c9"/><rect y="74" width="100" height="26" fill="#b98a5a"/><rect y="73" width="100" height="2" fill="#8d6640"/>'};
+function weirdSVG(x){return `<svg class="wdimg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">${WBG[x.bg]||WBG.sky}${x.tank?'<rect x="12" y="20" width="76" height="62" rx="4" fill="#5fb8e855" stroke="#3a7fb0" stroke-width="1.5"/><rect x="12" y="20" width="76" height="6" fill="#ffffff66"/>':''}${x.L.map(([e,cx,cy,s,r,fl])=>`<text transform="translate(${cx} ${cy})${r?` rotate(${r})`:''}${fl?' scale(-1 1)':''}" font-size="${s}" text-anchor="middle" dominant-baseline="central">${e}</text>`).join('')}</svg>`}
+
+
 const GAMES = {
  bank:{t:"بنك الأسئلة",col:"linear-gradient(135deg,#2a2d6b,#1f2151)",i:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h11a3 3 0 0 1 3 3v11H7a3 3 0 0 1-3-3z"/><path d="M18 9h2v11"/><path d="M9 11a2.2 2.2 0 1 1 3 2c-.6.3-1 .8-1 1.4"/><circle cx="11" cy="17" r=".6" fill="currentColor"/></svg>',d:"أسئلة منوعة ورا بعض.. وما تتكرر",cats:["دين","صحابة","تاريخ","علماء","جغرافيا","عام"],data:BANK,cat:x=>x[0]},
  top:{t:"توب 10",col:"linear-gradient(135deg,#3f97d3,#2a74ad)",i:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 21h8M12 17v4"/><path d="M7 4h10v5a5 5 0 0 1-10 0z"/><path d="M17 5h3v2a3 3 0 0 1-3 3M7 5H4v2a3 3 0 0 0 3 3"/></svg>',d:"رتّبوها.. ورقم 10 بعشر نقاط!",cats:["دين","جغرافيا","عام"],data:TOP,cat:x=>x.c},
@@ -2564,13 +2657,14 @@ const GAMES = {
  list:{t:"اذكر وتكشف",col:"linear-gradient(135deg,#2a2d6b,#1f2151)",i:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6h11M9 12h11M9 18h11"/><circle cx="4.5" cy="6" r="1.3"/><circle cx="4.5" cy="12" r="1.3"/><circle cx="4.5" cy="18" r="1.3"/></svg>',d:"اذكروا العناصر.. وتنكشف وحدة وحدة",cats:["دين","صحابة","تاريخ","جغرافيا","عام"],data:LISTS,cat:x=>x.c},
  who:{t:"من أنا؟",col:"linear-gradient(135deg,#3f97d3,#2a74ad)",i:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.2-4 4.3-6 8-6s6.8 2 8 6"/></svg>',d:"تلميحات تنكشف وحدة وحدة",cats:["صحابة","تاريخ","علماء"],data:WHO,cat:x=>x.c},
  taboo:{t:"لا تقول الكلمة",col:"linear-gradient(135deg,#2a2d6b,#1f2151)",i:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16v10H9l-5 4z"/><path d="M8 8l8 4M16 8l-8 4"/></svg>',d:"اشرحها بدون الكلمات الممنوعة",data:TABOO},
+ weird:{t:"صادق ولا كذاب؟",col:"linear-gradient(135deg,#3f97d3,#2a74ad)",i:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8.5 10h.01M15.5 10h.01"/><path d="M12 13.5v1.2c0 1 .8 1.8 1.8 1.8H19"/></svg>',d:"صور غريبة مرة.. وصفها صدق ولا كذب؟ واحد ضد واحد",data:WEIRD},
  hurof:{t:"حروف",col:"linear-gradient(135deg,#3f97d3,#2a74ad)",i:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.5l8 4.6v9.8l-8 4.6-8-4.6V7.1z"/><path d="M9.5 14.5l2.5-6 2.5 6M10.4 12.6h3.2"/></svg>',d:"لوحة حروف وفريقين.. مين يوصل أول؟",data:[]},
  prov:{t:"كمّل المثل",col:"linear-gradient(135deg,#2a2d6b,#1f2151)",i:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 17a3 3 0 0 1-1-2.3V11c0-2.6 1.6-4.6 4-5.4M14 17a3 3 0 0 1-1-2.3V11c0-2.6 1.6-4.6 4-5.4"/><path d="M4 12h4v5H4zM13 12h4v5h-4z"/></svg>',d:"أول المثل.. كمّله",data:PROVERBS},
  flag:{t:"حزّر الدولة",col:"linear-gradient(135deg,#3f97d3,#2a74ad)",i:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 21V4"/><path d="M5 4h11l-2 4 2 4H5"/></svg>',d:"من العلم تعرف الدولة؟",data:FLAGS},
  rb:{t:"تحدي الصور",col:"linear-gradient(135deg,#3f97d3,#2a74ad)",i:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="7" height="7" rx="1.5"/><rect x="14" y="5" width="7" height="7" rx="1.5"/><path d="M12 8.5h0M10.8 8.5h2.4M12 7.3v2.4"/><path d="M7 16h10M9 19h6"/></svg>',d:"صور تنجمع وتطلع كلمة.. حزّرها!",cats:["دول ومدن","أكل","حيوانات","أشياء","دين وتاريخ","كلمة بمعنيين"],data:RB,cat:x=>x.c},
  dots:{t:"بدون نقاط",col:"linear-gradient(135deg,#2a2d6b,#1f2151)",i:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20l4-1 10.5-10.5a2.1 2.1 0 0 0-3-3L5 16z"/><path d="M14 7l3 3"/></svg>',d:"كلام مشهور مكتوب بلا نقاط.. اقرأه",cats:["صحابة","تاريخ","علماء","شعر","مثل","عام"],data:[...QUOTES.map(q=>[q[0],q[1],q[2]]),...PHRASES],cat:x=>x[0]}
 };
-const TXT={rb:x=>x.a+"|"+x.p.map(q=>q[1]||q[0]).join("+"),top:x=>x.t,list:x=>x.t,bank:x=>x[1],who:x=>x.a,taboo:x=>x[0],prov:x=>x[0]+" "+x[1],flag:x=>x[1],dots:x=>x[1],hurof:x=>x[0]};
+const TXT={weird:x=>x.t,rb:x=>x.a+"|"+x.p.map(q=>q[1]||q[0]).join("+"),top:x=>x.t,list:x=>x.t,bank:x=>x[1],who:x=>x.a,taboo:x=>x[0],prov:x=>x[0]+" "+x[1],flag:x=>x[1],dots:x=>x[1],hurof:x=>x[0]};
 const norm=t=>String(t).replace(/[ً-ْـ«»"'؟?!.,،:\s]/g,"").replace(/[أإآ]/g,"ا").replace(/ة/g,"ه").replace(/ى/g,"ي");
 const hash=t=>{let h=5381;const s=norm(t);for(let i=0;i<s.length;i++)h=((h<<5)+h+s.charCodeAt(i))|0;return (h>>>0).toString(36)};
 const idOf=(g,x)=>hash(TXT[g](x));
@@ -2633,12 +2727,45 @@ async function generate(g,key){
  finally{genBusy[g+key]=false}
 }
 
+/* ---------- صادق ولا كذاب؟ (صور غريبة، واحد ضد واحد) ---------- */
+let WD=(()=>{const d=ls("wd_v1");return d&&d.s?d:{n:["",""],t:5,s:[0,0],a:0,st:"setup"}})();
+const wdSave=()=>ls("wd_v1",WD);
+const wdN=i=>esc(WD.n[i]||("اللاعب "+(i+1)));
+function esc(t){return String(t).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+function wdStart(){WD.n=[($("wdn0")||{}).value||"",($("wdn1")||{}).value||""].map(v=>v.trim().slice(0,20));WD.s=[0,0];WD.a=0;WD.st="hide";wdSave();sfx("pop");render()}
+function wdT(t){WD.t=t;wdSave();render()}
+function wdSee(){WD.st="view";wdSave();sfx("flip");render()}
+function wdSaid(lie){WD.lie=lie;WD.st="guess";wdSave();sfx("pop");render()}
+function wdGuess(saysLie){const A=WD.a,B=1-A,ok=saysLie===WD.lie;WD.ok=ok;WD.s[ok?B:A]++;WD.st=WD.s[ok?B:A]>=WD.t?"win":"reveal";wdSave();sfx(ok?"ok":"no");render();if(WD.st==="win")setTimeout(confetti,250)}
+function wdNext(){WD.a=1-WD.a;WD.st="hide";wdSave();next()}
+function wdNew(){WD.s=[0,0];WD.a=0;WD.st="hide";wdSave();next()}
+function wdSetup(){WD.st="setup";wdSave();render()}
+function renderWeird(S,B){const x=deck[pos],A=WD.a,O=1-A;let h="",b="";
+ $("count").textContent=WD.st==="setup"||!x?"":`صورة ${pos+1} من ${deck.length}`;
+ const sc=`<div class="wdsc">${[0,1].map(i=>`<div class="${i===A&&WD.st!=="win"?"on":""}"><b>${wdN(i)}</b><span>${WD.s[i]}</span></div>`).join(`<small>🏁 الفوز عند<br><b>${WD.t}</b> نقاط</small>`)}</div>`;
+ if(WD.st==="setup"){
+  S.innerHTML=`<div class="huge">🤥</div><div class="big">صادق ولا كذاب؟</div><div style="color:var(--muted)">واحد ضد واحد.. اكتبوا أسماءكم</div>
+  <div class="wdin"><input id="wdn0" maxlength="20" placeholder="اللاعب 1" value="${esc(WD.n[0])}"><span>ضد</span><input id="wdn1" maxlength="20" placeholder="اللاعب 2" value="${esc(WD.n[1])}"></div>
+  <div style="color:var(--muted)">كم نقطة للفوز؟</div><div class="wdt">${[5,10].map(t=>`<button class="${WD.t===t?"on":""}" onclick="wdT(${t})">${t} نقاط</button>`).join("")}</div>`;
+  B.innerHTML=`<button class="btn p" onclick="wdStart()">🚀 ابدأوا</button>`;return}
+ if(!x){S.innerHTML=sc+`<div class="huge">👏</div><div class="big">خلصت الصور</div>`;B.innerHTML=`<button class="btn p" onclick="doReset()">♻️ رجّعها من جديد</button>`;return}
+ if(WD.st==="hide"){h=`<div class="huge">📱</div><div class="big">الجوال الحين عند <b class="wdnm">${wdN(A)}</b></div><div class="wdwarn">🙈 ${wdN(O)} لا يطالع الشاشة!</div>`;
+  b=`<button class="btn p" onclick="wdSee()">👀 شف الصورة</button><button class="btn s" onclick="wdSetup()">⚙️ الأسماء والنقاط</button>`}
+ else if(WD.st==="view"){h=`<div class="wdbox">${weirdSVG(x)}</div><div class="wdtr">📸 الصورة: <b>${x.t}</b></div><div class="wdlie">😈 تبي تكذب؟ قل مثلاً: «${x.f}»</div><div style="color:var(--muted)">وصف الصورة لـ${wdN(O)}: قل الصدق أو اكذب، وبعدها اختر وش سويت 👇</div>`;
+  b=`<button class="btn g" onclick="wdSaid(false)">🤝 قلت الصدق</button><button class="btn r" onclick="wdSaid(true)">😈 كذبت</button>`}
+ else if(WD.st==="guess"){h=`<div class="huge">🤔</div><div class="big"><b class="wdnm">${wdN(O)}</b>، ${wdN(A)} صادق ولا كذاب؟</div><div style="color:var(--muted)">اختار وبعدها تنكشف الصورة</div>`;
+  b=`<button class="btn g" onclick="wdGuess(false)">✅ صادق</button><button class="btn r" onclick="wdGuess(true)">🤥 كذاب</button>`}
+ else{const W=WD.ok?O:A;h=`<div class="wdbox">${weirdSVG(x)}</div><div class="wdtr">📸 الصورة: <b>${x.t}</b></div><div class="wdres ${WD.ok?"ok":"no"}">${WD.ok?`🎯 ${wdN(O)} كشفه!`:`😂 ${wdN(A)} ضحك عليه!`} <b>+1 لصالح ${wdN(W)}</b><small>${wdN(A)} كان ${WD.lie?"كذّاب 😈":"صادق 🤝"}</small></div>`;
+  if(WD.st==="win"){h=`<div class="huge">🏆</div><div class="big">الفايز: <b class="wdnm">${wdN(W)}</b></div>`+h;b=`<button class="btn p" onclick="wdNew()">🔄 مباراة جديدة</button><button class="btn s" onclick="wdSetup()">⚙️ غيّر الأسماء</button>`}
+  else b=`<button class="btn p" onclick="wdNext()">➡️ الدور على ${wdN(O)}</button>`}
+ S.innerHTML=sc+h;B.innerHTML=b}
+
 /* ---------- الواجهة ---------- */
 let cur=null,deck=[],pos=0,filter="الكل",step=0,revealed=false,timerId=null,tLeft=0,loading=false;
 const $=id=>document.getElementById(id);
 const shuffle=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
-const SECTIONS=[["ألعاب الأسئلة","تحدّوا بعض في الدين والتاريخ والعلم",["cards","list","who","dots","rb"]],["ألعاب المجلس","حماس وضحك وتعاون",["top","hurof","taboo","prov","flag"]]];
-function gameCount(k){const g=GAMES[k];if(k==="hurof")return Object.values(HUROF).reduce((a,b)=>a+b.length,0)+" سؤال";if(k==="cards")return "12 ورقة";const n=g.data.length;return n+({rb:" لغز",top:" قائمة",list:" قائمة",who:" شخصية",taboo:" كلمة",prov:" مثل",flag:" دولة",dots:" عبارة",bank:" سؤال"}[k]||"")}
+const SECTIONS=[["ألعاب الأسئلة","تحدّوا بعض في الدين والتاريخ والعلم",["cards","list","who","dots","rb"]],["ألعاب المجلس","حماس وضحك وتعاون",["top","weird","hurof","taboo","prov","flag"]]];
+function gameCount(k){const g=GAMES[k];if(k==="hurof")return Object.values(HUROF).reduce((a,b)=>a+b.length,0)+" سؤال";if(k==="cards")return "12 ورقة";const n=g.data.length;return n+({rb:" لغز",top:" قائمة",list:" قائمة",who:" شخصية",taboo:" كلمة",prov:" مثل",flag:" دولة",dots:" عبارة",bank:" سؤال",weird:" صورة"}[k]||"")}
 function buildHome(){
  const h=new Date().getHours();$("hello").textContent=h<12?"صباح الخير ☀️":(h<18?"مساء الخير 🌤️":"مساء النور 🌙");
  const total=BANK.length+TOP.length+RB.length+LISTS.length+WHO.length+TABOO.length+PROVERBS.length+FLAGS.length+GAMES.dots.data.length+Object.values(HUROF).reduce((a,b)=>a+b.length,0);
@@ -2653,11 +2780,11 @@ setTimeout(()=>{const h=document.getElementById('sndh');if(h)h.textContent=sndOn
 function openGame(k,lv){try{if(location.hash!=="#"+k)history.pushState(null,"","#"+k)}catch(e){}stopQT();cur=k;filter="الكل";if(lv)level=lv;$("home").classList.add("hide");$("game").classList.remove("hide");$("gTitle").textContent=GAMES[k].t;renderChips();build();window.scrollTo(0,0)}
 function goHome(fromNav){{const h=document.getElementById('hov');if(h)h.remove();const e=document.getElementById('endov');if(e)e.remove()}stopQT();if(!fromNav){try{if(location.hash)history.pushState(null,"",location.pathname+location.search)}catch(e){}}stopTimer();stopCT();cardOpen=-1;const o=document.getElementById("ov");if(o)o.remove();cur=null;$("game").classList.add("hide");$("home").classList.remove("hide")}
 const howShown={};
-const HOW2={"bank": {"g": "أسئلة منوعة ورا بعض، واللي يجاوب صح يفوز بالسؤال.", "s": ["اختر المستوى من فوق: سهل أو متوسط أو صعب أو الكل، واختر التصنيف إذا تبي (دين، صحابة، تاريخ...).", "اقرأ السؤال بصوت عالي على المجلس.", "إذا تحته 4 خيارات اقرأها عليهم، واضغط على اللي اختاروه، والصح يتلوّن أخضر.", "إذا ما فيه خيارات أو طفّيتها: خلّهم يجاوبون، وبعدين اضغط «اكشف الجواب».", "اضغط «السؤال التالي»، وإذا السؤال ما عجبك اضغط «تخطّى»."], "e": "«في أي سورة: فإن مع العسر يسراً؟» ⟵ الخيارات: الشرح، الضحى، الليل، العصر ⟵ الجواب: الشرح ✅", "t": "زر ⏱️ يشغّل 30 ثانية لكل سؤال، وزر «🔤 الخيارات» يشغّل الخيارات أو يطفّيها."}, "cards": {"g": "12 ورقة مقلوبة، كل ورقة فيها سؤال، وبعضها فيها مفاجأة.", "s": ["كل لاعب بدوره يختار ورقة ويضغط عليها فتنقلب.", "يطلع السؤال، ويجاوب اللاعب.", "إذا طلعت مفاجأة نفّذها: ⚡ جاوب خلال 10 ثواني، 🔁 مرّر السؤال للي يمينك، 🤝 استعن بصديق، 🎯 أنت تختار مين يجاوب، 👥 سؤال للكل وأول واحد يجاوب، 🤫 بدون مساعدة.", "اضغط «اكشف الجواب» ثم «رجوع للأوراق»، وكمّل لين تخلص الأوراق."], "e": "لاعب يقلب ورقة فتطلع ⚡: لازم يجاوب خلال 10 ثواني والعداد شغّال!", "t": "إذا خلصت الأوراق اضغط «وزّع أوراق جديدة»."}, "list": {"g": "قائمة مخفية، والمجلس يحاول يذكر كل عناصرها.", "s": ["يطلع عنوان القائمة وعدد عناصرها، مثل «الأئمة الأربعة».", "المجلس يذكر العناصر واحد واحد، أو بالدور.", "كل ما قالوا عنصر صح اضغط «✅ قالوا وحدة» واختر اللي قالوه، فينكشف في مكانه.", "اللي ما عرفوه اكشفوه في الأخير بزر «اكشف الكل»."], "e": "«اذكروا: الدول التي تحدّ السعودية برّاً» ⟵ 7 خانات، وكل ما قالوا دولة تنكشف.", "t": "الأجوبة تشوفها أنت بس لما تضغط «قالوا وحدة»، فلا تخلي أحد يشوف الجوال."}, "who": {"g": "شخصية مخفية، وتلميحات تنكشف واحد واحد.", "s": ["يطلع أول تلميح، وهو الأصعب، بصيغة «أنا ...».", "المجلس يحاول يعرف الشخصية.", "إذا ما عرفوها اضغط «تلميح ثاني»، والتلميحات تسهل كل مرة.", "أول واحد يعرفها يفوز، واضغط «اكشف» عشان تتأكدون."], "e": "«أنا من بني زهرة أخوال النبي ﷺ» ⟵ «أنا أول من رمى بسهم في سبيل الله» ⟵ ... ⟵ سعد بن أبي وقاص", "t": "اللي يعرفها من أول تلميح يستاهل جائزة 😄"}, "taboo": {"g": "اشرح الكلمة لفريقك بدون ما تقول الكلمات الممنوعة.", "s": ["قسّموا نفسكم فريقين.", "واحد من الفريق يمسك الجوال ويشوف الكلمة الكبيرة، ويخفيها عن فريقه.", "اضغط «ابدأ المؤقت» (60 ثانية).", "اشرح الكلمة لفريقك بأي طريقة، بس ممنوع تقول الكلمة نفسها أو أي كلمة من الممنوعات تحتها.", "إذا عرفوها اضغط «الكلمة التالية» وكمّل لين يخلص الوقت، وإذا قلت كلمة ممنوعة تنحرق الكلمة."], "e": "الكلمة: «القهوة» ⟵ ممنوع: فنجان، دلة، هيل، بن ⟵ تقول: «المشروب اللي نصبّه للضيف أول ما يجي..»", "t": "عدّوا الكلمات اللي عرفها كل فريق خلال الدقيقة، والأكثر يفوز."}, "top": {"g": "قائمة أرقام قياسية مرتبة، وكل ما كان الجواب أبعد في الترتيب كانت نقاطه أكثر.", "s": ["قسّموا نفسكم فريقين أو أكثر. تقدر تزيد الفرق بزر «+ فريق»، وتغيّر اسم الفريق بالضغط عليه.", "يطلع عنوان القائمة، مثل «أكثر الأنبياء ذكراً في القرآن»، والخانات مخفية.", "الفريق اللي عليه الدور يقول جواب.", "إذا الجواب موجود في القائمة اضغط «✅ جاوبوا صح» واختره، وياخذ الفريق نقاط بقد رقم الخانة: رقم 1 بنقطة، ورقم 10 بعشر نقاط.", "إذا غلط اضغط «❌ غلط» والدور ينتقل للفريق اللي بعده.", "لما تخلص القائمة اضغط «القائمة التالية»، والنقاط تتجمّع."], "e": "«أكثر الأنبياء ذكراً»: فريق قال «هارون» وهو رقم 8 ⟵ +8 نقاط 🔥", "t": "الأجوبة البعيدة في الترتيب أصعب بس نقاطها أكثر، فهي فرصة للفريق اللي ورا يلحق."}, "hurof": {"g": "لوحة حروف وفريقين، وأول فريق يكمّل طريقه يفوز.", "s": ["فريقين: الأخضر يوصل من اليمين لليسار، والأحمر من فوق لتحت.", "اختاروا حرف من اللوحة، يطلع سؤال جوابه يبدأ بهالحرف.", "اقرأ السؤال، وأول فريق يجاوب صح اضغط على لونه (أخضر أو أحمر)، فتتلوّن الخلية باسمه.", "كمّلوا لين يقدر فريق يكوّن طريق متصل من طرف لطرف، فيفوز 🏆"], "e": "حرف «ح» ⟵ «كمّل المثل: إذا قالت ... فصدّقوها» ⟵ حذام ✅ وتتلوّن الخلية.", "t": "فكّروا في الحرف اللي يقطع طريق الفريق الثاني، مو بس اللي يكمّل طريقكم 😏"}, "prov": {"g": "أول المثل.. وأنتم كمّلوه.", "s": ["يطلع أول المثل.", "أول واحد يكمّله صح يفوز بالجولة.", "اضغط «اكشف» عشان يطلع المثل كامل."], "e": "«اللي ما يعرف الصقر ...» ⟵ «يشويه»", "t": "فيها أمثال عربية وأمثال شعبية خليجية."}, "flag": {"g": "تطلع صورة علم دولة، وأنتم حزّروا الدولة.", "s": ["اختر المستوى: سهل فيه الدول المعروفة، وصعب فيه الدول اللي ما يعرفها إلا القليل.", "تطلع صورة العلم.", "أول واحد يعرف الدولة يفوز، ونقطة زيادة للي يعرف عاصمتها.", "اضغط «اكشف» عشان يطلع اسم الدولة وعاصمتها."], "e": "علم أحمر وأبيض وأزرق فيه نسر ⟵ صربيا، وعاصمتها بلغراد", "t": "فيها كل دول العالم، 193 دولة."}, "dots": {"g": "عبارة أو بيت أو مثل مشهور مكتوب بدون نقاط على الحروف، وأنتم اقروه.", "s": ["تطلع العبارة بلا نقاط.", "أول واحد يقراها صح يفوز.", "إذا صعبت اضغط «تلميح» فتطلع أول كلمة.", "اضغط «اكشف» عشان تطلع العبارة بنقاطها وقائلها."], "e": "«الوٯٮ كالسىڡ» ⟵ «الوقت كالسيف»", "t": "فيها أقوال صحابة، وأبيات شعر، وأمثال، وحكم."}, "rb": {"g": "صور تنجمع وتطلع كلمة.", "s": ["نوعين: «اجمع الصور»: كل صورة تدل على كلمة، واجمع الكلمات تطلع الإجابة.", "و«كلمة بمعنيين»: صورتين لهم نفس الاسم، ووش الكلمة اللي تجمعهم؟", "أول واحد يعرفها يفوز.", "إذا صعبت اضغط «💡 تلميح» فيطلع اسم كل صورة.", "اضغط «اكشف» عشان تطلع الإجابة."], "e": "🌙🚫🍔 صوم + 💰 مال = الصومال  •  🪙 + 🦈 = قرش", "t": "فيها دول ومدن، وأكل، وحيوانات، وأشياء، ودين وتاريخ."}};
+const HOW2={"weird": {"g": "واحد ضد واحد: صور غريبة مرة، والثاني يحزّر: صاحبه صادق ولا يكذب عليه؟", "s": ["اكتبوا أسماءكم واختاروا الفوز عند 5 ولا 10 نقاط.", "اللي معه الجوال يضغط «👀 شف الصورة» بدون ما يشوفها الثاني.", "يوصف الصورة لخصمه: يا يقول الصدق، يا يكذب (وتحت الصورة اقتراح كذبة يساعده).", "يختار في الجوال «قلت الصدق» أو «كذبت»، ويعطي الجوال لخصمه.", "الخصم يختار: «صادق» ولا «كذاب»، وتنكشف الصورة.", "إذا حزّر صح ياخذ هو النقطة، وإذا انضحك عليه تروح النقطة للي وصف. وبعدها يتبادلون الأدوار."], "e": "🐙 + 👕 = أخطبوط راسه على جسم إنسان.. تصدّق ولا لا؟", "t": "الصور كلها غريبة، فحتى الصدق يطلع كأنه كذب 😂 خلك واثق وأنت تتكلم."}, "bank": {"g": "أسئلة منوعة ورا بعض، واللي يجاوب صح يفوز بالسؤال.", "s": ["اختر المستوى من فوق: سهل أو متوسط أو صعب أو الكل، واختر التصنيف إذا تبي (دين، صحابة، تاريخ...).", "اقرأ السؤال بصوت عالي على المجلس.", "إذا تحته 4 خيارات اقرأها عليهم، واضغط على اللي اختاروه، والصح يتلوّن أخضر.", "إذا ما فيه خيارات أو طفّيتها: خلّهم يجاوبون، وبعدين اضغط «اكشف الجواب».", "اضغط «السؤال التالي»، وإذا السؤال ما عجبك اضغط «تخطّى»."], "e": "«في أي سورة: فإن مع العسر يسراً؟» ⟵ الخيارات: الشرح، الضحى، الليل، العصر ⟵ الجواب: الشرح ✅", "t": "زر ⏱️ يشغّل 30 ثانية لكل سؤال، وزر «🔤 الخيارات» يشغّل الخيارات أو يطفّيها."}, "cards": {"g": "12 ورقة مقلوبة، كل ورقة فيها سؤال، وبعضها فيها مفاجأة.", "s": ["كل لاعب بدوره يختار ورقة ويضغط عليها فتنقلب.", "يطلع السؤال، ويجاوب اللاعب.", "إذا طلعت مفاجأة نفّذها: ⚡ جاوب خلال 10 ثواني، 🔁 مرّر السؤال للي يمينك، 🤝 استعن بصديق، 🎯 أنت تختار مين يجاوب، 👥 سؤال للكل وأول واحد يجاوب، 🤫 بدون مساعدة.", "اضغط «اكشف الجواب» ثم «رجوع للأوراق»، وكمّل لين تخلص الأوراق."], "e": "لاعب يقلب ورقة فتطلع ⚡: لازم يجاوب خلال 10 ثواني والعداد شغّال!", "t": "إذا خلصت الأوراق اضغط «وزّع أوراق جديدة»."}, "list": {"g": "قائمة مخفية، والمجلس يحاول يذكر كل عناصرها.", "s": ["يطلع عنوان القائمة وعدد عناصرها، مثل «الأئمة الأربعة».", "المجلس يذكر العناصر واحد واحد، أو بالدور.", "كل ما قالوا عنصر صح اضغط «✅ قالوا وحدة» واختر اللي قالوه، فينكشف في مكانه.", "اللي ما عرفوه اكشفوه في الأخير بزر «اكشف الكل»."], "e": "«اذكروا: الدول التي تحدّ السعودية برّاً» ⟵ 7 خانات، وكل ما قالوا دولة تنكشف.", "t": "الأجوبة تشوفها أنت بس لما تضغط «قالوا وحدة»، فلا تخلي أحد يشوف الجوال."}, "who": {"g": "شخصية مخفية، وتلميحات تنكشف واحد واحد.", "s": ["يطلع أول تلميح، وهو الأصعب، بصيغة «أنا ...».", "المجلس يحاول يعرف الشخصية.", "إذا ما عرفوها اضغط «تلميح ثاني»، والتلميحات تسهل كل مرة.", "أول واحد يعرفها يفوز، واضغط «اكشف» عشان تتأكدون."], "e": "«أنا من بني زهرة أخوال النبي ﷺ» ⟵ «أنا أول من رمى بسهم في سبيل الله» ⟵ ... ⟵ سعد بن أبي وقاص", "t": "اللي يعرفها من أول تلميح يستاهل جائزة 😄"}, "taboo": {"g": "اشرح الكلمة لفريقك بدون ما تقول الكلمات الممنوعة.", "s": ["قسّموا نفسكم فريقين.", "واحد من الفريق يمسك الجوال ويشوف الكلمة الكبيرة، ويخفيها عن فريقه.", "اضغط «ابدأ المؤقت» (60 ثانية).", "اشرح الكلمة لفريقك بأي طريقة، بس ممنوع تقول الكلمة نفسها أو أي كلمة من الممنوعات تحتها.", "إذا عرفوها اضغط «الكلمة التالية» وكمّل لين يخلص الوقت، وإذا قلت كلمة ممنوعة تنحرق الكلمة."], "e": "الكلمة: «القهوة» ⟵ ممنوع: فنجان، دلة، هيل، بن ⟵ تقول: «المشروب اللي نصبّه للضيف أول ما يجي..»", "t": "عدّوا الكلمات اللي عرفها كل فريق خلال الدقيقة، والأكثر يفوز."}, "top": {"g": "قائمة أرقام قياسية مرتبة، وكل ما كان الجواب أبعد في الترتيب كانت نقاطه أكثر.", "s": ["قسّموا نفسكم فريقين أو أكثر. تقدر تزيد الفرق بزر «+ فريق»، وتغيّر اسم الفريق بالضغط عليه.", "يطلع عنوان القائمة، مثل «أكثر الأنبياء ذكراً في القرآن»، والخانات مخفية.", "الفريق اللي عليه الدور يقول جواب.", "إذا الجواب موجود في القائمة اضغط «✅ جاوبوا صح» واختره، وياخذ الفريق نقاط بقد رقم الخانة: رقم 1 بنقطة، ورقم 10 بعشر نقاط.", "إذا غلط اضغط «❌ غلط» والدور ينتقل للفريق اللي بعده.", "لما تخلص القائمة اضغط «القائمة التالية»، والنقاط تتجمّع."], "e": "«أكثر الأنبياء ذكراً»: فريق قال «هارون» وهو رقم 8 ⟵ +8 نقاط 🔥", "t": "الأجوبة البعيدة في الترتيب أصعب بس نقاطها أكثر، فهي فرصة للفريق اللي ورا يلحق."}, "hurof": {"g": "لوحة حروف وفريقين، وأول فريق يكمّل طريقه يفوز.", "s": ["فريقين: الأخضر يوصل من اليمين لليسار، والأحمر من فوق لتحت.", "اختاروا حرف من اللوحة، يطلع سؤال جوابه يبدأ بهالحرف.", "اقرأ السؤال، وأول فريق يجاوب صح اضغط على لونه (أخضر أو أحمر)، فتتلوّن الخلية باسمه.", "كمّلوا لين يقدر فريق يكوّن طريق متصل من طرف لطرف، فيفوز 🏆"], "e": "حرف «ح» ⟵ «كمّل المثل: إذا قالت ... فصدّقوها» ⟵ حذام ✅ وتتلوّن الخلية.", "t": "فكّروا في الحرف اللي يقطع طريق الفريق الثاني، مو بس اللي يكمّل طريقكم 😏"}, "prov": {"g": "أول المثل.. وأنتم كمّلوه.", "s": ["يطلع أول المثل.", "أول واحد يكمّله صح يفوز بالجولة.", "اضغط «اكشف» عشان يطلع المثل كامل."], "e": "«اللي ما يعرف الصقر ...» ⟵ «يشويه»", "t": "فيها أمثال عربية وأمثال شعبية خليجية."}, "flag": {"g": "تطلع صورة علم دولة، وأنتم حزّروا الدولة.", "s": ["اختر المستوى: سهل فيه الدول المعروفة، وصعب فيه الدول اللي ما يعرفها إلا القليل.", "تطلع صورة العلم.", "أول واحد يعرف الدولة يفوز، ونقطة زيادة للي يعرف عاصمتها.", "اضغط «اكشف» عشان يطلع اسم الدولة وعاصمتها."], "e": "علم أحمر وأبيض وأزرق فيه نسر ⟵ صربيا، وعاصمتها بلغراد", "t": "فيها كل دول العالم، 193 دولة."}, "dots": {"g": "عبارة أو بيت أو مثل مشهور مكتوب بدون نقاط على الحروف، وأنتم اقروه.", "s": ["تطلع العبارة بلا نقاط.", "أول واحد يقراها صح يفوز.", "إذا صعبت اضغط «تلميح» فتطلع أول كلمة.", "اضغط «اكشف» عشان تطلع العبارة بنقاطها وقائلها."], "e": "«الوٯٮ كالسىڡ» ⟵ «الوقت كالسيف»", "t": "فيها أقوال صحابة، وأبيات شعر، وأمثال، وحكم."}, "rb": {"g": "صور تنجمع وتطلع كلمة.", "s": ["نوعين: «اجمع الصور»: كل صورة تدل على كلمة، واجمع الكلمات تطلع الإجابة.", "و«كلمة بمعنيين»: صورتين لهم نفس الاسم، ووش الكلمة اللي تجمعهم؟", "أول واحد يعرفها يفوز.", "إذا صعبت اضغط «💡 تلميح» فيطلع اسم كل صورة.", "اضغط «اكشف» عشان تطلع الإجابة."], "e": "🌙🚫🍔 صوم + 💰 مال = الصومال  •  🪙 + 🦈 = قرش", "t": "فيها دول ومدن، وأكل، وحيوانات، وأشياء، ودين وتاريخ."}};
 const HOWTO={"bank": "المضيف يقرأ السؤال بصوت عالي، واللي يعرف يجاوب. بعدها اضغط «اكشف الجواب» وتأكدوا. تقدر تختار المستوى (سهل، متوسط، صعب) والتصنيف من فوق، وزر ⏱️ يشغّل مؤقت 30 ثانية للسؤال. وأغلب الأسئلة لها 4 خيارات: اقرأها عليهم واضغط اللي اختاروه، ويتلوّن الصح بالأخضر. وتقدر تطفّي الخيارات من زر «🔤 الخيارات».", "cards": "12 ورقة مقلوبة. كل لاعب يختار ورقة ويقلبها ويجاوب سؤالها. بعض الأوراق فيها مفاجأة: ⚡ سؤال سريع بـ10 ثواني، 🔁 مرّرها لغيرك، 🤝 استعن بصديق، 🎯 أنت تختار مين يجاوب، 👥 سؤال للكل، 🤫 بدون مساعدة.", "list": "يطلع لكم عنوان قائمة وعدد عناصرها. المجلس يذكر العناصر. كل ما أحد قال وحدة صح، اضغط «✅ قالوا وحدة» واختر اللي قالها فتنكشف. واللي ما عرفوها اكشفوها في الأخير.", "who": "تطلع تلميحات عن شخصية بصيغة «أنا...» من الأصعب للأسهل. حاولوا تعرفونها بأقل عدد تلميحات، واضغط «تلميح ثاني» إذا ما عرفوها.", "taboo": "واحد يشرح الكلمة الكبيرة لفريقه بدون ما يقول أي كلمة من الكلمات الممنوعة تحتها. شغّل المؤقت (60 ثانية)، ولو قال كلمة ممنوعة تنتقل للي بعده.", "top": "قسّموا نفسكم فريقين أو أكثر. تطلع قائمة مرتبة مخفية، وكل فريق بدوره يقول جواب. إذا موجود اضغط «✅ جاوبوا صح» واختر الجواب، وياخذ الفريق نقاط بقد رقم الخانة: رقم 10 = 10 نقاط! وإذا غلط اضغط «❌ غلط» والدور ينتقل.", "hurof": "فريقين: الأخضر يحاول يوصل من اليمين لليسار، والأحمر من فوق لتحت. اختاروا حرف، يطلع سؤال جوابه يبدأ بهالحرف، واللي يجاوب أول تتلوّن الخلية بلونه. أول فريق يكمّل طريقه يفوز 🏆", "prov": "يطلع لكم أول المثل، وأول واحد يكمّله صح يفوز بالجولة. اضغط «اكشف» عشان تتأكدون.", "flag": "تطلع صورة علم دولة، وأول واحد يعرف اسم الدولة يفوز، ونقطة زيادة للي يعرف عاصمتها. اختر المستوى من فوق: الصعب فيه دول ما يعرفها إلا القليل 😏", "dots": "تطلع لكم عبارة أو بيت شعر أو مثل مشهور مكتوب بدون نقاط على الحروف. أول واحد يقرأه صح يفوز. وإذا صعبت عليكم اضغط «تلميح» عشان تطلع أول كلمة.", "rb": "نوعين: «اجمع الصور»: كل صورة تدل على كلمة، واجمعها تطلع الإجابة، مثل 🌙🚫🍔 صوم + 💰 مال = الصومال. و«كلمة بمعنيين»: صورتين لهم نفس الاسم، مثل 🪙 + 🦈 = قرش. أول واحد يعرف يفوز، وإذا صعبت اضغط «💡 تلميح» عشان تطلع أسماء الصور."};
 function howOpen(k){let o=true;try{o=!localStorage.getItem("how_"+k);localStorage.setItem("how_"+k,"1")}catch(e){}return o}
 function renderChips(){const g=GAMES[cur];
- const lv=true?`<div class="lvl">${LVINFO.map(([n,i,c])=>`<button class="lv ${n===level?"on":""}" style="--lc:${c}" onclick="setLevel('${n}')"><span>${i}</span>${n}</button>`).join("")}</div>`:"";
+ const lv=cur!=="weird"?`<div class="lvl">${LVINFO.map(([n,i,c])=>`<button class="lv ${n===level?"on":""}" style="--lc:${c}" onclick="setLevel('${n}')"><span>${i}</span>${n}</button>`).join("")}</div>`:"";
  const hw=HOW2[cur]?`<button class="howbtn" onclick="showHow()">❓ طريقة اللعب <small>اضغط للشرح</small></button>`:"";
  if(HOW2[cur]&&!howShown[cur]){howShown[cur]=1;if(howOpen(cur))setTimeout(()=>{if(cur)showHow()},350)}
  $("chips").innerHTML=hw+lv+(g.cats?["الكل",...g.cats].map(c=>`<button class="chip ${c===filter?'on':''}" onclick="setCat('${c}')">${c}</button>`).join(""):"")}
@@ -2665,7 +2792,7 @@ function setCat(c){filter=c;renderChips();build()}
 const inCat=x=>{const g=GAMES[cur];if(!lvOK(cur,x))return false;return !g.cats||filter==="الكل"||g.cat(x)===filter};
 function setLevel(l){level=l;renderChips();build()}
 function unseenItems(g){return GAMES[g].data.concat(pool(g)).filter(x=>!isSeen(g,x))}
-function build(){if(cur==="hurof"){newBoard();return}if(cur==="cards"){dealCards();return}listOpen=new Set(); deck=shuffle(unseenItems(cur).filter(inCat));pos=0;show()}
+function build(){if(cur==="hurof"){newBoard();return}if(cur==="weird"){if(WD.st!=="setup")WD.st="hide";deck=shuffle(unseenItems(cur));pos=0;show();return}if(cur==="cards"){dealCards();return}listOpen=new Set(); deck=shuffle(unseenItems(cur).filter(inCat));pos=0;show()}
 function genKey(){const g=GAMES[cur];if(cur==="bank")return (filter==="الكل"?"mix":filter)+"|"+level;return g.cats?(filter==="الكل"?g.cats[Math.floor(Math.random()*g.cats.length)]:filter):""}
 async function maybeGen(force){const g=cur;if(!g||g==="hurof"||!GEN[g])return;
  const left=deck.length-pos-1;
@@ -2687,6 +2814,7 @@ function render(){
  if(!cur)return;
  const x=deck[pos],S=$("stage"),B=$("btns");let h="",b="";
  if(cur==="hurof"){renderHurof(S,B);return}
+ if(cur==="weird"){renderWeird(S,B);return}
  if(cur==="cards"){renderCards(S,B);return}
  if(!x){
   if(loading){S.innerHTML=loadingHTML;B.innerHTML="";$("count").textContent="";return}
