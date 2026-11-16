@@ -23,6 +23,7 @@ function loadPage({ withSample = false } = {}) {
     sample = async () => ({ text: "" });
     sample.json = async p => {
       n++; ctx.calls++;
+      p = String(p).split("لا تكرر")[0]; // تجاهل قائمة الاستبعاد (فيها نصوص أسئلة حقيقية)
       const A = (k, f) => Array.from({ length: k }, (_, i) => f(i));
       if (p.includes("«من أنا؟»")) return A(8, i => ({ a: `شخص${n}_${i}`, k: ["a", "b", "c", "d"] }));
       if (p.includes("Taboo")) return A(15, i => ({ w: `كلمة${n}_${i}`, f: ["1", "2", "3", "4"] }));
