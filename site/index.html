@@ -309,6 +309,19 @@ body{background:var(--bg)}
 .howto p{margin-top:6px;color:var(--text);line-height:1.8;font-size:.95rem}
 
 .inst{position:relative;display:block;margin:14px auto 0;background:#fff;color:var(--navy);border:none;border-radius:999px;padding:9px 18px;font:inherit;font-weight:800;font-size:.95rem;box-shadow:0 6px 16px rgba(0,0,0,.2);cursor:pointer;animation:pop .4s}
+
+/* خيارات */
+.qrow{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;align-items:center}
+.optt{border:1px solid var(--line);background:#fff;color:var(--muted);border-radius:999px;padding:5px 12px;font:inherit;font-size:.82rem;font-weight:700;cursor:pointer}
+.optt.on{background:var(--card2);color:var(--navy);border-color:var(--blue)}
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:8px;width:100%}
+.opt{display:flex;align-items:center;gap:8px;text-align:right;background:#fff;border:2px solid var(--line);border-radius:14px;padding:10px;font:inherit;font-size:1rem;font-weight:800;color:var(--navy);cursor:pointer;min-height:54px;line-height:1.4;transition:.2s}
+.opt i{flex:none;font-style:normal;width:26px;height:26px;border-radius:8px;background:var(--card2);color:var(--navy);display:inline-flex;align-items:center;justify-content:center;font-size:.85rem}
+.opt:active{transform:scale(.97)}
+.opt.ok{border-color:#2e9e74;background:#e6f6ef;color:#1d6e50;animation:pop .3s}.opt.ok i{background:#2e9e74;color:#fff}
+.opt.no{border-color:#d9534f;background:#fdecec;color:#a33a36}.opt.no i{background:#d9534f;color:#fff}
+.opt.dim{opacity:.45}
+@media(max-width:360px){.opts{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -2046,7 +2059,7 @@ buildHome();
 function openGame(k,lv){try{if(location.hash!=="#"+k)history.pushState(null,"","#"+k)}catch(e){}stopQT();cur=k;filter="الكل";if(lv)level=lv;$("home").classList.add("hide");$("game").classList.remove("hide");$("gTitle").textContent=GAMES[k].t;renderChips();build();window.scrollTo(0,0)}
 function goHome(fromNav){stopQT();if(!fromNav){try{if(location.hash)history.pushState(null,"",location.pathname+location.search)}catch(e){}}stopTimer();stopCT();cardOpen=-1;const o=document.getElementById("ov");if(o)o.remove();cur=null;$("game").classList.add("hide");$("home").classList.remove("hide")}
 const howShown={};
-const HOWTO={"bank": "المضيف يقرأ السؤال بصوت عالي، واللي يعرف يجاوب. بعدها اضغط «اكشف الجواب» وتأكدوا. تقدر تختار المستوى (سهل، متوسط، صعب) والتصنيف من فوق، وزر ⏱️ يشغّل مؤقت 30 ثانية للسؤال.", "cards": "12 ورقة مقلوبة. كل لاعب يختار ورقة ويقلبها ويجاوب سؤالها. بعض الأوراق فيها مفاجأة: ⚡ سؤال سريع بـ10 ثواني، 🔁 مرّرها لغيرك، 🤝 استعن بصديق، 🎯 أنت تختار مين يجاوب، 👥 سؤال للكل، 🤫 بدون مساعدة.", "list": "يطلع لكم عنوان قائمة وعدد عناصرها. المجلس يذكر العناصر. كل ما أحد قال وحدة صح، اضغط «✅ قالوا وحدة» واختر اللي قالها فتنكشف. واللي ما عرفوها اكشفوها في الأخير.", "who": "تطلع تلميحات عن شخصية بصيغة «أنا...» من الأصعب للأسهل. حاولوا تعرفونها بأقل عدد تلميحات، واضغط «تلميح ثاني» إذا ما عرفوها.", "taboo": "واحد يشرح الكلمة الكبيرة لفريقه بدون ما يقول أي كلمة من الكلمات الممنوعة تحتها. شغّل المؤقت (60 ثانية)، ولو قال كلمة ممنوعة تنتقل للي بعده.", "top": "قسّموا نفسكم فريقين أو أكثر. تطلع قائمة مرتبة مخفية، وكل فريق بدوره يقول جواب. إذا موجود اضغط «✅ جاوبوا صح» واختر الجواب، وياخذ الفريق نقاط بقد رقم الخانة: رقم 10 = 10 نقاط! وإذا غلط اضغط «❌ غلط» والدور ينتقل.", "hurof": "فريقين: الأخضر يحاول يوصل من اليمين لليسار، والأحمر من فوق لتحت. اختاروا حرف، يطلع سؤال جوابه يبدأ بهالحرف، واللي يجاوب أول تتلوّن الخلية بلونه. أول فريق يكمّل طريقه يفوز 🏆", "prov": "يطلع لكم أول المثل، وأول واحد يكمّله صح يفوز بالجولة. اضغط «اكشف» عشان تتأكدون.", "flag": "تطلع صورة علم دولة، وأول واحد يعرف اسم الدولة يفوز، ونقطة زيادة للي يعرف عاصمتها. اختر المستوى من فوق: الصعب فيه دول ما يعرفها إلا القليل 😏", "dots": "تطلع لكم عبارة أو بيت شعر أو مثل مشهور مكتوب بدون نقاط على الحروف. أول واحد يقرأه صح يفوز. وإذا صعبت عليكم اضغط «تلميح» عشان تطلع أول كلمة.", "rb": "نوعين: «اجمع الصور»: كل صورة تدل على كلمة، واجمعها تطلع الإجابة، مثل 🌙🚫🍔 صوم + 💰 مال = الصومال. و«كلمة بمعنيين»: صورتين لهم نفس الاسم، مثل 🪙 + 🦈 = قرش. أول واحد يعرف يفوز، وإذا صعبت اضغط «💡 تلميح» عشان تطلع أسماء الصور."};
+const HOWTO={"bank": "المضيف يقرأ السؤال بصوت عالي، واللي يعرف يجاوب. بعدها اضغط «اكشف الجواب» وتأكدوا. تقدر تختار المستوى (سهل، متوسط، صعب) والتصنيف من فوق، وزر ⏱️ يشغّل مؤقت 30 ثانية للسؤال. وأغلب الأسئلة لها 4 خيارات: اقرأها عليهم واضغط اللي اختاروه، ويتلوّن الصح بالأخضر. وتقدر تطفّي الخيارات من زر «🔤 الخيارات».", "cards": "12 ورقة مقلوبة. كل لاعب يختار ورقة ويقلبها ويجاوب سؤالها. بعض الأوراق فيها مفاجأة: ⚡ سؤال سريع بـ10 ثواني، 🔁 مرّرها لغيرك، 🤝 استعن بصديق، 🎯 أنت تختار مين يجاوب، 👥 سؤال للكل، 🤫 بدون مساعدة.", "list": "يطلع لكم عنوان قائمة وعدد عناصرها. المجلس يذكر العناصر. كل ما أحد قال وحدة صح، اضغط «✅ قالوا وحدة» واختر اللي قالها فتنكشف. واللي ما عرفوها اكشفوها في الأخير.", "who": "تطلع تلميحات عن شخصية بصيغة «أنا...» من الأصعب للأسهل. حاولوا تعرفونها بأقل عدد تلميحات، واضغط «تلميح ثاني» إذا ما عرفوها.", "taboo": "واحد يشرح الكلمة الكبيرة لفريقه بدون ما يقول أي كلمة من الكلمات الممنوعة تحتها. شغّل المؤقت (60 ثانية)، ولو قال كلمة ممنوعة تنتقل للي بعده.", "top": "قسّموا نفسكم فريقين أو أكثر. تطلع قائمة مرتبة مخفية، وكل فريق بدوره يقول جواب. إذا موجود اضغط «✅ جاوبوا صح» واختر الجواب، وياخذ الفريق نقاط بقد رقم الخانة: رقم 10 = 10 نقاط! وإذا غلط اضغط «❌ غلط» والدور ينتقل.", "hurof": "فريقين: الأخضر يحاول يوصل من اليمين لليسار، والأحمر من فوق لتحت. اختاروا حرف، يطلع سؤال جوابه يبدأ بهالحرف، واللي يجاوب أول تتلوّن الخلية بلونه. أول فريق يكمّل طريقه يفوز 🏆", "prov": "يطلع لكم أول المثل، وأول واحد يكمّله صح يفوز بالجولة. اضغط «اكشف» عشان تتأكدون.", "flag": "تطلع صورة علم دولة، وأول واحد يعرف اسم الدولة يفوز، ونقطة زيادة للي يعرف عاصمتها. اختر المستوى من فوق: الصعب فيه دول ما يعرفها إلا القليل 😏", "dots": "تطلع لكم عبارة أو بيت شعر أو مثل مشهور مكتوب بدون نقاط على الحروف. أول واحد يقرأه صح يفوز. وإذا صعبت عليكم اضغط «تلميح» عشان تطلع أول كلمة.", "rb": "نوعين: «اجمع الصور»: كل صورة تدل على كلمة، واجمعها تطلع الإجابة، مثل 🌙🚫🍔 صوم + 💰 مال = الصومال. و«كلمة بمعنيين»: صورتين لهم نفس الاسم، مثل 🪙 + 🦈 = قرش. أول واحد يعرف يفوز، وإذا صعبت اضغط «💡 تلميح» عشان تطلع أسماء الصور."};
 function howOpen(k){let o=true;try{o=!localStorage.getItem("how_"+k);localStorage.setItem("how_"+k,"1")}catch(e){}return o}
 function renderChips(){const g=GAMES[cur];
  const lv=true?`<div class="lvl">${LVINFO.map(([n,i,c])=>`<button class="lv ${n===level?"on":""}" style="--lc:${c}" onclick="setLevel('${n}')"><span>${i}</span>${n}</button>`).join("")}</div>`:"";
@@ -2069,7 +2082,7 @@ async function maybeGen(force){const g=cur;if(!g||g==="hurof"||!GEN[g])return;
 }
 function next(){stopTimer();pos++;show();maybeGen()}
 function doReset(){resetSeen(cur);build()}
-function show(){step=0;revealed=false;listOpen=new Set();listPick=false;topOpen=new Map();topOv=null;if(deck[pos])markSeen(cur,deck[pos]);else maybeGen(true);render()}
+function show(){step=0;revealed=false;optPick=-1;listOpen=new Set();listPick=false;topOpen=new Map();topOv=null;if(deck[pos])markSeen(cur,deck[pos]);else maybeGen(true);render()}
 
 const BCOL={"دين":"#285CA0","صحابة":"#3a9e88","تاريخ":"#1f4f8f","علماء":"#4f7fb8","جغرافيا":"#2f8f9a","عام":"#606060"};
 const loadingHTML=`<div class="spin"></div><div class="big">جاري أجهّز لك أسئلة جديدة...</div>`;
@@ -2089,8 +2102,8 @@ function render(){
   b=all?`<button class="btn p" onclick="next()">القائمة التالية</button>`:`<button class="btn g" onclick="listPick=true;render()">✅ قالوا وحدة</button><button class="btn s" onclick="x_all()">اكشف الكل</button><button class="btn s" onclick="next()">تخطّى ⏭</button>`;
  }
  if(cur==="bank"){
-  const li=LVINFO[x[3]||2];h=`<div class="tags"><span class="tag" style="background:${BCOL[x[0]]};color:#fff">${x[0]}</span><span class="tag" style="background:${li[2]}1a;color:${li[2]}">${li[1]} ${li[0]}</span></div><div class="big">${x[1]}</div>`;if(revealed)h+=`<div class="answer">${x[2]}</div>`;
-  h=`<span class="qt" id="qt" onclick="startQT()" style="cursor:pointer">${qT?"⏱️ "+qLeft:"⏱️ ابدأ 30 ثانية"}</span>`+h;
+  const li=LVINFO[x[3]||2];h=`<div class="tags"><span class="tag" style="background:${BCOL[x[0]]};color:#fff">${x[0]}</span><span class="tag" style="background:${li[2]}1a;color:${li[2]}">${li[1]} ${li[0]}</span></div><div class="big">${x[1]}</div>`;if(optMode)h+=optsHTML(x,optPick,revealed);if(revealed)h+=`<div class="answer">${optPick>=0&&optsFor(x)?(optsFor(x)[optPick]===x[2]?"✅ صح! ":"❌ "):""}${x[2]}</div>`;
+  h=`<div class="qrow"><span class="qt" id="qt" onclick="startQT()" style="cursor:pointer">${qT?"⏱️ "+qLeft:"⏱️ ابدأ 30 ثانية"}</span><button class="optt ${optMode?"on":""}" onclick="toggleOpt()">${optMode?"🔤 الخيارات: تشغيل":"🔤 الخيارات: مطفأة"}</button></div>`+h;
   b=revealed?`<button class="btn p" onclick="stopQT();next()">السؤال التالي</button>`:`<button class="btn p" onclick="stopQT();revealed=true;render()">اكشف الجواب</button><button class="btn s" onclick="stopQT();next()">تخطّى ⏭</button>`;
  }
  if(cur==="who"){
@@ -2142,7 +2155,7 @@ async function dealCards(){cardOpen=-1;stopCT();
  if(pool_.length<12&&SAMPLE){dealing=true;render();await generate("bank","mix|"+level);dealing=false;pool_=lvf()}
  const n=Math.min(12,pool_.length);const sp=shuffle(SPECIAL).slice(0,Math.min(4,n));
  cardsArr=pool_.slice(0,n).map((q,i)=>({q,s:i<sp.length?sp[i]:null,f:false}));cardsArr=shuffle(cardsArr);revealed=false;render()}
-function flipCard(i){const c=cardsArr[i];if(!c||c.f)return;c.f=true;cardOpen=i;revealed=false;markSeen("bank",c.q);render();
+function flipCard(i){const c=cardsArr[i];if(!c||c.f)return;c.f=true;cardOpen=i;revealed=false;optPick=-1;markSeen("bank",c.q);render();
  if(c.s&&c.s.tm){cLeft=c.s.tm;stopCT();cTimer=setInterval(()=>{cLeft--;const t=document.getElementById("ct");if(t){t.textContent=cLeft>0?cLeft:"انتهى الوقت!";t.classList.toggle("low",cLeft<=3)}if(cLeft<=0)stopCT()},1000)}}
 function stopCT(){if(cTimer){clearInterval(cTimer);cTimer=null}}
 function closeCard(){stopCT();cardOpen=-1;render()}
@@ -2154,7 +2167,7 @@ function renderCards(S,B){
  B.innerHTML=`<button class="btn ${left?'s':'p'}" onclick="dealCards()">🔀 وزّع أوراق جديدة</button>`;$("count").textContent=`${left} ورقة باقية`;
  let ov=document.getElementById("ov");if(ov)ov.remove();
  if(cardOpen>=0){const c=cardsArr[cardOpen];ov=document.createElement("div");ov.id="ov";ov.className="ov";
-  ov.innerHTML=`<div class="ovc">${c.s?`<div class="spc"><span>${c.s.i}</span><div><b>${c.s.t}</b><small>${c.s.d}</small></div></div>`:''}${c.s&&c.s.tm?`<div class="ct ${cLeft<=3?'low':''}" id="ct">${cTimer?cLeft:(cLeft>0?cLeft:'انتهى الوقت!')}</div>`:''}<span class="tag" style="background:${BCOL[c.q[0]]};color:#fff">${c.q[0]}</span><div class="big">${c.q[1]}</div>${revealed?`<div class="answer">${c.q[2]}</div>`:''}<div class="btns">${revealed?'':`<button class="btn p" onclick="revealed=true;stopCT();render()">اكشف الجواب</button>`}<button class="btn s" onclick="closeCard()">رجوع للأوراق</button></div></div>`;
+  ov.innerHTML=`<div class="ovc">${c.s?`<div class="spc"><span>${c.s.i}</span><div><b>${c.s.t}</b><small>${c.s.d}</small></div></div>`:''}${c.s&&c.s.tm?`<div class="ct ${cLeft<=3?'low':''}" id="ct">${cTimer?cLeft:(cLeft>0?cLeft:'انتهى الوقت!')}</div>`:''}<span class="tag" style="background:${BCOL[c.q[0]]};color:#fff">${c.q[0]}</span><div class="big">${c.q[1]}</div>${optMode?optsHTML(c.q,optPick,revealed):''}${revealed?`<div class="answer">${optPick>=0&&optsFor(c.q)?(optsFor(c.q)[optPick]===c.q[2]?"✅ صح! ":"❌ "):""}${c.q[2]}</div>`:''}<div class="btns">${revealed?'':`<button class="btn p" onclick="revealed=true;stopCT();render()">اكشف الجواب</button>`}<button class="btn s" onclick="closeCard()">رجوع للأوراق</button></div></div>`;
   document.body.appendChild(ov)}
 }
 
@@ -2226,6 +2239,52 @@ function confetti(){const c=document.createElement("div");c.className="confetti"
  for(let i=0;i<70;i++){const p=document.createElement("i");p.style.left=Math.random()*100+"%";p.style.background=cols[i%5];p.style.animationDelay=Math.random()*.8+"s";p.style.borderRadius=i%3?"2px":"50%";c.appendChild(p)}
  document.body.appendChild(c);setTimeout(()=>c.remove(),3800)}
 function stopTimer(){if(timerId){clearInterval(timerId);timerId=null}}
+/* ---------- خيارات متعددة لأسئلة البنك ---------- */
+let optMode=(()=>{try{return localStorage.getItem("opt_mode")!=="0"}catch(e){return true}})();
+function toggleOpt(){optMode=!optMode;try{localStorage.setItem("opt_mode",optMode?"1":"0")}catch(e){}render()}
+const onrm=t=>String(t).replace(/[ً-ْـ«»"'؟?!.,،:()\s]/g,"").replace(/[أإآ]/g,"ا").replace(/ة/g,"ه").replace(/ى/g,"ي").replace(/^ال/,"");
+const SURAS="الفاتحة البقرة آل_عمران النساء المائدة الأنعام الأعراف الأنفال التوبة يونس هود يوسف الرعد إبراهيم الحجر النحل الإسراء الكهف مريم طه الأنبياء الحج المؤمنون النور الفرقان الشعراء النمل القصص العنكبوت الروم لقمان السجدة الأحزاب سبأ فاطر يس الصافات ص الزمر غافر فصلت الشورى الزخرف الدخان الجاثية الأحقاف محمد الفتح الحجرات ق الذاريات الطور النجم القمر الرحمن الواقعة الحديد المجادلة الحشر الممتحنة الصف الجمعة المنافقون التغابن الطلاق التحريم الملك القلم الحاقة المعارج نوح الجن المزمل المدثر القيامة الإنسان المرسلات النبأ النازعات عبس التكوير الانفطار المطففين الانشقاق البروج الطارق الأعلى الغاشية الفجر البلد الشمس الليل الضحى الشرح التين العلق القدر البينة الزلزلة العاديات القارعة التكاثر العصر الهمزة الفيل قريش الماعون الكوثر الكافرون النصر المسد الإخلاص الفلق الناس".split(" ").map(x=>x.replace("_"," "));
+const PROPH="آدم إدريس نوح هود صالح إبراهيم لوط إسماعيل إسحاق يعقوب يوسف أيوب شعيب موسى هارون داود سليمان إلياس اليسع يونس زكريا يحيى عيسى".split(" ");
+let OCLS=null;
+const isNameA=a=>/( بن |^(أبو|أبي|أم|ابن|الإمام|الشيخ|الملك|السلطان|سيف الدين|صلاح الدين|عمر|عثمان|علي|خالد|سعد|بلال|معاذ|حذيفة|سلمان|زيد|أُبيّ|أبي|عبدالله|عبدالرحمن|عبدالملك|معاوية|هارون|طارق|قتيبة|محمد|نور الدين|جعفر|حمزة|مصعب|عائشة|خديجة|فاطمة|حفصة|زينب|أسماء|خولة|سمية|سُميّة|هاجر|آسية|مريم|ثوبان|ثابت|تميم|جابر|جرير|جنكيز|الخليل|الجاحظ|الشافعي|الطبري|البخاري|النووي|السيوطي|سيبويه|الرازي|البيروني|الخوارزمي|ابن)|رضي الله|عليه السلام|عليها السلام)/.test(a)||WHO.some(w=>onrm(w.a)===onrm(a));
+function oClass(q,a){a=String(a);const an=onrm(a.replace(/^سورة /,""));
+ if(a.length>30||/[:؛]/.test(a))return null;
+ if(/\d/.test(a))return (a.match(/\d+/g)||[]).length===1?"num":null;
+ if(SURAS.some(x=>onrm(x)===an))return"sura";
+ if(PROPH.some(x=>a.startsWith(x+" ")||a===x)&&/(النبي|نبي|عليه السلام)/.test(q+a))return"nabi";
+ if(FLAGS.some(f=>onrm(f[1])===an))return"country";
+ if(/عاصمة/.test(q)||FLAGS.some(f=>f[2]&&onrm(f[2])===an))return"capital";
+ if(/^لغز/.test(q))return"riddle";
+ if(/(غزوة|معركة|موقعة)/.test(q))return"battle";
+ if(/(حيوان|طائر|طير|حشرة|صغير ال|ذكر ال|أنثى ال|من أسماء الأسد|فرخ|ثدييات|ثديي)/.test(q))return"animal";
+ if(/(مرض|داء|يسبّب نقص|يسبب نقص)/.test(q))return"disease";
+ if(/(نبات|شجر|زهر|ورد|ثمر)/.test(q))return"plant";
+ if(/(حجر كريم|معدن|عنصر|غاز|المادة|مادة)/.test(q))return"matter";
+ {const g=q.match(/(بحيرة|نهر|جبل|بحر|مضيق|صحراء|جزيرة|هضبة|محيط|خليج|شلال)/);if(g)return"geo:"+g[1]}
+ if(/(^ما المدينة|^مدينة|في أي مدينة|المدينة الملقبة|المدينة التي|^ما مقر|في أي منطقة|في أي محافظة|المنطقة السعودية|محافظة سعودية|مدينة سعودية)/.test(q))return"city";
+ if(/(صوت)/.test(q))return"sound";
+ if(/(وحدة|مقياس)/.test(q))return"unit";
+ if(/^(من |مَن )(?!أي|أسماء|الطعام|أكثر|المقصود)/.test(q)||/(الصحابي|الصحابية|الشاعر|العالم |الخليفة|القائد|السلطان|الإمام|مؤلف|من القائل)/.test(q)){
+  if(!isNameA(a))return null;return /(بنت |^أم |رضي الله عنها|عليها السلام|^خديجة|^عائشة|^فاطمة|^حفصة|^سمية|^سُميّة|^نسيبة|^زينب|^هاجر|^آسية|^مريم|^الخنساء|^خولة|^أسماء|^شجرة الدر|^ماري)/.test(a)?"person_f":"person_m"}
+ return null}
+function oPools(){if(OCLS)return OCLS;OCLS={};const add=(k,a)=>{(OCLS[k]=OCLS[k]||new Set()).add(a)};
+ BANK.concat(pool("bank")).forEach(x=>{const c=oClass(x[1],x[2]);if(c&&c!=="sura"&&c!=="country"){add(c,x[2]);if(c.startsWith("geo:"))add("geo",x[2])}});
+ SURAS.forEach(x=>add("sura",x));FLAGS.forEach(f=>{add("country",f[1]);if(f[2])add("capital",f[2])});
+ return OCLS}
+function optsFor(x){if(x._o!==undefined)return x._o;const c=oClass(x[1],x[2]);if(!c){x._o=null;return null}
+ const out=[],seenN=new Set([onrm(x[2])]);
+ const take=list=>{for(const a of shuffle([...(list||[])])){if(out.length>=3)return;const n=onrm(a);if(!n||seenN.has(n)||n.includes(onrm(x[2]))||onrm(x[2]).includes(n))continue;seenN.add(n);out.push(a)}};
+ if(c==="num"){const m=String(x[2]).match(/\d+/);const v=+m[0],unit=String(x[2]).replace(m[0],"{}");const cand=v<10?[v+1,v-1,v+2,v+3]:v<100?[v+3,v-4,v+10,v+6]:v<1000?[v+20,v-30,v+50,v-10]:[v+5,v-7,v+12,v-3];
+  take(cand.filter(n=>n>0&&n!==v).map(n=>unit.replace("{}",n)))}
+ else if(c==="sura"){const pre=/^سورة /.test(x[2])?"سورة ":"";take(SURAS.map(n=>pre+n))}
+ else if(c==="country"&&/(عرب|العربي)/.test(x[1])){take(FLAGS.slice(0,22).map(f=>f[1]))}
+ else if(c==="nabi"){const suf=/عليه السلام/.test(x[2])?" عليه السلام":"";take(PROPH.map(n=>n+suf))}
+ else{take(oPools()[c]);if(c.startsWith("geo:"))take(oPools()["geo"])}
+ x._o=out.length>=3?shuffle([x[2],...out]):null;return x._o}
+function optsHTML(x,picked,show){const o=optsFor(x);if(!o)return "";return `<div class="opts">${o.map((a,i)=>{const ok=a===x[2];const cls=show?(ok?"ok":(picked===i?"no":"dim")):"";return `<button class="opt ${cls}" ${show?"disabled":""} onclick="pickOpt(${i})"><i>${"أبجد"[i]}</i>${a}</button>`}).join("")}</div>`}
+let optPick=-1;
+function pickOpt(i){optPick=i;if(cur==="cards"){revealed=true;stopCT();render();return}stopQT();revealed=true;render()}
+
 /* ---------- تطبيق: تثبيت على الشاشة الرئيسية + بدون إنترنت ---------- */
 const onClaude=/claude\.ai|claudeusercontent|anthropic/.test(location.host);
 if(!onClaude&&location.protocol==="https:"&&"serviceWorker" in navigator){try{navigator.serviceWorker.register("sw.js").catch(()=>{})}catch(e){}}
