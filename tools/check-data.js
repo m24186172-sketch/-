@@ -14,6 +14,7 @@ function dupCheck(name, g, arr) {
 const byCat = (arr, f) => arr.reduce((m, x) => ((m[f(x)] = (m[f(x)] || 0) + 1), m), {});
 
 console.log("بنك الأسئلة:", P.BANK.length, JSON.stringify(byCat(P.BANK, x => x[0])), "المستويات:", JSON.stringify(byCat(P.BANK, x => ({1:"سهل",2:"متوسط",3:"صعب"})[x[3] || 2])));
+console.log("توب 10:", P.TOP.length, JSON.stringify(byCat(P.TOP, x => x.c)));
 console.log("اذكر وتكشف:", P.LISTS.length, JSON.stringify(byCat(P.LISTS, x => x.c)));
 console.log("من أنا:", P.WHO.length, JSON.stringify(byCat(P.WHO, x => x.c)));
 console.log("لا تقول الكلمة:", P.TABOO.length);
@@ -24,6 +25,8 @@ console.log("حروف:", Object.keys(P.HUROF).length, "حرف،", Object.values(
 
 dupCheck("البنك", "bank", P.BANK);
 dupCheck("القوائم", "list", P.LISTS);
+dupCheck("توب 10", "top", P.TOP);
+P.TOP.forEach(x => { if (x.a.length < 5 || (x.v && x.v.length !== x.a.length) || (x.r && x.r.length !== x.a.length)) { problems++; console.log("  ✗ قائمة توب ناقصة:", x.t); } });
 dupCheck("من أنا", "who", P.WHO);
 dupCheck("لا تقول الكلمة", "taboo", P.TABOO);
 dupCheck("الأمثال", "prov", P.PROVERBS);
