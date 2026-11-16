@@ -118,3 +118,4 @@ python3 tests/smoke.py            # يتطلب playwright+chromium: يفتح ك�
 - `netlify.toml` في الجذر يخلي Netlify ينشر مجلد `site` مباشرة بدون بناء.
 - المستخدم يربط موقعه في Netlify بالريبو `m24186172-sketch/-` على الفرع `claude/netlify-app-review-p3lfs8`، فأي push على الفرع ينشر تلقائياً.
 - خارج claude.ai ما فيه `claude.use`، فلا توليد ولا مزامنة db. يشتغل المحتوى الثابت مع localStorage فقط.
+- الرابط الخارجي (2026-11-16): https://unrivaled-figolla-6ab014.netlify.app، وهو مشروع Netlify مربوط بـGitHub على الفرع `claude/netlify-app-review-p3lfs8` ومجلد النشر `site`. أي push على الفرع ينشر تلقائياً. Netlify ما يفتح من بيئة الوكيل (محجوب)، فالتحقق يكون من المستخدم.
