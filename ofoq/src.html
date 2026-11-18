@@ -30,7 +30,7 @@
 
 *{box-sizing:border-box}
 html,body{min-height:100%}
-body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font);font-size:16px;line-height:1.7;-webkit-font-smoothing:antialiased}
+body{direction:rtl;margin:0;background:var(--bg);color:var(--ink);font-family:var(--font);font-size:16px;line-height:1.7;-webkit-font-smoothing:antialiased}
 body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:30;background:var(--hero)}
 button,input,select{font:inherit;color:inherit}
 button{cursor:pointer}
@@ -305,6 +305,7 @@ canvas.confetti{position:fixed;inset:0;z-index:55;pointer-events:none}
 
 <script>
 "use strict";
+document.documentElement.dir = "rtl"; document.documentElement.lang = "ar";
 /* ==================== التخزين ====================
    النسخة هذي تجريبية: البيانات محفوظة في جهازك (localStorage).
    للتشغيل الحقيقي مع الطلاب نبدّل طبقة التخزين بقاعدة بيانات مجانية بدون ما نغيّر الواجهة. */
