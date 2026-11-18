@@ -2,7 +2,7 @@
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;700&family=Noto+Naskh+Arabic:wght@700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap">
 <style>
 /* أفق: هوية الإصدار الثاني ٢٠٢٦. هيدر كحلي بالمدارات والقوس، تحته محتوى على ورق، وتبويبات سفلية للجوال أولاً */
 :root{
@@ -13,7 +13,7 @@
   --chip:#F3F2FA; --chip-ink:#100B71; --ok:#1F7A55; --ok-bg:#E6F4EE;
   --dawn:linear-gradient(90deg,#100B71 0%,#872457 50%,#FF3C40 100%);
   --font:"Thmanyah Sans","IBM Plex Sans Arabic",system-ui,sans-serif;
-  --display:"Thmanyah Serif Display","Noto Naskh Arabic","IBM Plex Sans Arabic",serif;
+  --display:"Thmanyah Serif Display","IBM Plex Sans Arabic",system-ui,sans-serif; /* خط ثمانية يتركّب هنا أول ما توصل ملفاته */
   --r-sm:12px; --r:18px; --pill:999px; --slant:-11.9deg;
   --shadow:0 8px 24px rgba(16,11,113,.08);
 }
@@ -35,7 +35,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 button,input,select{font:inherit;color:inherit}
 button{cursor:pointer}
 :focus-visible{outline:3px solid rgba(255,60,64,.45);outline-offset:2px}
-h1,h2,h3{font-family:var(--display);font-weight:700;line-height:1.35;margin:0;text-wrap:balance}
+h1,h2,h3{font-family:var(--display);font-weight:700;letter-spacing:-.01em;line-height:1.35;margin:0;text-wrap:balance}
 .num{font-family:var(--display);font-variant-numeric:tabular-nums}
 .app{max-width:560px;margin:0 auto;min-height:100vh;display:flex;flex-direction:column;background:var(--bg)}
 .wrap{padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
@@ -232,6 +232,26 @@ footer.foot{text-align:center;font-size:13px;color:var(--ink-2);padding-block:22
 .sw[aria-checked="true"]::after{inset-inline-start:25px}
 textarea.field{width:100%;min-height:120px;border-radius:14px;border:1.5px solid var(--line);background:var(--card);padding:12px 16px;font-size:16px;resize:vertical}
 
+
+/* ---------- قائمة الدروس ---------- */
+.lessons{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
+.lesson{display:flex;align-items:center;gap:12px;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:12px 12px 12px 10px;width:100%;text-align:start}
+.lesson.is-none{border-color:var(--navy-300);box-shadow:0 0 0 3px rgba(91,87,176,.10)}
+.lesson.admin{cursor:pointer}
+.lesson.admin:hover{border-color:var(--navy-500)}
+.ln{width:40px;height:40px;flex:none;display:grid;place-items:center;border-radius:12px;background:var(--hero);color:#fff;font-size:18px;font-weight:700}
+.ln.sm{width:30px;height:30px;font-size:14px;border-radius:9px}
+.lesson.is-p .ln{background:var(--dawn)}
+.lt{font-weight:700;line-height:1.45}
+.ld{font-size:13px;color:var(--ink-2);line-height:1.5}
+.counts{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px}
+.pa{display:flex;gap:6px;flex:none}
+.pa button{display:inline-flex;align-items:center;gap:4px;height:40px;padding:0 12px;border-radius:var(--pill);border:1.5px solid var(--line);background:var(--card);color:var(--ink-2);font-size:14px;font-weight:700}
+.pa button svg{width:16px;height:16px}
+.pa button[data-mark="p"][aria-pressed="true"],.pa button[data-set="p"][aria-pressed="true"]{background:var(--ok);border-color:var(--ok);color:#fff}
+.pa button[data-mark="a"][aria-pressed="true"],.pa button[data-set="a"][aria-pressed="true"]{background:var(--red);border-color:var(--red);color:#fff}
+.pa.sm button{height:34px;padding:0 10px;font-size:13px}
+@media (max-width:380px){.pa button{padding:0 9px}.pa button svg{display:none}}
 /* ---------- sheet / toast / celebrate ---------- */
 .scrim{position:fixed;inset:0;z-index:40;background:rgba(7,5,46,.55);display:flex;align-items:flex-end;justify-content:center;animation:fade .2s}
 .sheet{width:100%;max-width:560px;max-height:88vh;overflow:auto;background:var(--bg);border-radius:24px 24px 0 0;padding:10px max(16px,env(safe-area-inset-right,0px)) calc(24px + env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px));animation:up .25s ease-out}
@@ -287,8 +307,8 @@ canvas.confetti{position:fixed;inset:0;z-index:55;pointer-events:none}
 "use strict";
 /* ==================== التخزين ====================
    النسخة هذي تجريبية: البيانات محفوظة في جهازك (localStorage).
-   للتشغيل الحقيقي مع الطلاب نبدّل طبقة Store بقاعدة بيانات مجانية (Firebase) بدون ما نغيّر الواجهة. */
-const KEY = "ofoq-demo-v1", SKEY = "ofoq-session-v1";
+   للتشغيل الحقيقي مع الطلاب نبدّل طبقة التخزين بقاعدة بيانات مجانية بدون ما نغيّر الواجهة. */
+const KEY = "ofoq-demo-v2", SKEY = "ofoq-session-v2";
 const lsGet = k => { try { return JSON.parse(localStorage.getItem(k)); } catch (e) { return null; } };
 const lsSet = (k, v) => { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} };
 
@@ -302,27 +322,26 @@ const pin4 = () => String(Math.floor(1000 + Math.random()*9000));
 function seed(){
   const r = rng(26);
   const names = ["عبدالله الحربي","محمد العتيبي","فيصل القحطاني","سعود الشمري","عبدالرحمن الدوسري","تركي المطيري","خالد الزهراني","نواف السبيعي","يوسف الغامدي","عمر العنزي","سلمان الشهري","بدر الرشيدي","ريان العمري","حمد السهلي"];
-  const titles = ["أبو بكر الصديق: قبل الخلافة","أبو بكر الصديق: من الخلافة إلى الوفاة","عمر بن الخطاب: قبل الخلافة","عمر بن الخطاب: الفتوحات","عمر بن الخطاب: الدواوين والإدارة","عثمان بن عفان","علي بن أبي طالب","الحرب العالمية الأولى","الحرب العالمية الثانية","كيف تقرأ التاريخ؟","الدولة العباسية","لقاء الختام"];
-  // دروس أسبوعية: ٨ قبل، درس اليوم، و٣ بعد
-  const lessons = titles.map((t,i) => ({ id:"L"+(i+1), title:t, date: iso(Date.now() + (i-8)*7*DAY), open:false, requirePin:true, pin:pin4() }));
+  const titles = ["أبو بكر الصديق ١","أبو بكر الصديق ٢","عمر بن الخطاب ١","عمر بن الخطاب ٢","عمر بن الخطاب ٣","عثمان بن عفان ١","عثمان بن عفان ٢","علي بن أبي طالب ١","علي بن أبي طالب ٢"];
+  const L = titles.length;
+  const lessons = titles.map((t,i) => ({ id:"L"+(i+1), n:i+1, title:t, date: iso(Date.now() - (L-1-i)*7*DAY) }));
   const used = new Set(["0000"]);
   const students = names.map((n,i) => { let c = i===0 ? "1234" : ""; while(!c || used.has(c)) c = pin4(); used.add(c); return { id:"S"+(i+1), name:n, code:c }; });
   const att = {};
-  const prof = students.map((s,i) => i===0 ? .95 : .45 + r()*.5);
-  lessons.slice(0,8).forEach((l,li) => {
+  const prof = students.map(() => .45 + r()*.5);
+  lessons.forEach((l,li) => {
     att[l.id] = {};
-    const base = new Date(l.date+"T19:30:00").getTime();
-    let order = 0;
+    const base = new Date(l.date+"T20:00:00").getTime(); let k = 0;
+    const last = li === L-1;
     students.forEach((s,si) => {
-      if (si===0){ if (li!==4) att[l.id][s.id] = base + (order++)*40000; return; } // عبدالله: غاب مرة وحدة عشان يبيّن «العودة»
-      if (r() < prof[si]) att[l.id][s.id] = base + (order++)*40000 + Math.floor(r()*60000);
+      if (si === 0) { if (!last) att[l.id][s.id] = { s: li===3 ? "a" : "p", t: base + (k++)*40000 }; return; } // عبدالله: غاب مرة، وآخر درس ما سجّله
+      const x = r();
+      if (last && x < .5) return;                         // آخر درس: نص الطلاب للحين ما سجّلوا
+      if (x < prof[si]) att[l.id][s.id] = { s:"p", t: base + (k++)*40000 + Math.floor(r()*60000) };
+      else if (x < prof[si] + .25) att[l.id][s.id] = { s:"a", t: base + 3600000 };
     });
   });
-  const cur = lessons[8]; cur.open = true; att[cur.id] = {};
-  // كم واحد حضّر الحين في درس اليوم
-  const now = Date.now();
-  [2,4,5,7,10].forEach((si,k) => att[cur.id]["S"+si] = now - (6-k)*60000);
-  return { v:1, demo:true, course:"أُفُق", adminCode:"0000", students, lessons, att, current:cur.id };
+  return { v:2, demo:true, adminCode:"0000", students, lessons, att };
 }
 
 let S = lsGet(KEY) || seed();
@@ -331,25 +350,22 @@ const save = () => lsSet(KEY, S);
 if (!lsGet(KEY)) save();
 
 /* ==================== الحسابات ==================== */
-const lessonsSorted = () => [...S.lessons].sort((a,b) => a.date.localeCompare(b.date));
+const lessonsSorted = () => [...S.lessons].sort((a,b) => a.n - b.n);
 const lessonById = id => S.lessons.find(l => l.id === id);
-const curLesson = () => lessonById(S.current);
-const isAtt = (lid, sid) => !!(S.att[lid] && S.att[lid][sid]);
-// الدروس اللي صار وقتها (قبل اليوم أو اليوم أو المفتوحة)
-const pastLessons = () => lessonsSorted().filter(l => l.date <= todayISO() || l.open);
+const markOf = (lid, sid) => S.att[lid]?.[sid]?.s || "";
+const isAtt = (lid, sid) => markOf(lid, sid) === "p";
+const lastLesson = () => lessonsSorted().slice(-1)[0];
 
+// الشعلة: كم درس حضره ورا بعض لين آخر درس. آخر درس لو ما سجّله للحين ما يطفّي الشعلة
 function streakOf(sid){
-  const ls = pastLessons(); let n = 0;
-  for (let i = ls.length-1; i >= 0; i--){
-    const l = ls[i];
-    if (isAtt(l.id, sid)) n++;
-    else if (i === ls.length-1 && (l.open || l.date === todayISO())) continue; // درس اليوم ما خلص: ما يكسر السلسلة
-    else break;
-  }
+  const ls = lessonsSorted(); let n = 0, i = ls.length - 1;
+  if (i >= 0 && !markOf(ls[i].id, sid)) i--;
+  for (; i >= 0 && isAtt(ls[i].id, sid); i--) n++;
   return n;
 }
-function bestStreak(sid){ let b=0,c=0; pastLessons().forEach(l => { if (isAtt(l.id,sid)) { c++; b=Math.max(b,c); } else if (!(l.open||l.date===todayISO())) c=0; }); return b; }
+function bestStreak(sid){ let b=0,c=0; lessonsSorted().forEach(l => { if (isAtt(l.id,sid)) b = Math.max(b, ++c); else c = 0; }); return b; }
 const totalOf = sid => S.lessons.filter(l => isAtt(l.id, sid)).length;
+const absentOf = sid => S.lessons.filter(l => markOf(l.id, sid) === "a").length;
 const monthKey = d => d.slice(0,7);
 function monthCounts(mk = monthKey(todayISO())){
   const ls = S.lessons.filter(l => monthKey(l.date) === mk);
@@ -357,8 +373,9 @@ function monthCounts(mk = monthKey(todayISO())){
     .sort((a,b) => b.n - a.n || b.streak - a.streak || a.s.name.localeCompare(b.s.name, "ar"));
 }
 function ranked(rows){ let pos=0, prev=null; return rows.map((r,i) => { if (r.n !== prev){ pos = i+1; prev = r.n; } return {...r, pos}; }); }
-function rateOf(sid){ const p = pastLessons().filter(l => !l.open || isAtt(l.id,sid)); return p.length ? Math.round(100*p.filter(l => isAtt(l.id,sid)).length/p.length) : 0; }
-function checkinOrder(lid, sid){ const a = S.att[lid] || {}; const t = a[sid]; if (!t) return 0; return Object.values(a).filter(x => x <= t).length; }
+function rateOf(sid){ const n = S.lessons.length; return n ? Math.round(100*totalOf(sid)/n) : 0; }
+function presentOrder(lid, sid){ const a = S.att[lid] || {}; if (a[sid]?.s !== "p") return 0; const t = a[sid].t; return Object.values(a).filter(x => x.s === "p" && x.t <= t).length; }
+const countOf = (lid, s) => Object.values(S.att[lid] || {}).filter(x => x.s === s).length;
 
 const LEVELS = [
   { n:0,  name:"فجر",   desc:"بداية الرحلة" },
@@ -374,11 +391,11 @@ const BADGES = [
   { id:"s3",     name:"شعلة ٣",      how:"احضر ٣ دروس ورا بعض",          test: s => bestStreak(s) >= 3 },
   { id:"s5",     name:"شعلة ٥",      how:"احضر ٥ دروس ورا بعض",          test: s => bestStreak(s) >= 5 },
   { id:"s10",    name:"شعلة ١٠",     how:"احضر ١٠ دروس ورا بعض",         test: s => bestStreak(s) >= 10 },
-  { id:"early",  name:"المبكّر",      how:"كن من أول ٣ يحضّرون في درس",    test: s => S.lessons.some(l => { const o = checkinOrder(l.id, s); return o>0 && o<=3; }) },
+  { id:"early",  name:"المبكّر",      how:"كن من أول ٣ يسجّلون حضورهم في درس", test: s => S.lessons.some(l => { const o = presentOrder(l.id, s); return o>0 && o<=3; }) },
   { id:"champ",  name:"بطل الشهر",   how:"أكثر واحد حضور في الشهر",       test: s => { const r = ranked(monthCounts()); const me = r.find(x => x.s.id===s); return me && me.pos===1 && me.n>0; } },
-  { id:"full",   name:"شهر كامل",    how:"احضر كل دروس شهر (٣ دروس وأكثر)", test: s => { const by = {}; pastLessons().filter(l=>!l.open).forEach(l => (by[monthKey(l.date)] ||= []).push(l)); return Object.values(by).some(ls => ls.length>=3 && ls.every(l => isAtt(l.id,s))); } },
-  { id:"back",   name:"العودة",      how:"ارجع تحضر بعد غياب",            test: s => { let missed=false; for (const l of pastLessons()){ if (isAtt(l.id,s)){ if (missed) return true; } else if (!l.open && totalOf(s)>0) missed = true; } return false; } },
-  { id:"half",   name:"نص الطريق",   how:"احضر نص دروس الدورة",           test: s => totalOf(s) >= Math.ceil(S.lessons.length/2) },
+  { id:"full",   name:"شهر كامل",    how:"احضر كل دروس شهر (٣ دروس وأكثر)", test: s => { const by = {}; S.lessons.forEach(l => (by[monthKey(l.date)] ||= []).push(l)); return Object.values(by).some(ls => ls.length>=3 && ls.every(l => isAtt(l.id,s))); } },
+  { id:"back",   name:"العودة",      how:"ارجع تحضر بعد غياب",            test: s => { let missed=false; for (const l of lessonsSorted()){ if (isAtt(l.id,s)) { if (missed) return true; } else if (markOf(l.id,s)==="a") missed = true; } return false; } },
+  { id:"half",   name:"نص الطريق",   how:"احضر نص دروس الدورة",           test: s => S.lessons.length>0 && totalOf(s) >= Math.ceil(S.lessons.length/2) },
 ];
 const earned = sid => BADGES.filter(b => b.test(sid)).map(b => b.id);
 
@@ -389,7 +406,6 @@ const ar = n => Number(n).toLocaleString("ar-SA");
 const toLatin = s => String(s).replace(/[٠-٩]/g, d => "٠١٢٣٤٥٦٧٨٩".indexOf(d)).replace(/[۰-۹]/g, d => "۰۱۲۳۴۵۶۷۸۹".indexOf(d)).replace(/\D/g,"");
 const fmtDate = d => new Date(d+"T12:00:00").toLocaleDateString("ar-SA-u-ca-gregory", { weekday:"long", day:"numeric", month:"long" });
 const fmtShort = d => new Date(d+"T12:00:00").toLocaleDateString("ar-SA-u-ca-gregory", { day:"numeric", month:"short" });
-const fmtTime = t => new Date(t).toLocaleTimeString("ar-SA", { hour:"numeric", minute:"2-digit" });
 const monthName = () => new Date().toLocaleDateString("ar-SA-u-ca-gregory", { month:"long" });
 const initials = n => esc(String(n).trim().charAt(0));
 const firstName = n => esc(String(n).trim().split(/\s+/)[0]);
@@ -401,11 +417,12 @@ let toastT;
 function toast(msg, undo){ document.querySelectorAll(".toast").forEach(t => t.remove()); clearTimeout(toastT);
   const t = document.createElement("div"); t.className = "toast"; t.setAttribute("role","status"); t.innerHTML = `<span>${msg}</span>` + (undo ? `<button>تراجع</button>` : "");
   if (undo) t.querySelector("button").onclick = () => { undo(); t.remove(); };
-  document.body.appendChild(t); toastT = setTimeout(() => t.remove(), 3200); }
+  document.body.appendChild(t); toastT = setTimeout(() => t.remove(), 3500); }
 function sheet(html, onMount){ closeSheet(); const s = document.createElement("div"); s.className = "scrim"; s.id = "scrim";
   s.innerHTML = `<div class="sheet" role="dialog" aria-modal="true"><div class="grab"></div>${html}</div>`;
   s.addEventListener("click", e => { if (e.target === s) closeSheet(); }); document.body.appendChild(s); onMount && onMount(s); }
 function closeSheet(){ const s = $("#scrim"); s && s.remove(); }
+window.closeSheet = closeSheet;
 document.addEventListener("keydown", e => { if (e.key === "Escape") closeSheet(); });
 
 /* مسطرة الأفق: قوس فيه علامة لكل درس */
@@ -424,15 +441,16 @@ function ruler(ticks, opts={}){
     g += `<line x1="${x1.toFixed(1)}" y1="${y1.toFixed(1)}" x2="${x2.toFixed(1)}" y2="${y2.toFixed(1)}" stroke="${col}" stroke-width="${tk==="y"||tk==="c"?2.4:1.4}" stroke-linecap="round" opacity="${tk==="f"?.5:1}"/>`;
   });
   if (prog > 0) g += `<rect x="${(ex-6).toFixed(1)}" y="${(ey-6).toFixed(1)}" width="12" height="12" fill="#FF3C40" transform="rotate(35 ${ex.toFixed(1)} ${ey.toFixed(1)})"/>`;
-  g += `<text x="${cx}" y="${cy-30}" class="ruler-center num" font-size="40" fill="var(--ink)">${opts.big ?? ""}</text><text x="${cx}" y="${cy-2}" class="ruler-center" font-size="14" fill="var(--ink-2)">${opts.small ?? ""}</text>`;
+  g += `<text x="${cx}" y="${cy-30}" class="ruler-center num" font-size="38" font-weight="700" fill="var(--ink)">${opts.big ?? ""}</text><text x="${cx}" y="${cy-2}" class="ruler-center" font-size="14" fill="var(--ink-2)">${opts.small ?? ""}</text>`;
   return `<svg viewBox="-12 -12 ${W+24} ${H+12}" role="img" aria-label="${esc(opts.label||"")}">${g}</svg>`;
 }
 
 function orbits(){ let s = `<svg class="orbits" viewBox="0 0 800 500" preserveAspectRatio="xMidYMax slice" aria-hidden="true">`; for (let i=1;i<=9;i++) s += `<ellipse cx="400" cy="500" rx="${i*52}" ry="${i*40}" fill="none" stroke="rgba(169,166,214,.22)" stroke-width="1"/>`; return s + `</svg>`; }
 
-function medalSVG(b, on=true){
-  const glyph = { first:"١", s3:"٣", s5:"٥", s10:"١٠", early:"◆", champ:"♛", full:"٣٠", back:"↺", half:"½" }[b.id] || "◆";
-  return `<svg class="medal" viewBox="0 0 52 52" aria-hidden="true"><circle cx="26" cy="26" r="24" fill="${on?"url(#g-medal)":"var(--line)"}"/><circle cx="26" cy="26" r="18.5" fill="none" stroke="rgba(255,255,255,.35)" stroke-width="1.2"/>${b.id.startsWith("s")?`<g transform="translate(15 12) scale(.48)"><use href="#i-flame"/></g><text x="26" y="44" text-anchor="middle" font-size="10" font-weight="700" fill="#fff" font-family="IBM Plex Sans Arabic">${glyph}</text>`:`<text x="26" y="33" text-anchor="middle" font-size="${glyph.length>1?17:20}" font-weight="700" fill="#fff" font-family="Noto Naskh Arabic, serif">${glyph}</text>`}</svg>`;
+function medalSVG(b, on=true, glyphOverride){
+  const glyph = glyphOverride || { first:"١", s3:"٣", s5:"٥", s10:"١٠", early:"◆", champ:"♛", full:"٣٠", back:"↺", half:"½" }[b.id] || "◆";
+  const flameB = /^s\d/.test(b.id);
+  return `<svg class="medal" viewBox="0 0 52 52" aria-hidden="true"><circle cx="26" cy="26" r="24" fill="${on?"url(#g-medal)":"var(--line)"}"/><circle cx="26" cy="26" r="18.5" fill="none" stroke="rgba(255,255,255,.35)" stroke-width="1.2"/>${flameB?`<svg x="15" y="11" width="22" height="26" viewBox="0 0 46 54"><use href="#i-flame"/></svg><text x="26" y="45" text-anchor="middle" font-size="10" font-weight="700" fill="#fff" font-family="inherit">${glyph}</text>`:`<text x="26" y="33" text-anchor="middle" font-size="${glyph.length>1?16:20}" font-weight="700" fill="#fff" font-family="inherit">${glyph}</text>`}</svg>`;
 }
 
 /* ==================== الحالة والتنقل ==================== */
@@ -493,18 +511,14 @@ function bindLogin(){
 /* ==================== الطالب ==================== */
 function studentView(me){
   const st = streakOf(me.id), r = ranked(monthCounts()), mine = r.find(x => x.s.id === me.id);
-  const tabs = [["home","الرئيسية","i-home"],["rank","الترتيب","i-trophy"],["badges","أوسمتي","i-medal"],["log","سجلّي","i-cal"]];
-  let body = "";
-  if (tab === "home") body = stHome(me, st);
-  if (tab === "rank") body = stRank(me, r);
-  if (tab === "badges") body = stBadges(me);
-  if (tab === "log") body = stLog(me);
+  const tabs = [["home","الدروس","i-book"],["rank","الترتيب","i-trophy"],["badges","أوسمتي","i-medal"]];
+  const body = tab === "rank" ? stRank(me, r) : tab === "badges" ? stBadges(me) : stHome(me);
   return `<header class="hero wrap">${orbits()}
       <div class="topbar">${logo(true,"width:56px")}<button class="iconbtn" id="logout" aria-label="خروج">${ic("i-out")}</button></div>
       <div class="hello"><small>هلا والله</small><h1>${firstName(me.name)}</h1></div>
       <div class="streak">${flame(st ? "" : "off")}
         <div><span class="n num">${ar(st)}</span></div>
-        <div class="t"><b>${st===0 ? "ابدأ شعلتك اليوم" : st===1 ? "شعلة وحدة" : "شعلات ورا بعض"}</b>${streakLine(st)}</div>
+        <div class="t"><b>${st===0 ? "ابدأ شعلتك" : st===1 ? "شعلة وحدة" : "شعلات ورا بعض"}</b>${streakLine(st)}</div>
         <div class="rank-pill">ترتيبك<b>${mine && mine.n ? ar(mine.pos) : "–"}</b>في ${monthName()}</div>
       </div>
     </header>
@@ -512,7 +526,7 @@ function studentView(me){
     <nav class="tabs" aria-label="التنقل"><div class="in">${tabs.map(([k,l,i]) => `<button data-tab="${k}" ${tab===k?'aria-current="page"':""}>${ic(i)}${l}</button>`).join("")}</div></nav>`;
 }
 function streakLine(n){
-  if (n === 0) return "احضر الدرس الجاي وتولع أول شعلة";
+  if (n === 0) return "سجّل حضورك في الدرس وتولع أول شعلة";
   if (n === 1) return "احضر الجاي وتبدأ السلسلة";
   if (n < 3) return "باقي " + ar(3-n) + " عن وسام شعلة ٣";
   if (n < 5) return "باقي " + ar(5-n) + " عن وسام شعلة ٥";
@@ -520,35 +534,31 @@ function streakLine(n){
   return "ما شاء الله، لا توقف";
 }
 
-function checkinCard(me){
-  const l = curLesson();
-  if (!l) return `<div class="card closed">${ic("i-cal")}<span>ما فيه درس محدد الحين</span></div>`;
-  const att = isAtt(l.id, me.id);
-  let inner;
-  if (att) inner = `<div class="done">${ic("i-check-c")}<div>حضورك مسجّل<small>الساعة ${fmtTime(S.att[l.id][me.id])} · ترتيبك في الحضور ${ar(checkinOrder(l.id, me.id))}</small></div></div>`;
-  else if (!l.open) inner = `<div class="closed">${ic("i-lock")}<div><b>التحضير مقفل</b><br><span class="small">يفتحه المشرف وقت الدرس</span></div></div>`;
-  else inner = `<form id="ci" class="stack">
-      ${l.requirePin ? `<label class="lbl" style="text-align:center;margin:0">اكتب رمز الدرس اللي على الشاشة</label><div class="pin">${[0,1,2,3].map(i => `<input inputmode="numeric" maxlength="1" aria-label="رقم ${i+1}" data-i="${i}">`).join("")}</div>` : ""}
-      <div class="err" id="ci-err" role="alert" style="min-height:0"></div>
-      <button class="btn dawn block big" type="submit">${ic("i-check")} حضّرني</button></form>`;
-  return `<section class="card checkin" aria-labelledby="ci-h">
-    <div class="row" style="justify-content:space-between"><span class="eyebrow">درس اليوم</span>${l.open && !att ? `<span class="chip red">التحضير مفتوح</span>` : ""}</div>
-    <h3 id="ci-h" style="margin-top:6px">${esc(l.title)}</h3>
-    <div class="meta"><span class="chip">${fmtDate(l.date)}</span><span class="chip">${ar(Object.keys(S.att[l.id]||{}).length)} حضروا</span></div>
-    ${inner}</section>`;
+function lessonRow(l, me){
+  const m = markOf(l.id, me.id);
+  return `<li class="lesson ${m==="p"?"is-p":m==="a"?"is-a":"is-none"}">
+    <span class="ln num">${ar(l.n)}</span>
+    <div class="grow"><div class="lt">${esc(l.title)}</div><div class="ld">${fmtDate(l.date)}</div></div>
+    <div class="pa" role="group" aria-label="${esc(l.title)}">
+      <button data-mark="p" data-l="${l.id}" aria-pressed="${m==="p"}">${ic("i-check")}حاضر</button>
+      <button data-mark="a" data-l="${l.id}" aria-pressed="${m==="a"}">غايب</button>
+    </div></li>`;
 }
 
 function stHome(me){
-  const ls = lessonsSorted(), cur = curLesson();
-  const ticks = ls.map(l => isAtt(l.id, me.id) ? "y" : (cur && l.id===cur.id) ? "c" : (l.date > todayISO() ? "f" : "n"));
+  const ls = lessonsSorted();
+  const pending = ls.filter(l => !markOf(l.id, me.id)).length;
   const tot = totalOf(me.id), lv = levelOf(me.id), eb = earned(me.id);
   const nextB = BADGES.find(b => !eb.includes(b.id));
-  return `${checkinCard(me)}
+  const ticks = ls.map(l => isAtt(l.id, me.id) ? "y" : markOf(l.id, me.id) === "a" ? "n" : "f");
+  return `<section class="stack"><div class="sec-h"><h2>الدروس</h2>${pending ? `<span class="chip red">${ar(pending)} ما سجّلته</span>` : `<span class="chip ok">سجّلت الكل</span>`}</div>
+      <ol class="lessons">${ls.map(l => lessonRow(l, me)).join("")}</ol>
+      ${ls.length ? "" : `<p class="muted" style="text-align:center">ما فيه دروس للحين. يضيفها المشرف</p>`}</section>
     <section class="stack"><div class="sec-h"><h2>رحلتك في أفق</h2></div>
-      <div class="card ruler">${ruler(ticks, { progress: tot/ls.length, big: ar(tot)+" من "+ar(ls.length), small:"درس حضرته", id:"st", label:"حضرت "+tot+" من "+ls.length })}
-        <div class="legend"><span><i style="background:var(--ink)"></i>حضرت</span><span><i style="background:var(--navy-300)"></i>فاتك</span><span><i style="background:#FF3C40"></i>اليوم</span></div>
+      <div class="card ruler">${ruler(ticks, { progress: ls.length ? tot/ls.length : 0, big: ar(tot)+" من "+ar(ls.length), small:"درس حضرته", id:"st", label:"حضرت "+tot+" من "+ls.length })}
+        <div class="legend"><span><i style="background:var(--ink)"></i>حاضر</span><span><i style="background:var(--navy-300)"></i>غايب</span></div>
       </div>
-      <div class="card level">${medalSVG({id:"x"}, true).replace("◆", ar(lv.i+1))}
+      <div class="card level">${medalSVG({id:"lv"}, true, ar(lv.i+1))}
         <div class="grow"><b>مرتبتك: ${lv.name}</b> <span class="muted small">· ${lv.desc}</span>
           <div class="bar"><span style="width:${lv.pct}%"></span></div>
           <div class="muted small">${lv.next ? `باقي ${ar(lv.next.n - lv.t)} ${lv.next.n-lv.t===1?"درس":"دروس"} وتوصل «${lv.next.name}»` : "وصلت آخر مرتبة"}</div></div></div>
@@ -561,7 +571,7 @@ function stHome(me){
 
 function lbRows(rows, meId){
   return `<div class="lb">${rows.map(r => `<div class="lb-row ${r.s.id===meId?"me":""} ${r.pos===1&&r.n?"top1":""}">
-    <span class="pos">${r.pos===1&&r.n ? `<svg width="22" height="17" aria-label="بطل الشهر"><use href="#i-crown"/></svg>` : ar(r.pos)}</span>
+    <span class="pos">${r.pos===1&&r.n ? `<svg width="22" height="17" viewBox="0 0 26 20" aria-label="بطل الشهر"><use href="#i-crown"/></svg>` : ar(r.pos)}</span>
     <span class="avatar">${initials(r.s.name)}</span>
     <div class="grow"><div style="font-weight:500;line-height:1.4">${esc(r.s.name)}${r.s.id===meId?" <span class='chip'>أنت</span>":""}</div>
       ${r.streak ? `<span class="fl">${ic("i-flame")}${ar(r.streak)}</span>` : `<span class="muted small">بدون شعلة</span>`}</div>
@@ -569,32 +579,21 @@ function lbRows(rows, meId){
 }
 
 function stRank(me, r){
-  const top = r.slice(0,3), rest = r;
-  const p = (x, cls) => x ? `<div class="p ${cls}">${cls==="first"?`<svg class="crown" viewBox="0 0 26 20"><use href="#i-crown"/></svg>`:""}<span class="avatar">${initials(x.s.name)}</span><b>${firstName(x.s.name)}</b><span class="num" style="font-size:22px">${ar(x.n)}</span><div class="small" style="opacity:.75">${cls==="first"?"بطل الشهر":"حضور"}</div></div>` : "<div></div>";
+  const top = r.slice(0,3);
+  const p = (x, cls) => x ? `<div class="p ${cls}">${cls==="first"?`<svg class="crown" viewBox="0 0 26 20"><use href="#i-crown"/></svg>`:""}<span class="avatar">${initials(x.s.name)}</span><b>${firstName(x.s.name)}</b><span class="num" style="font-size:22px;font-weight:700">${ar(x.n)}</span><div class="small" style="opacity:.75">${cls==="first"?"بطل الشهر":"حضور"}</div></div>` : "<div></div>";
   return `<section class="stack"><div class="sec-h"><h2>ترتيب ${monthName()}</h2><span class="chip">بعدد الحضور</span></div>
       <div class="podium">${p(top[1],"")}${p(top[0],"first")}${p(top[2],"")}</div>
       <p class="muted small" style="margin:0">أكثر واحد يحضر في الشهر ياخذ وسام «بطل الشهر». لو تعادلوا، يتقدّم صاحب الشعلة الأطول.</p>
-      ${lbRows(rest, me.id)}</section>`;
+      ${lbRows(r, me.id)}</section>`;
 }
 
 function stBadges(me){
-  const eb = earned(me.id);
+  const eb = earned(me.id), lv = levelOf(me.id);
   return `<section class="stack"><div class="sec-h"><h2>أوسمتي</h2><span class="chip solid">${ar(eb.length)} من ${ar(BADGES.length)}</span></div>
     <div class="badges">${BADGES.map(b => { const on = eb.includes(b.id); return `<button class="badge ${on?"":"locked"}" data-badge="${b.id}">${medalSVG(b,on)}<b>${b.name}</b><small>${on?"حصّلته":b.how}</small></button>`; }).join("")}</div>
     <div class="sec-h" style="margin-top:8px"><h2>المراتب</h2></div>
-    <div class="card list">${LEVELS.map((L,i) => { const lv = levelOf(me.id); return `<div class="li"><span class="dot ${i<=lv.i?"y":"n"}"></span><div class="grow"><div class="nm">${L.name}</div><div class="sub">${L.n===0?"من أول درس":"من "+ar(L.n)+" دروس"} · ${L.desc}</div></div>${i===lv.i?`<span class="chip red">أنت هنا</span>`:""}</div>`; }).join("")}</div>
+    <div class="card list">${LEVELS.map((L,i) => `<div class="li"><span class="dot ${i<=lv.i?"y":"n"}"></span><div class="grow"><div class="nm">${L.name}</div><div class="sub">${L.n===0?"من أول درس":"من "+ar(L.n)+" دروس"} · ${L.desc}</div></div>${i===lv.i?`<span class="chip red">أنت هنا</span>`:""}</div>`).join("")}</div>
   </section>`;
-}
-
-function stLog(me){
-  const ls = lessonsSorted().reverse();
-  const done = totalOf(me.id), past = pastLessons().filter(l => !l.open).length;
-  return `<section class="stack"><div class="sec-h"><h2>سجلّي</h2></div>
-    <div class="kpis"><div class="kpi"><span class="num">${ar(done)}</span><small>حضرت</small></div><div class="kpi"><span class="num">${ar(rateOf(me.id))}٪</span><small>نسبة حضورك</small></div><div class="kpi"><span class="num">${ar(bestStreak(me.id))}</span><small>أطول شعلة</small></div></div>
-    <div class="card hist">${ls.map(l => { const a = isAtt(l.id, me.id), fut = l.date > todayISO() && !l.open, cur = l.id === S.current;
-      return `<div class="h"><span class="dot ${a?"y":fut?"f":cur?"c":"n"}"></span><div class="grow"><div style="font-weight:500;line-height:1.4">${esc(l.title)}</div><div class="muted small">${fmtDate(l.date)}</div></div>
-      ${a ? `<span class="chip ok">حضرت</span>` : fut ? `<span class="chip">قادم</span>` : cur ? `<span class="chip red">اليوم</span>` : `<span class="chip" style="opacity:.7">فاتك</span>`}</div>`; }).join("")}</div>
-    <p class="muted small" style="margin:0">فاتك درس بالغلط وأنت حاضر؟ كلّم المشرف يعدّله لك.</p></section>`;
 }
 
 function bindStudent(me){
@@ -605,35 +604,30 @@ function bindStudent(me){
     const B = BADGES.find(x => x.id === b.dataset.badge), on = earned(me.id).includes(B.id);
     sheet(`<div style="text-align:center" class="stack">${medalSVG(B,on).replace('class="medal"','class="medal" style="width:96px;height:96px;margin:0 auto"')}<h3>${B.name}</h3><p class="muted" style="margin:0">${B.how}</p>${on?`<span class="chip ok" style="margin:0 auto">حصّلته ✓</span>`:`<span class="chip" style="margin:0 auto">للحين ما حصّلته</span>`}<button class="btn block" onclick="closeSheet()">تمام</button></div>`);
   });
-  const f = $("#ci"); if (!f) return;
-  const pins = [...f.querySelectorAll(".pin input")];
-  pins.forEach((p,i) => {
-    p.oninput = () => { p.value = toLatin(p.value).slice(-1); if (p.value && pins[i+1]) pins[i+1].focus(); };
-    p.onkeydown = e => { if (e.key === "Backspace" && !p.value && pins[i-1]) pins[i-1].focus(); };
-    p.onpaste = e => { const t = toLatin((e.clipboardData||window.clipboardData).getData("text")); if (t.length>=4){ e.preventDefault(); pins.forEach((q,k) => q.value = t[k]||""); pins[3].focus(); } };
-  });
-  f.onsubmit = e => {
-    e.preventDefault();
-    const l = curLesson(); if (!l || !l.open) return render();
-    if (l.requirePin) {
-      const v = pins.map(p => p.value).join("");
-      if (v.length < 4) { $("#ci-err").textContent = "اكتب الأرقام الأربعة"; return; }
-      if (v !== l.pin) { $("#ci-err").textContent = "رمز الدرس غلط. شوفه مرة ثانية على الشاشة"; pins.forEach(p => p.value=""); pins[0].focus(); return; }
-    }
+  document.querySelectorAll("[data-mark]").forEach(b => b.onclick = () => {
+    const lid = b.dataset.l, m = b.dataset.mark, prev = S.att[lid]?.[me.id];
+    if (prev?.s === m) return;
     const before = earned(me.id), prevStreak = streakOf(me.id);
-    (S.att[l.id] ||= {})[me.id] = Date.now(); save();
-    const st = streakOf(me.id), nb = earned(me.id).filter(x => !before.includes(x));
-    celebrate(st, prevStreak, nb.map(id => BADGES.find(b => b.id === id)));
-  };
+    (S.att[lid] ||= {})[me.id] = { s:m, t: Date.now() }; save();
+    if (m === "p") {
+      const st = streakOf(me.id), nb = earned(me.id).filter(x => !before.includes(x)).map(id => BADGES.find(x => x.id === id));
+      if (st > prevStreak || nb.length) return celebrate(st, prevStreak, nb);
+      render(); toast("سجّلناك حاضر ✓");
+    } else {
+      render();
+      toast(prevStreak && streakOf(me.id) < prevStreak ? "سجّلناك غايب. الشعلة طفت، ولّعها الدرس الجاي" : "سجّلناك غايب. الدرس الجاي لا يفوتك",
+        () => { if (prev) S.att[lid][me.id] = prev; else delete S.att[lid][me.id]; save(); render(); });
+    }
+  });
 }
 
 function celebrate(st, prev, newBadges){
-  const msg = st === 1 ? ["ولّعت أول شعلة!","احضر الدرس الجاي وتبدأ سلسلتك"]
+  const msg = st <= 1 ? ["ولّعت شعلة!","احضر الدرس الجاي وتبدأ سلسلتك"]
     : st === 2 ? ["بدأت السلسلة!","شعلتين ورا بعض، كمّل"]
-    : st < 5 ? ["الشعلة تكبر!", st + " دروس ورا بعض"]
-    : ["ما شاء الله تبارك الله!", st + " دروس ورا بعض، أنت قدوة"];
+    : st < 5 ? ["الشعلة تكبر!", ar(st) + " دروس ورا بعض"]
+    : ["ما شاء الله تبارك الله!", ar(st) + " دروس ورا بعض، أنت قدوة"];
   const c = document.createElement("div"); c.className = "celebrate"; c.setAttribute("role","dialog"); c.setAttribute("aria-modal","true");
-  c.innerHTML = `<div class="box">${flame()}<div class="big" id="cnt">${ar(prev)}</div><h2>${msg[0]}</h2><p>${msg[1].replace(/\d+/g, d => ar(d))}</p>
+  c.innerHTML = `<div class="box">${flame()}<div class="big num" id="cnt">${ar(prev)}</div><h2>${msg[0]}</h2><p>${msg[1]}</p>
     ${newBadges.length ? `<p style="color:#FFC2C3;margin-top:8px">وسام جديد</p><div class="newb">${newBadges.map(b => `<div class="badge">${medalSVG(b,true)}<b>${b.name}</b></div>`).join("")}</div>` : ""}
     <button class="btn" id="cel-ok">تمام</button></div>`;
   document.body.appendChild(c);
@@ -653,40 +647,27 @@ function confetti(){
 }
 
 /* ==================== المشرف ==================== */
-let adSeg = "in", adQuery = "";
+let adQuery = "";
 function adminView(){
-  const tabs = [["home","اليوم","i-home"],["students","الطلاب","i-users"],["lessons","الدروس","i-book"],["reports","التقارير","i-chart"]];
-  const l = curLesson();
-  let body = tab==="home" ? adHome() : tab==="students" ? adStudents() : tab==="lessons" ? adLessons() : adReports();
+  const tabs = [["home","الدروس","i-book"],["students","الطلاب","i-users"],["reports","التقارير","i-chart"]];
+  const body = tab==="students" ? adStudents() : tab==="reports" ? adReports() : adLessons();
   return `<header class="hero wrap" style="padding-bottom:18px">${orbits()}
       <div class="topbar">${logo(true,"width:56px")}<div class="row" style="gap:8px"><button class="iconbtn" id="settings" aria-label="الإعدادات">${ic("i-gear")}</button><button class="iconbtn" id="logout" aria-label="خروج">${ic("i-out")}</button></div></div>
-      <div class="hello"><small>لوحة المشرف</small><h1>${tab==="home" ? (l ? esc(l.title) : "ما فيه درس اليوم") : {students:"الطلاب",lessons:"الدروس",reports:"التقارير"}[tab]}</h1></div>
+      <div class="hello"><small>لوحة المشرف</small><h1>${{home:"الدروس",students:"الطلاب",reports:"التقارير"}[tab]}</h1></div>
     </header>
     <main class="wrap">${body}</main>
     <nav class="tabs" aria-label="التنقل"><div class="in">${tabs.map(([k,lb,i]) => `<button data-tab="${k}" ${tab===k?'aria-current="page"':""}>${ic(i)}${lb}</button>`).join("")}</div></nav>`;
 }
 
-function adHome(){
-  const l = curLesson();
-  if (!l) return `<div class="card stack" style="text-align:center"><p class="muted" style="margin:0">حدد درس اليوم من «الدروس» أو أضف درس جديد</p><button class="btn" data-tab="lessons">روح للدروس</button></div>`;
-  const a = S.att[l.id] || {}, n = Object.keys(a).length, N = S.students.length;
-  const inS = S.students.filter(s => a[s.id]).sort((x,y) => a[x.id]-a[y.id]);
-  const outS = S.students.filter(s => !a[s.id]).sort((x,y) => x.name.localeCompare(y.name,"ar"));
-  const list = adSeg === "in" ? inS : outS;
-  return `<section class="card stack">
-      <div class="row" style="justify-content:space-between"><span class="chip">${fmtDate(l.date)}</span>${l.open ? `<span class="chip red">مفتوح الحين</span>` : `<span class="chip">مقفل</span>`}</div>
-      <div class="ruler">${ruler(S.students.map(s => a[s.id] ? "y" : "f"), { progress: N ? n/N : 0, big: ar(n)+" / "+ar(N), small:"حضّروا", id:"ad", label:n+" من "+N+" حضّروا" })}</div>
-      <button class="btn block big ${l.open?"outline":"dawn"}" id="toggle-open">${l.open ? "أقفل التحضير" : "افتح التحضير"}</button>
-      ${l.open && l.requirePin ? `<div class="bigpin"><div><small>رمز الدرس، اعرضه للطلاب</small><span class="d">${l.pin}</span></div><button class="iconbtn" id="new-pin" aria-label="رمز جديد">${ic("i-refresh")}</button></div>` : ""}
-      <div class="switch"><div><b>اطلب رمز الدرس</b><div class="muted small">يمنع أحد يحضّر وهو مو موجود</div></div><button class="sw" id="sw-pin" role="switch" aria-checked="${l.requirePin}" aria-label="اطلب رمز الدرس"></button></div>
-    </section>
-    <section class="stack">
-      <div class="seg" role="group"><button data-seg="in" aria-pressed="${adSeg==="in"}">حضروا (${ar(inS.length)})</button><button data-seg="out" aria-pressed="${adSeg==="out"}">ما حضروا (${ar(outS.length)})</button></div>
-      <div class="card list" style="padding-block:4px">${list.length ? list.map(s => `<div class="li"><span class="avatar">${initials(s.name)}</span><div class="grow"><div class="nm">${esc(s.name)}</div><div class="sub">${a[s.id] ? "الساعة " + fmtTime(a[s.id]) + (a[s.id]===true?"":"") : (streakOf(s.id) ? "عنده شعلة " + ar(streakOf(s.id)) + " بتنطفي" : "")}</div></div>
-        <button class="toggle-att ${a[s.id]?"on":""}" data-att="${s.id}" aria-label="${a[s.id]?"شيل حضور":"حضّر"} ${esc(s.name)}">${ic("i-check")}</button></div>`).join("") : `<p class="muted" style="text-align:center;margin:12px 0">${adSeg==="in" ? "ما أحد حضّر للحين" : "كلهم حضروا، ما شاء الله"}</p>`}</div>
-      <p class="muted small" style="margin:0">اضغط علامة ✓ عشان تحضّر أحد بنفسك أو تشيل حضوره.</p>
-      <button class="btn ghost block" id="copy-roll">${ic("i-copy")} انسخ الكشف للواتساب</button>
-    </section>`;
+function adLessons(){
+  const ls = lessonsSorted(), N = S.students.length;
+  return `<section class="stack">
+    <button class="btn dawn block big" id="add-ls">${ic("i-plus")} أضف درس</button>
+    <ol class="lessons">${ls.map(l => { const p = countOf(l.id,"p"), a = countOf(l.id,"a"), none = N - p - a;
+      return `<li><button class="lesson admin" data-ls="${l.id}"><span class="ln num">${ar(l.n)}</span><div class="grow"><div class="lt">${esc(l.title)}</div><div class="ld">${fmtDate(l.date)}</div>
+        <div class="counts"><span class="chip ok">${ar(p)} حاضر</span>${a?`<span class="chip red">${ar(a)} غايب</span>`:""}${none?`<span class="chip">${ar(none)} ما سجّلوا</span>`:""}</div></div></button></li>`; }).reverse().join("")}</ol>
+    ${ls.length ? "" : `<p class="muted" style="text-align:center">ما فيه دروس. اضغط «أضف درس»</p>`}
+  </section>`;
 }
 
 function adStudents(){
@@ -700,33 +681,25 @@ function adStudents(){
   </section>`;
 }
 
-function adLessons(){
-  const ls = lessonsSorted();
-  return `<section class="stack">
-    <button class="btn block" id="add-ls">${ic("i-plus")} أضف درس</button>
-    <div class="card list" style="padding-block:4px">${ls.map(l => { const n = Object.keys(S.att[l.id]||{}).length, cur = l.id===S.current;
-      return `<button class="li" data-ls="${l.id}"><span class="dot ${cur?"c":l.date>todayISO()?"f":"y"}"></span><div class="grow"><div class="nm">${esc(l.title)}</div><div class="sub">${fmtDate(l.date)}${l.date<=todayISO()||l.open?" · "+ar(n)+" حضروا":""}</div></div>${cur?`<span class="chip red">درس اليوم</span>`:""}</button>`; }).join("")}</div>
-  </section>`;
-}
+function riskList(){ const ls = lessonsSorted().slice(-3, -1); if (ls.length < 2) return []; return S.students.filter(s => ls.every(l => !isAtt(l.id, s.id))); }
 
 function adReports(){
-  const past = pastLessons(), N = S.students.length;
-  const avg = past.length ? Math.round(100 * past.reduce((t,l) => t + Object.keys(S.att[l.id]||{}).length, 0) / (past.length*N||1)) : 0;
+  const ls = lessonsSorted(), N = S.students.length;
+  const avg = ls.length && N ? Math.round(100 * ls.reduce((t,l) => t + countOf(l.id,"p"), 0) / (ls.length*N)) : 0;
   const streaks = S.students.map(s => ({ s, st: streakOf(s.id) })).sort((a,b) => b.st-a.st);
-  const closed = past.filter(l => !l.open).slice(-2);
-  const risk = closed.length === 2 ? S.students.filter(s => closed.every(l => !isAtt(l.id,s.id))) : [];
-  const max = Math.max(1, ...past.map(l => Object.keys(S.att[l.id]||{}).length));
+  const risk = riskList();
+  const max = Math.max(1, ...ls.map(l => countOf(l.id,"p")));
   const champs = ranked(monthCounts()).filter(r => r.n).slice(0,3);
   return `<section class="stack">
     <div class="kpis"><div class="kpi"><span class="num">${ar(avg)}٪</span><small>متوسط الحضور</small></div><div class="kpi"><span class="num">${ar(N)}</span><small>طالب</small></div><div class="kpi"><span class="num">${ar(streaks[0]?.st||0)}</span><small>أطول شعلة</small></div></div>
     <div class="sec-h"><h2>الحضور في كل درس</h2></div>
-    <div class="card"><div class="bars">${past.map((l,i) => { const n = Object.keys(S.att[l.id]||{}).length; return `<div class="b ${l.id===S.current?"cur":""}" title="${esc(l.title)}"><em>${ar(n)}</em><span style="height:${Math.max(4, 100*n/max)}%"></span><small>${ar(i+1)}</small></div>`; }).join("")}</div><div class="muted small" style="text-align:center">رقم الدرس · الأحمر درس اليوم</div></div>
+    <div class="card"><div class="bars">${ls.map(l => { const n = countOf(l.id,"p"); return `<div class="b" title="${esc(l.title)}"><em>${ar(n)}</em><span style="height:${Math.max(4, 100*n/max)}%"></span><small>${ar(l.n)}</small></div>`; }).join("")}</div><div class="muted small" style="text-align:center">رقم الدرس</div></div>
     <div class="sec-h"><h2>يحتاجون متابعة</h2><span class="chip red">${ar(risk.length)}</span></div>
-    <div class="card list" style="padding-block:4px">${risk.length ? risk.map(s => `<div class="li"><span class="avatar">${initials(s.name)}</span><div class="grow"><div class="nm">${esc(s.name)}</div><div class="sub">غاب آخر درسين</div></div><span class="code-tag">${s.code}</span></div>`).join("") : `<p class="muted" style="text-align:center;margin:12px 0">ما فيه أحد غاب آخر درسين</p>`}</div>
+    <div class="card list" style="padding-block:4px">${risk.length ? risk.map(s => `<div class="li"><span class="avatar">${initials(s.name)}</span><div class="grow"><div class="nm">${esc(s.name)}</div><div class="sub">ما حضر الدرسين اللي قبل الأخير</div></div><span class="code-tag">${s.code}</span></div>`).join("") : `<p class="muted" style="text-align:center;margin:12px 0">ما فيه أحد غاب درسين ورا بعض</p>`}</div>
     <div class="sec-h"><h2>أبطال ${monthName()}</h2></div>
     ${champs.length ? lbRows(champs, "") : `<p class="muted">ما فيه حضور هالشهر للحين</p>`}
     <div class="sec-h"><h2>أطول الشعلات</h2></div>
-    <div class="card list" style="padding-block:4px">${streaks.filter(x => x.st).slice(0,5).map(x => `<div class="li"><span class="fl" style="display:inline-flex;color:var(--red)">${flame().replace('class="flame "','class="flame" style="width:22px;height:26px"')}</span><div class="grow nm">${esc(x.s.name)}</div><span class="num" style="font-size:20px">${ar(x.st)}</span></div>`).join("")}</div>
+    <div class="card list" style="padding-block:4px">${streaks.filter(x => x.st).slice(0,5).map(x => `<div class="li"><svg style="width:22px;height:26px;flex:none" viewBox="0 0 46 54" aria-hidden="true"><use href="#i-flame"/></svg><div class="grow nm">${esc(x.s.name)}</div><span class="num" style="font-size:20px;font-weight:700">${ar(x.st)}</span></div>`).join("") || `<p class="muted" style="text-align:center;margin:12px 0">ما فيه شعلات للحين</p>`}</div>
     <button class="btn ghost block" id="copy-report">${ic("i-copy")} انسخ التقرير للواتساب</button>
   </section>`;
 }
@@ -736,22 +709,9 @@ function bindAdmin(){
   $("#logout").onclick = () => setSession(null);
   $("#settings").onclick = openSettings;
   document.querySelectorAll("[data-tab]").forEach(b => b.onclick = () => go(b.dataset.tab));
-  const l = curLesson();
-  if (tab === "home" && l) {
-    $("#toggle-open").onclick = () => { l.open = !l.open; if (l.open && !l.pin) l.pin = pin4(); save(); render(); toast(l.open ? "انفتح التحضير" : "انقفل التحضير"); };
-    const np = $("#new-pin"); if (np) np.onclick = () => { l.pin = pin4(); save(); render(); toast("رمز جديد: " + l.pin); };
-    $("#sw-pin").onclick = () => { l.requirePin = !l.requirePin; if (!l.pin) l.pin = pin4(); save(); render(); };
-    document.querySelectorAll("[data-seg]").forEach(b => b.onclick = () => { adSeg = b.dataset.seg; render(); });
-    document.querySelectorAll("[data-att]").forEach(b => b.onclick = () => {
-      const sid = b.dataset.att, a = (S.att[l.id] ||= {}), had = a[sid], name = S.students.find(s => s.id===sid).name;
-      if (had) delete a[sid]; else a[sid] = Date.now(); save(); render();
-      toast((had ? "شلت حضور " : "حضّرت ") + esc(firstName(name)), () => { if (had) a[sid] = had; else delete a[sid]; save(); render(); });
-    });
-    $("#copy-roll").onclick = () => {
-      const a = S.att[l.id] || {};
-      const inS = S.students.filter(s => a[s.id]), outS = S.students.filter(s => !a[s.id]);
-      copyText(`كشف حضور أفق\n${l.title}\n${fmtDate(l.date)}\n\nحضروا (${inS.length}):\n${inS.map((s,i) => `${i+1}. ${s.name}`).join("\n")}\n\nما حضروا (${outS.length}):\n${outS.map((s,i) => `${i+1}. ${s.name}`).join("\n")}`);
-    };
+  if (tab === "home") {
+    $("#add-ls").onclick = () => lessonEdit();
+    document.querySelectorAll("[data-ls]").forEach(b => b.onclick = () => lessonSheet(b.dataset.ls));
   }
   if (tab === "students") {
     const q = $("#q"); q.oninput = () => { adQuery = q.value; const pos = q.selectionStart; render(); const n = $("#q"); n.focus(); n.setSelectionRange(pos,pos); };
@@ -759,18 +719,50 @@ function bindAdmin(){
     document.querySelectorAll("[data-st]").forEach(b => b.onclick = () => studentSheet(b.dataset.st));
     $("#copy-codes").onclick = () => copyText("رموز دخول أفق\n\n" + [...S.students].sort((a,b) => a.name.localeCompare(b.name,"ar")).map(s => `${s.name}: ${s.code}`).join("\n"));
   }
-  if (tab === "lessons") {
-    $("#add-ls").onclick = () => lessonSheet();
-    document.querySelectorAll("[data-ls]").forEach(b => b.onclick = () => lessonSheet(b.dataset.ls));
-  }
   if (tab === "reports") {
     $("#copy-report").onclick = () => {
       const r = ranked(monthCounts()).filter(x => x.n).slice(0,5);
-      const closed = pastLessons().filter(l => !l.open).slice(-2);
-      const risk = closed.length===2 ? S.students.filter(s => closed.every(l => !isAtt(l.id,s.id))) : [];
-      copyText(`تقرير أفق · ${monthName()}\n\nأبطال الشهر:\n${r.map(x => `${x.pos}. ${x.s.name} (${x.n} حضور)`).join("\n")}\n\nيحتاجون متابعة (غابوا آخر درسين):\n${risk.map(s => "• " + s.name).join("\n") || "ما فيه أحد"}`);
+      copyText(`تقرير أفق · ${monthName()}\n\nأبطال الشهر:\n${r.map(x => `${x.pos}. ${x.s.name} (${x.n} حضور)`).join("\n")}\n\nيحتاجون متابعة:\n${riskList().map(s => "• " + s.name).join("\n") || "ما فيه أحد"}`);
     };
   }
+}
+
+function setMark(lid, sid, m){ const a = (S.att[lid] ||= {}); if (!m) delete a[sid]; else a[sid] = { s:m, t: a[sid]?.s === m ? a[sid].t : Date.now() }; save(); }
+function markBtns(lid, sid){ const m = markOf(lid, sid);
+  return `<div class="pa sm" role="group"><button data-set="p" data-l="${lid}" data-s="${sid}" aria-pressed="${m==="p"}">حاضر</button><button data-set="a" data-l="${lid}" data-s="${sid}" aria-pressed="${m==="a"}">غايب</button></div>`; }
+function bindMarkBtns(root, after){ root.querySelectorAll("[data-set]").forEach(b => b.onclick = () => { const cur = markOf(b.dataset.l, b.dataset.s); setMark(b.dataset.l, b.dataset.s, cur === b.dataset.set ? "" : b.dataset.set); after(); }); }
+
+function lessonSheet(lid){
+  const l = lessonById(lid); if (!l) return;
+  const groups = [["p","حاضر"],["a","غايب"],["","ما سجّلوا"]];
+  const byName = (x,y) => x.name.localeCompare(y.name,"ar");
+  sheet(`<div class="row" style="margin-bottom:6px"><span class="ln num" style="width:44px;height:44px;font-size:20px">${ar(l.n)}</span><div class="grow"><h3 style="margin:0">${esc(l.title)}</h3><div class="muted small">${fmtDate(l.date)}</div></div></div>
+    ${groups.map(([m,lb]) => { const list = S.students.filter(s => markOf(l.id,s.id) === m).sort(byName);
+      return `<div class="sec-h" style="margin:14px 0 6px"><h2 style="font-size:17px">${lb} (${ar(list.length)})</h2></div><div class="card list" style="padding-block:2px">${list.map(s => `<div class="li"><span class="avatar">${initials(s.name)}</span><div class="grow nm">${esc(s.name)}</div>${markBtns(l.id, s.id)}</div>`).join("") || `<p class="muted small" style="text-align:center;margin:8px 0">ما فيه أحد</p>`}</div>`; }).join("")}
+    <p class="muted small">تقدر تعدّل حضور أي طالب من هنا.</p>
+    <div class="stack"><button class="btn block" id="cp-roll">${ic("i-copy")} انسخ الكشف للواتساب</button>
+    <div class="row"><button class="btn ghost grow" id="ls-edit">عدّل الدرس</button><button class="btn ghost grow" id="ls-del" style="color:var(--red)">احذف</button></div></div>`, s => {
+    bindMarkBtns(s, () => { const y = s.querySelector(".sheet").scrollTop; lessonSheet(lid); $("#scrim .sheet").scrollTop = y; render(); });
+    $("#cp-roll").onclick = () => { const g = m => S.students.filter(s => markOf(l.id,s.id) === m).sort(byName);
+      copyText(`كشف حضور أفق\nالدرس ${l.n}: ${l.title}\n${fmtDate(l.date)}\n\nحاضر (${g("p").length}):\n${g("p").map((s,i) => `${i+1}. ${s.name}`).join("\n")}\n\nغايب (${g("a").length}):\n${g("a").map((s,i) => `${i+1}. ${s.name}`).join("\n")}` + (g("").length ? `\n\nما سجّلوا (${g("").length}):\n${g("").map((s,i) => `${i+1}. ${s.name}`).join("\n")}` : "")); };
+    $("#ls-edit").onclick = () => lessonEdit(lid);
+    $("#ls-del").onclick = () => sheet(`<h3>تحذف «${esc(l.title)}»؟</h3><p class="muted">بينحذف الدرس وكل حضوره.</p><div class="row"><button class="btn ghost grow" onclick="closeSheet()">رجوع</button><button class="btn danger grow" id="d-yes">احذفه</button></div>`, () => {
+      $("#d-yes").onclick = () => { S.lessons = S.lessons.filter(x => x.id !== l.id); delete S.att[l.id]; lessonsSorted().forEach((x,i) => x.n = i+1); save(); closeSheet(); render(); toast("انحذف"); };
+    });
+  });
+}
+
+function lessonEdit(lid){
+  const l = lid ? lessonById(lid) : null, nextN = S.lessons.length + 1;
+  sheet(`<h3>${l ? "تعديل الدرس " + ar(l.n) : "الدرس " + ar(nextN)}</h3>
+    <form id="ls-f" class="stack"><div><label class="lbl" for="ls-t">عنوان الدرس</label><input class="field" id="ls-t" value="${esc(l?.title||"")}" placeholder="مثال: عمر بن الخطاب ٢"></div>
+      <div><label class="lbl" for="ls-d">التاريخ</label><input class="field" id="ls-d" type="date" value="${l?.date || todayISO()}"></div>
+      <button class="btn block" type="submit">${l ? "احفظ" : "أضف الدرس"}</button></form>`, () => {
+    $("#ls-t").focus();
+    $("#ls-f").onsubmit = e => { e.preventDefault(); const t = $("#ls-t").value.trim(), d = $("#ls-d").value || todayISO(); if (!t) return $("#ls-t").focus();
+      if (l) { l.title = t; l.date = d; } else S.lessons.push({ id:"L"+uid(), n:nextN, title:t, date:d });
+      save(); closeSheet(); render(); toast(l ? "انحفظ" : "انضاف الدرس " + ar(nextN)); };
+  });
 }
 
 function newCode(){ const used = new Set([S.adminCode, ...S.students.map(s => s.code)]); let c; do c = pin4(); while (used.has(c)); return c; }
@@ -793,40 +785,21 @@ function addStudents(){
 
 function studentSheet(sid){
   const s = S.students.find(x => x.id === sid); if (!s) return;
-  const ls = lessonsSorted().filter(l => l.date <= todayISO() || l.open);
-  sheet(`<div class="row" style="margin-bottom:10px"><span class="avatar" style="width:52px;height:52px;font-size:18px">${initials(s.name)}</span><div class="grow"><h3 style="margin:0">${esc(s.name)}</h3><div class="muted small">رمز الدخول <span class="code-tag">${s.code}</span></div></div></div>
-    <div class="kpis" style="margin-bottom:14px"><div class="kpi"><span class="num">${ar(rateOf(s.id))}٪</span><small>الحضور</small></div><div class="kpi"><span class="num">${ar(streakOf(s.id))}</span><small>الشعلة</small></div><div class="kpi"><span class="num">${ar(earned(s.id).length)}</span><small>أوسمة</small></div></div>
-    <label class="lbl">سجل الحضور (اضغط على درس تعدّله)</label>
-    <div class="card list" style="padding-block:4px;margin-bottom:14px">${ls.reverse().map(l => `<div class="li"><div class="grow"><div class="nm" style="font-size:15px">${esc(l.title)}</div><div class="sub">${fmtShort(l.date)}</div></div><button class="toggle-att ${isAtt(l.id,s.id)?"on":""}" data-tl="${l.id}" aria-label="عدّل حضور ${esc(l.title)}">${ic("i-check")}</button></div>`).join("")}</div>
+  const ls = lessonsSorted().reverse();
+  sheet(`<div class="row" style="margin-bottom:10px"><span class="avatar" style="width:52px;height:52px;font-size:20px">${initials(s.name)}</span><div class="grow"><h3 style="margin:0">${esc(s.name)}</h3><div class="muted small">رمز الدخول <span class="code-tag">${s.code}</span></div></div></div>
+    <div class="kpis" style="margin-bottom:14px"><div class="kpi"><span class="num">${ar(totalOf(s.id))}</span><small>حاضر</small></div><div class="kpi"><span class="num">${ar(absentOf(s.id))}</span><small>غايب</small></div><div class="kpi"><span class="num">${ar(streakOf(s.id))}</span><small>الشعلة</small></div></div>
+    <label class="lbl">الدروس</label>
+    <div class="card list" style="padding-block:2px;margin-bottom:14px">${ls.map(l => `<div class="li"><span class="ln num sm">${ar(l.n)}</span><div class="grow"><div class="nm" style="font-size:15px">${esc(l.title)}</div><div class="sub">${fmtShort(l.date)}</div></div>${markBtns(l.id, s.id)}</div>`).join("")}</div>
     <form id="ed-f" class="stack"><div><label class="lbl" for="ed-name">الاسم</label><input class="field" id="ed-name" value="${esc(s.name)}"></div>
       <button class="btn block" type="submit">احفظ الاسم</button>
       <div class="row"><button type="button" class="btn ghost grow" id="cp-code">${ic("i-copy")} انسخ الرمز</button><button type="button" class="btn ghost grow" id="re-code">${ic("i-refresh")} رمز جديد</button></div>
-      <button type="button" class="btn ghost block" id="del-st" style="color:var(--red)">احذف الطالب</button></form>`, () => {
-    document.querySelectorAll("[data-tl]").forEach(b => b.onclick = () => { const a = (S.att[b.dataset.tl] ||= {}); if (a[sid]) delete a[sid]; else a[sid] = Date.now(); save(); b.classList.toggle("on"); render(); });
+      <button type="button" class="btn ghost block" id="del-st" style="color:var(--red)">احذف الطالب</button></form>`, sc => {
+    bindMarkBtns(sc, () => { const y = sc.querySelector(".sheet").scrollTop; studentSheet(sid); $("#scrim .sheet").scrollTop = y; render(); });
     $("#ed-f").onsubmit = e => { e.preventDefault(); const v = $("#ed-name").value.trim(); if (!v) return; s.name = v; save(); closeSheet(); render(); toast("انحفظ"); };
     $("#cp-code").onclick = () => copyText(`${s.name}\nرمز دخول أفق: ${s.code}`);
     $("#re-code").onclick = () => { s.code = newCode(); save(); studentSheet(sid); render(); toast("الرمز الجديد " + s.code); };
     $("#del-st").onclick = () => sheet(`<h3>تحذف ${esc(s.name)}؟</h3><p class="muted">بينحذف هو وسجل حضوره، وما يقدر يدخل بعدها.</p><div class="row"><button class="btn ghost grow" onclick="closeSheet()">لا، رجوع</button><button class="btn danger grow" id="del-yes">إيه، احذفه</button></div>`, () => {
       $("#del-yes").onclick = () => { S.students = S.students.filter(x => x.id !== sid); Object.values(S.att).forEach(a => delete a[sid]); save(); closeSheet(); render(); toast("انحذف"); };
-    });
-  });
-}
-
-function lessonSheet(lid){
-  const l = lid ? lessonById(lid) : null;
-  sheet(`<h3>${l ? "تعديل الدرس" : "درس جديد"}</h3>
-    <form id="ls-f" class="stack"><div><label class="lbl" for="ls-t">عنوان الدرس</label><input class="field" id="ls-t" value="${esc(l?.title||"")}" placeholder="مثال: عثمان بن عفان"></div>
-      <div><label class="lbl" for="ls-d">التاريخ</label><input class="field" id="ls-d" type="date" value="${l?.date || todayISO()}"></div>
-      <button class="btn block" type="submit">احفظ</button>
-      ${l && l.id !== S.current ? `<button type="button" class="btn dawn block" id="ls-cur">خلّه درس اليوم</button>` : ""}
-      ${l ? `<button type="button" class="btn ghost block" id="ls-del" style="color:var(--red)">احذف الدرس</button>` : ""}</form>`, () => {
-    $("#ls-t").focus();
-    $("#ls-f").onsubmit = e => { e.preventDefault(); const t = $("#ls-t").value.trim(), d = $("#ls-d").value; if (!t || !d) return;
-      if (l) { l.title = t; l.date = d; } else { const n = { id:"L"+uid(), title:t, date:d, open:false, requirePin:true, pin:pin4() }; S.lessons.push(n); if (!S.current) S.current = n.id; }
-      save(); closeSheet(); render(); toast("انحفظ"); };
-    const c = $("#ls-cur"); if (c) c.onclick = () => { S.lessons.forEach(x => x.open = false); S.current = l.id; save(); closeSheet(); go("home"); toast("صار درس اليوم"); };
-    const d = $("#ls-del"); if (d) d.onclick = () => sheet(`<h3>تحذف «${esc(l.title)}»؟</h3><p class="muted">بينحذف الدرس وحضوره.</p><div class="row"><button class="btn ghost grow" onclick="closeSheet()">رجوع</button><button class="btn danger grow" id="d-yes">احذفه</button></div>`, () => {
-      $("#d-yes").onclick = () => { S.lessons = S.lessons.filter(x => x.id !== l.id); delete S.att[l.id]; if (S.current === l.id) S.current = null; save(); closeSheet(); render(); };
     });
   });
 }
