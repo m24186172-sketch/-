@@ -9,8 +9,8 @@
   /* هوية أفق الليلية: كحلي يذوب في أزرق، والكلام أبيض والإبراز أحمر */
   --navy:#100B71; --navy-900:#0A0748; --navy-950:#07052E; --navy-700:#2B2690; --navy-500:#5B57B0; --navy-300:#A9A6D6; --navy-100:#E4E3F3; --navy-50:#F3F2FA;
   --red:#FF5A5D; --red-600:#FF3C40; --red-100:rgba(255,90,93,.16); --plum:#872457; --blush:rgba(255,90,93,.12);
-  --ink:#FFFFFF; --ink-2:#A9A6D6; --line:rgba(169,166,214,.15); --bg:#05031C; --mist:rgba(255,255,255,.06); --card:rgba(255,255,255,.04); --solid:#100C4A; --gold:#FFC857;
-  --hero:transparent; --hero-2:transparent; --primary:#FFFFFF; --on-primary:#100B71; --primary-hover:#E4E3F3;
+  --ink:#F3F2FA; --ink-2:#A9A6D6; --line:#2A2570; --bg:#0B0838; --mist:#1D1862; --card:#16124F; --solid:#100C4A; --gold:#FFC857; --tile:#231E66;
+  --hero:#100B71; --hero-2:#0B0838; --primary:#FFFFFF; --on-primary:#100B71; --primary-hover:#E4E3F3;
   --chip:rgba(255,255,255,.10); --chip-ink:#E4E3F3; --ok:#FFFFFF; --ok-bg:rgba(255,255,255,.12);
   --dawn:linear-gradient(90deg,#100B71 0%,#872457 50%,#FF3C40 100%);
   --sky:radial-gradient(120% 50% at 50% 0%,rgba(43,38,144,.55) 0%,rgba(43,38,144,0) 70%),radial-gradient(90% 40% at 50% 100%,rgba(28,31,134,.5) 0%,rgba(28,31,134,0) 70%),linear-gradient(180deg,#05031C 0%,#0A0748 45%,#0E0D5C 80%,#121468 100%);
@@ -22,9 +22,9 @@
 }
 *{box-sizing:border-box}
 html,body{min-height:100%}
-html{background:#05031C}
-body{direction:rtl;margin:0;background:var(--sky) fixed,var(--bg);color:var(--ink);font-family:var(--font);font-size:16px;line-height:1.7;-webkit-font-smoothing:antialiased}
-body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:30;background:#05031C}
+html{background:#0B0838}
+body{direction:rtl;margin:0;background:var(--bg);color:var(--ink);font-family:var(--font);font-size:16px;line-height:1.7;-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:30;background:#100B71}
 button,input,select{font:inherit;color:inherit}
 button{cursor:pointer}
 :focus-visible{outline:3px solid rgba(255,60,64,.45);outline-offset:2px}
@@ -40,7 +40,7 @@ h1,h2,h3{font-family:var(--display);font-weight:700;letter-spacing:-.01em;line-h
 .logo.white .a,.logo.white .l{fill:#fff}
 
 /* ---------- hero / header ---------- */
-.hero{position:relative;overflow:hidden;background:transparent;color:#fff;padding-block:14px 26px}
+.hero{position:relative;overflow:hidden;background:var(--hero);color:#fff;padding-block:14px 26px}
 .hero .orbits{position:absolute;inset:auto -40% -60% -40%;height:150%;pointer-events:none;opacity:.55}
 .hero .rise{position:absolute;left:50%;bottom:-150px;width:440px;height:220px;transform:translateX(-50%);border-radius:50%;border:12px solid transparent;background:var(--dawn) border-box;-webkit-mask:linear-gradient(#000 0 0) padding-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;opacity:.95;pointer-events:none}
 .hero > *{position:relative}
@@ -180,7 +180,7 @@ footer.foot{text-align:center;font-size:13px;color:var(--ink-2);padding-block:22
 .dot.y{background:#fff} .dot.n{background:var(--line)} .dot.f{background:transparent;border:1.5px dashed var(--navy-300)} .dot.c{background:var(--red)}
 
 /* ---------- tabs ---------- */
-.tabs{position:fixed;left:0;right:0;bottom:0;z-index:20;background:rgba(5,3,28,.88);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border-top:1px solid var(--line);padding-bottom:env(safe-area-inset-bottom,0px)}
+.tabs{position:fixed;left:0;right:0;bottom:0;z-index:20;background:rgba(11,8,56,.92);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border-top:1px solid var(--line);padding-bottom:env(safe-area-inset-bottom,0px)}
 .tabs .in{max-width:560px;margin:0 auto;display:grid;grid-auto-flow:column;grid-auto-columns:1fr;padding-left:max(8px,env(safe-area-inset-left,0px));padding-right:max(8px,env(safe-area-inset-right,0px))}
 .tabs button{border:0;background:none;display:flex;flex-direction:column;align-items:center;gap:2px;padding:10px 0 8px;font-size:12px;font-weight:500;color:var(--ink-2);position:relative}
 .tabs button svg{width:24px;height:24px}
@@ -292,9 +292,36 @@ textarea.field{width:100%;min-height:120px;border-radius:14px;border:1.5px solid
 .ctl-row > *{flex:1;min-width:130px}
 select.field{width:100%;height:52px;border-radius:14px;border:1.5px solid var(--line);background:rgba(255,255,255,.07);padding:0 14px;font-size:16px;color:#fff}
 select.field option{color:#100B71}
+
+/* ---------- الصفحة الرئيسية بنفس نموذج الدليل ---------- */
+.hub .hero{padding-block:14px 0;min-height:330px;display:flex;flex-direction:column}
+.hub .hero .rise{bottom:-176px}
+.hub-head{margin-top:auto;padding-bottom:64px}
+.hub-head small{display:block;color:var(--navy-300);font-size:16px}
+.hub-head h1{font-size:36px;line-height:1.3;margin:4px 0 2px}
+.hub-head p{margin:0;color:var(--navy-300);font-size:16px}
+.hub-head .pills{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.pill{display:inline-flex;align-items:center;gap:6px;padding:4px 12px 4px 10px;border-radius:var(--pill);background:rgba(255,255,255,.1);font-size:14px;font-weight:500;color:#fff}
+.pill svg{width:16px;height:19px}
+.bell{position:relative}
+.bell .dotn{position:absolute;top:8px;inset-inline-start:9px;width:8px;height:8px;background:#FF3C40;transform:rotate(35deg);border-radius:1px}
+.menu{display:flex;flex-direction:column;gap:12px}
+.mi{display:flex;align-items:center;gap:14px;width:100%;text-align:start;background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:14px;color:var(--ink)}
+.mi:hover{border-color:var(--navy-500)}
+.mi .tile{width:52px;height:52px;flex:none;border-radius:14px;background:var(--tile);display:grid;place-items:center;color:#fff}
+.mi .tile svg{width:26px;height:26px}
+.mi b{display:block;font-size:17px;line-height:1.4}
+.mi small{display:block;font-size:14px;color:var(--ink-2);line-height:1.5}
+.mi .chev{width:20px;height:20px;color:var(--ink-2);flex:none}
+.mi.hot{border-color:rgba(255,90,93,.55);background:linear-gradient(90deg,#16124F,#2A1450)}
+.mi.hot .tile{background:rgba(255,90,93,.18)}
+.page-head .topbar{min-height:44px}
+.page-head h1{font-size:28px;margin-top:6px}
+.back{display:inline-flex;align-items:center;gap:6px;border:0;background:rgba(255,255,255,.1);color:#fff;border-radius:var(--pill);height:40px;padding:0 14px 0 12px;font-weight:500}
+.back svg{width:18px;height:18px}
 /* ---------- sheet / toast / celebrate ---------- */
 .scrim{position:fixed;inset:0;z-index:40;background:rgba(7,5,46,.55);display:flex;align-items:flex-end;justify-content:center;animation:fade .2s}
-.sheet{width:100%;max-width:560px;max-height:88vh;overflow:auto;background:linear-gradient(180deg,#120E52,#05031C);border-top:1px solid var(--line);border-radius:24px 24px 0 0;padding:10px max(16px,env(safe-area-inset-right,0px)) calc(24px + env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px));animation:up .25s ease-out}
+.sheet{width:100%;max-width:560px;max-height:88vh;overflow:auto;background:#0B0838;border-top:1px solid var(--line);border-radius:24px 24px 0 0;padding:10px max(16px,env(safe-area-inset-right,0px)) calc(24px + env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px));animation:up .25s ease-out}
 .sheet .grab{width:44px;height:5px;border-radius:5px;background:var(--line);margin:0 auto 14px}
 .sheet h3{font-size:22px;margin-bottom:6px}
 @keyframes up{from{transform:translateY(40px);opacity:0}}
@@ -340,6 +367,12 @@ canvas.confetti{position:fixed;inset:0;z-index:55;pointer-events:none}
   <symbol id="i-refresh" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M20 11a8 8 0 0 0-14.5-4.5M4 4v3h3M4 13a8 8 0 0 0 14.5 4.5M20 20v-3h-3"/></symbol>
   <symbol id="i-gift" viewBox="0 0 48 48"><rect x="6" y="18" width="36" height="26" rx="4" fill="url(#g-medal)"/><rect x="3" y="12" width="42" height="10" rx="3" fill="#FF5A5D"/><rect x="21" y="12" width="6" height="32" fill="#FFC857"/><path d="M24 12c-4-8-14-8-12-2 1 3 7 3 12 2zM24 12c4-8 14-8 12-2-1 3-7 3-12 2z" fill="none" stroke="#FFC857" stroke-width="3"/></symbol>
   <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 2.5 4 5.5v6c0 5 3.4 8.6 8 10 4.6-1.4 8-5 8-10v-6z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><rect x="10.8" y="9.8" width="2.4" height="2.4" fill="#FF5A5D" transform="rotate(35 12 11)"/></symbol>
+  <symbol id="i-bell" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M6 16V11a6 6 0 0 1 12 0v5l1.5 2h-15zM10 20.5h4"/></symbol>
+  <symbol id="i-chev" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M14.5 6 8.5 12l6 6"/></symbol>
+  <symbol id="i-back" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M9.5 6l6 6-6 6"/></symbol>
+  <symbol id="i-star" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 3.5l2.4 5.6 6.1.5-4.6 4 1.4 6-5.3-3.2-5.3 3.2 1.4-6-4.6-4 6.1-.5z"/><rect x="10.8" y="10.8" width="2.4" height="2.4" fill="#FF5A5D" transform="rotate(35 12 12)"/></symbol>
+  <symbol id="i-box" viewBox="0 0 24 24"><rect x="4" y="9" width="16" height="11" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" d="M3 9h18M12 9v11M12 9c-2-4-6-4-5.5-1.5M12 9c2-4 6-4 5.5-1.5"/><rect x="16.8" y="1.6" width="2.4" height="2.4" fill="#FF5A5D" transform="rotate(35 18 2.8)"/></symbol>
+  <symbol id="i-target" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="1.8"/><rect x="10.8" y="10.8" width="2.4" height="2.4" fill="#FF5A5D" transform="rotate(35 12 12)"/></symbol>
   <symbol id="i-crown" viewBox="0 0 26 20"><path fill="#FF3C40" d="M2 6l6 5 5-9 5 9 6-5-2 12H4z"/></symbol>
 </defs></svg>
 
@@ -636,19 +669,14 @@ function bindLogin(){
 /* ==================== الطالب ==================== */
 function studentView(me){
   const st = streakOf(me.id), r = ranked(monthCounts()), mine = r.find(x => x.s.id === me.id);
-  const tabs = [["home","الدروس","i-book"],["rank","الترتيب","i-trophy"],["badges","أوسمتي","i-medal"]];
-  const body = tab === "rank" ? stRank(me, r) : tab === "badges" ? stBadges(me) : stHome(me);
-  return `<header class="hero wrap">${orbits()}
-      <div class="topbar">${logo(true,"width:56px")}<button class="iconbtn" id="logout" aria-label="خروج">${ic("i-out")}</button></div>
-      <div class="hello"><small>هلا والله</small><h1>${firstName(me.name)}</h1></div>
-      <div class="streak">${flame(st ? "" : "off")}
-        <div><span class="n num">${ar(st)}</span></div>
-        <div class="t"><b>${st===0 ? "ابدأ شعلتك" : st===1 ? "شعلة وحدة" : "شعلات ورا بعض"}</b>${streakLine(st)}</div>
-        <div class="rank-pill">ترتيبك<b>${mine && mine.n ? ar(mine.pos) : "–"}</b>في ${monthName()}</div>
-      </div>
+  if (tab === "home") return stHub(me, st, mine);
+  const titles = { lessons:"الدروس", sky:"سماك", rank:"ترتيب " + monthName(), badges:"أوسمتي", goal:"هدف الحلقة" };
+  const body = tab === "rank" ? stRank(me, r) : tab === "badges" ? stBadges(me) : tab === "sky" ? stSky(me) : tab === "goal" ? stGoal(me) : stLessons(me, st);
+  return `<header class="hero wrap page-head">${orbits()}
+      <div class="topbar"><button class="back" data-tab="home">${ic("i-back")}رجوع</button>${logo(true,"width:52px")}</div>
+      <h1>${titles[tab] || ""}</h1>
     </header>
-    <main class="wrap">${body}</main>
-    <nav class="tabs" aria-label="التنقل"><div class="in">${tabs.map(([k,l,i]) => `<button data-tab="${k}" ${tab===k?'aria-current="page"':""}>${ic(i)}${l}</button>`).join("")}</div></nav>`;
+    <main class="wrap" style="padding-bottom:40px">${body}</main>`;
 }
 function streakLine(n){
   if (n === 0) return "سجّل حضورك في الدرس وتولع أول شعلة";
@@ -676,34 +704,50 @@ function nextCard(me){
   if (c.now) return `<div class="next now">${flame()}<div class="grow"><b>الدرس الحين!</b><span class="small">${pending ? "سجّل حضورك تحت وولّع شعلتك" : "حيّاك، شعلتك ماشية"}</span></div></div>`;
   return `<div class="next">${flame(st ? "" : "off")}<div class="grow"><b>الدرس الجاي ${DAYS[c.d.getDay()]}</b><span class="small muted">${st >= 2 ? `شعلتك ${ar(st)}، لا تخليها تطفي` : st === 1 ? "احضر وتبدأ سلسلتك" : "احضر وولّع أول شعلة"}</span></div><div class="cd" id="cd">${c.txt}<small>باقي</small></div></div>`;
 }
-function stHome(me){
-  const ls = lessonsSorted();
-  const pending = ls.filter(l => !markOf(l.id, me.id)).length;
-  const tot = totalOf(me.id), lv = levelOf(me.id), eb = earned(me.id);
-  const nextB = BADGES.find(b => !eb.includes(b.id));
-  const ub = unopened(me.id), gp = goalProgress(), wt = weekTitles(), sh = shieldsOf(me.id);
-  const N = Math.max(S.planned, ls.length);
-  return `${nextCard(me)}
-    ${ub.length ? `<button class="boxbtn" id="open-box"><svg viewBox="0 0 48 48" aria-hidden="true"><use href="#i-gift"/></svg><div class="grow"><b>عندك ${ub.length===1?"صندوق":ar(ub.length)+" صناديق"} ما فتحته</b><div class="small muted">كل حضور يعطيك صندوق. وش فيه؟ افتحه وشوف</div></div></button>` : ""}
-    <section class="stack"><div class="sec-h"><h2>الدروس</h2>${pending ? `<span class="chip red">${ar(pending)} ما سجّلته</span>` : `<span class="chip ok">سجّلت الكل</span>`}</div>
-      <ol class="lessons">${ls.map(l => lessonRow(l, me)).join("")}</ol>
-      ${ls.length ? "" : `<p class="muted" style="text-align:center">ما فيه دروس للحين. يضيفها المشرف</p>`}
-      <div class="shield-pill">${ic("i-shield")}عندك ${ar(sh.total)} ${sh.total===1?"درع":"دروع"} للشعلة · لو غبت بعذر يحمي شعلتك</div></section>
-    <section class="stack"><div class="sec-h"><h2>سماك</h2><span class="chip">${ar(tot)} نجمة من ${ar(N)}</span></div>
-      <div class="sky-card">${skySVG(me.id)}<div class="cap"><div><b>${tot >= N ? "سماك كاملة" : `باقي ${ar(N - tot)} نجمة`}</b><div class="small muted">كل درس تحضره يضوي نجمة، والنجوم ورا بعض تتصل</div></div></div></div></section>
-    <section class="card goal"><span class="eyebrow">هدف الحلقة هالشهر</span><div class="gt" style="margin-top:6px">${esc(S.goal.text)}</div>
+function stHub(me, st, mine){
+  const last = lastLesson(), pendingLast = last && !markOf(last.id, me.id), c = countdown();
+  const pend = lessonsSorted().filter(l => !markOf(l.id, me.id)).length, ub = unopened(me.id), eb = earned(me.id);
+  const N = Math.max(S.planned, S.lessons.length), gp = goalProgress();
+  let small, title, sub;
+  if (pendingLast) { small = "درس اليوم · الدرس " + ar(last.n); title = esc(last.title); sub = "سجّل حضورك وولّع شعلتك"; }
+  else if (c) { small = "الدرس القادم، " + DAYS[c.d.getDay()]; title = "الدرس " + ar(S.lessons.length + 1); sub = c.now ? "الدرس الحين، حيّاك" : "باقي " + c.txt + (st >= 2 ? " · لا تخلي شعلتك تطفي" : ""); }
+  else { small = "هلا والله"; title = firstName(me.name); sub = ""; }
+  const item = (t, icon, b, sm, hot) => `<button class="mi ${hot?"hot":""}" data-tab="${t}"><span class="tile">${ic(icon)}</span><div class="grow"><b>${b}</b><small>${sm}</small></div>${ic("i-chev","chev")}</button>`;
+  return `<div class="hub"><header class="hero wrap">${orbits()}<div class="rise"></div>
+      <div class="topbar">${logo(true,"width:60px")}<div class="row" style="gap:8px"><button class="iconbtn bell" id="bell" aria-label="${ub.length ? ub.length+" صناديق ما فتحتها" : "التنبيهات"}">${ic("i-bell")}${ub.length ? `<span class="dotn"></span>` : ""}</button><button class="iconbtn" id="logout" aria-label="خروج">${ic("i-out")}</button></div></div>
+      <div class="hub-head"><small>${small}</small><h1>${title}</h1>${sub ? `<p>${sub}</p>` : ""}
+        <div class="pills"><span class="pill">${flame(st ? "" : "off").replace('class="flame ','style="width:16px;height:19px" class="')}${st ? ar(st) + (st===1?" شعلة":" شعلات") : "ما فيه شعلة"}</span><span class="pill">${firstName(me.name)}${mine && mine.n ? " · الترتيب " + ar(mine.pos) : ""}</span></div></div>
+    </header>
+    <main class="wrap" style="padding-bottom:40px"><section class="stack"><div class="sec-h"><h2>ابدأ من هنا</h2></div>
+      <div class="menu">
+        ${item("lessons","i-book","الدروس", pend ? `سجّل حضورك · ${ar(pend)} ما سجّلته` : `${ar(S.lessons.length)} درس · سجّلت الكل`, pendingLast)}
+        ${ub.length ? `<button class="mi hot" id="open-box"><span class="tile">${ic("i-box")}</span><div class="grow"><b>صندوق المفاجأة</b><small>${ub.length===1 ? "صندوق ينتظرك" : ar(ub.length) + " صناديق تنتظرك"}</small></div>${ic("i-chev","chev")}</button>` : ""}
+        ${item("sky","i-star","سماك", `${ar(totalOf(me.id))} نجمة من ${ar(N)}`)}
+        ${item("rank","i-trophy","الترتيب", mine && mine.n ? `ترتيبك ${ar(mine.pos)} في ${monthName()}` : `أبطال ${monthName()}`)}
+        ${item("badges","i-medal","أوسمتي", `${ar(eb.length)} من ${ar(BADGES.length)} · مرتبتك ${levelOf(me.id).name}`)}
+        ${item("goal","i-target","هدف الحلقة", `${esc(S.goal.text)} · ${ar(gp.pct)}٪`)}
+      </div></section></main></div>`;
+}
+function stLessons(me, st){
+  const ls = lessonsSorted(), sh = shieldsOf(me.id);
+  return `<div class="streak" style="margin-top:0;background:var(--card);border-color:var(--line)">${flame(st ? "" : "off")}<div><span class="n num">${ar(st)}</span></div><div class="t"><b>${st===0 ? "ابدأ شعلتك" : st===1 ? "شعلة وحدة" : "شعلات ورا بعض"}</b>${streakLine(st)}</div></div>
+    <ol class="lessons">${ls.map(l => lessonRow(l, me)).join("")}</ol>
+    ${ls.length ? "" : `<p class="muted" style="text-align:center">ما فيه دروس للحين. يضيفها المشرف</p>`}
+    <div class="shield-pill">${ic("i-shield")}عندك ${ar(sh.total)} ${sh.total===1?"درع":"دروع"} للشعلة · لو غبت بعذر يحمي شعلتك</div>`;
+}
+function stSky(me){
+  const tot = totalOf(me.id), N = Math.max(S.planned, S.lessons.length);
+  return `<div class="sky-card">${skySVG(me.id, true)}<div class="cap"><div><b>${tot >= N ? "سماك كاملة" : `باقي ${ar(N - tot)} نجمة`}</b><div class="small muted">${ar(tot)} نجمة من ${ar(N)}</div></div></div></div>
+    <div class="card small muted" style="line-height:1.9">كل درس تحضره يضوي نجمة في سماك، والدروس اللي تحضرها ورا بعض تتصل نجومها. النجمة الذهبية تطلع لك من صندوق المفاجأة. كمّل الدورة وتكتمل سماك.</div>`;
+}
+function stGoal(me){
+  const gp = goalProgress(), wt = weekTitles(), lv = levelOf(me.id);
+  return `<section class="card goal"><span class="eyebrow">هدف الحلقة هالشهر</span><div class="gt" style="margin-top:6px">${esc(S.goal.text)}</div>
       <div class="bar"><span style="width:${gp.pct}%"></span></div>
       <div class="row small" style="justify-content:space-between"><span class="muted">${gp.n >= gp.target ? "تحقق الهدف! 🎉" : `باقي ${ar(gp.target - gp.n)} حضور ويتحقق`}</span><span class="num">${ar(gp.n)} / ${ar(gp.target)}</span></div>
       <p class="small muted" style="margin:6px 0 0">كل حضور منك يقرّب الحلقة كلها للهدف.</p></section>
     ${wt.length ? `<section class="stack"><div class="sec-h"><h2>ألقاب الأسبوع</h2></div><div class="titles">${wt.map(x => `<div class="ttl"><span class="avatar">${initials(x.s.name)}</span><small>${x.t}</small><b>${firstName(x.s.name)}${x.n?" · "+ar(x.n):""}</b></div>`).join("")}</div></section>` : ""}
-    <section class="card level">${medalSVG({id:"lv"}, true, ar(lv.i+1))}
-        <div class="grow"><b>مرتبتك: ${lv.name}</b> <span class="muted small">· ${lv.desc}</span>
-          <div class="bar"><span style="width:${lv.pct}%"></span></div>
-          <div class="muted small">${lv.next ? `باقي ${ar(lv.next.n - lv.t)} ${lv.next.n-lv.t===1?"درس":"دروس"} وتوصل «${lv.next.name}»` : "وصلت آخر مرتبة"}</div></div></section>
-    ${nextB ? `<section class="stack"><div class="sec-h"><h2>وسامك الجاي</h2><button class="link" data-tab="badges">كل الأوسمة</button></div>
-      <div class="card row">${medalSVG(nextB,false)}<div class="grow"><b>${nextB.name}</b><div class="muted small">${nextB.how}</div></div></div></section>` : ""}
-    <section class="stack"><div class="sec-h"><h2>أبطال ${monthName()}</h2><button class="link" data-tab="rank">الترتيب كامل</button></div>
-      ${lbRows(ranked(monthCounts()).slice(0,3), me.id)}</section>`;
+    <section class="card level">${medalSVG({id:"lv"}, true, ar(lv.i+1))}<div class="grow"><b>مرتبتك: ${lv.name}</b> <span class="muted small">· ${lv.desc}</span><div class="bar"><span style="width:${lv.pct}%"></span></div><div class="muted small">${lv.next ? `باقي ${ar(lv.next.n - lv.t)} ${lv.next.n-lv.t===1?"درس":"دروس"} وتوصل «${lv.next.name}»` : "وصلت آخر مرتبة"}</div></div></section>`;
 }
 function lbRows(rows, meId){
   return `<div class="lb">${rows.map(r => `<div class="lb-row ${r.s.id===meId?"me":""} ${r.pos===1&&r.n?"top1":""}">
@@ -736,9 +780,10 @@ function stBadges(me){
 
 function bindStudent(me){
   bindDemo();
-  $("#logout").onclick = () => setSession(null);
+  const lo = $("#logout"); if (lo) lo.onclick = () => setSession(null);
   document.querySelectorAll("[data-tab]").forEach(b => b.onclick = () => go(b.dataset.tab));
   const ob = $("#open-box"); if (ob) ob.onclick = () => openBox(me);
+  const bl = $("#bell"); if (bl) bl.onclick = () => unopened(me.id).length ? openBox(me) : toast(lastLesson() && !markOf(lastLesson().id, me.id) ? "عندك درس ما سجّلت حضورك فيه" : "ما عندك تنبيهات جديدة");
   clearInterval(window.__cd); window.__cd = setInterval(() => { const c = countdown(), e = $("#cd"); if (e && c && !c.now) e.firstChild.textContent = c.txt; }, 30000);
   document.querySelectorAll("[data-badge]").forEach(b => b.onclick = () => {
     const B = BADGES.find(x => x.id === b.dataset.badge), on = earned(me.id).includes(B.id);
