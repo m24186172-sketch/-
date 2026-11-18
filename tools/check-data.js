@@ -1,4 +1,4 @@
-// يعدّ المحتوى لكل لعبة وتصنيف، ويكشف التكرار والكلمات الرياضية الممنوعة
+// يعدّ المحتوى لكل لعبة وتصنيف، ويكشف التكرار والمحتوى الممنوع (الأغاني والموسيقى). الرياضة صارت مسموحة (2026-11-18)
 const { loadPage } = require("./load-page");
 const P = loadPage();
 let problems = 0;
@@ -36,9 +36,9 @@ dupCheck("الأعلام", "flag", P.FLAGS);
 dupCheck("بدون نقاط", "dots", P.GAMES.dots.data);
 
 P.BANK.forEach(x => { if (x.length < 3 || x.length > 4 || !x[1] || !x[2] || (x.length === 4 && ![1, 2, 3, 4].includes(x[3]))) { problems++; console.log("  ✗ سؤال ناقص:", x); } });
-const sport = /كرة|كأس العالم|أولمبي|منتخب|هوكي|ملعب|دوري|بطولة/;
+const sport = /أغنية|أغاني|مغنّ|مغني|مطرب|موسيقى|موسيقار|ألبوم غنائي/;
 const all = JSON.stringify([P.BANK, P.LISTS, P.TABOO, P.WHO, P.GAMES.dots.data]);
-P.BANK.forEach(x => { if (sport.test(x[1] + x[2])) { problems++; console.log("  ✗ محتوى رياضي:", x[1]); } });
+P.BANK.forEach(x => { if (sport.test(x[1] + x[2])) { problems++; console.log("  ✗ محتوى ممنوع (أغاني/موسيقى):", x[1]); } });
 
-console.log(problems ? `\n✗ ${problems} مشكلة` : "\n✓ لا تكرار ولا محتوى رياضي");
+console.log(problems ? `\n✗ ${problems} مشكلة` : "\n✓ لا تكرار ولا محتوى ممنوع");
 process.exit(problems ? 1 : 0);
