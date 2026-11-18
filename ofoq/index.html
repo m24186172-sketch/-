@@ -9,11 +9,11 @@
   /* هوية أفق الليلية: كحلي يذوب في أزرق، والكلام أبيض والإبراز أحمر */
   --navy:#100B71; --navy-900:#0A0748; --navy-950:#07052E; --navy-700:#2B2690; --navy-500:#5B57B0; --navy-300:#A9A6D6; --navy-100:#E4E3F3; --navy-50:#F3F2FA;
   --red:#FF5A5D; --red-600:#FF3C40; --red-100:rgba(255,90,93,.16); --plum:#872457; --blush:rgba(255,90,93,.12);
-  --ink:#FFFFFF; --ink-2:#A9A6D6; --line:rgba(169,166,214,.18); --bg:#0B0838; --mist:rgba(255,255,255,.07); --card:rgba(255,255,255,.055); --solid:#15115A;
+  --ink:#FFFFFF; --ink-2:#A9A6D6; --line:rgba(169,166,214,.15); --bg:#05031C; --mist:rgba(255,255,255,.06); --card:rgba(255,255,255,.04); --solid:#100C4A; --gold:#FFC857;
   --hero:transparent; --hero-2:transparent; --primary:#FFFFFF; --on-primary:#100B71; --primary-hover:#E4E3F3;
   --chip:rgba(255,255,255,.10); --chip-ink:#E4E3F3; --ok:#FFFFFF; --ok-bg:rgba(255,255,255,.12);
   --dawn:linear-gradient(90deg,#100B71 0%,#872457 50%,#FF3C40 100%);
-  --sky:radial-gradient(130% 55% at 50% 0%,#1A1690 0%,rgba(26,22,144,0) 70%),linear-gradient(180deg,#07052E 0%,#100B71 38%,#1C1F86 72%,#2B2690 100%);
+  --sky:radial-gradient(120% 50% at 50% 0%,rgba(43,38,144,.55) 0%,rgba(43,38,144,0) 70%),radial-gradient(90% 40% at 50% 100%,rgba(28,31,134,.5) 0%,rgba(28,31,134,0) 70%),linear-gradient(180deg,#05031C 0%,#0A0748 45%,#0E0D5C 80%,#121468 100%);
   --font:"Thmanyah Sans","IBM Plex Sans Arabic",system-ui,sans-serif;
   --display:"Thmanyah Serif Display","IBM Plex Sans Arabic",system-ui,sans-serif;
   --r-sm:12px; --r:18px; --pill:999px; --slant:-11.9deg;
@@ -22,9 +22,9 @@
 }
 *{box-sizing:border-box}
 html,body{min-height:100%}
-html{background:#0B0838}
+html{background:#05031C}
 body{direction:rtl;margin:0;background:var(--sky) fixed,var(--bg);color:var(--ink);font-family:var(--font);font-size:16px;line-height:1.7;-webkit-font-smoothing:antialiased}
-body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:30;background:#07052E}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:30;background:#05031C}
 button,input,select{font:inherit;color:inherit}
 button{cursor:pointer}
 :focus-visible{outline:3px solid rgba(255,60,64,.45);outline-offset:2px}
@@ -180,7 +180,7 @@ footer.foot{text-align:center;font-size:13px;color:var(--ink-2);padding-block:22
 .dot.y{background:#fff} .dot.n{background:var(--line)} .dot.f{background:transparent;border:1.5px dashed var(--navy-300)} .dot.c{background:var(--red)}
 
 /* ---------- tabs ---------- */
-.tabs{position:fixed;left:0;right:0;bottom:0;z-index:20;background:rgba(10,7,72,.86);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border-top:1px solid var(--line);padding-bottom:env(safe-area-inset-bottom,0px)}
+.tabs{position:fixed;left:0;right:0;bottom:0;z-index:20;background:rgba(5,3,28,.88);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border-top:1px solid var(--line);padding-bottom:env(safe-area-inset-bottom,0px)}
 .tabs .in{max-width:560px;margin:0 auto;display:grid;grid-auto-flow:column;grid-auto-columns:1fr;padding-left:max(8px,env(safe-area-inset-left,0px));padding-right:max(8px,env(safe-area-inset-right,0px))}
 .tabs button{border:0;background:none;display:flex;flex-direction:column;align-items:center;gap:2px;padding:10px 0 8px;font-size:12px;font-weight:500;color:var(--ink-2);position:relative}
 .tabs button svg{width:24px;height:24px}
@@ -244,9 +244,57 @@ textarea.field{width:100%;min-height:120px;border-radius:14px;border:1.5px solid
 .pa button[data-mark="a"][aria-pressed="true"],.pa button[data-set="a"][aria-pressed="true"]{background:var(--red);border-color:var(--red);color:#fff}
 .pa.sm button{height:34px;padding:0 10px;font-size:13px}
 @media (max-width:380px){.pa button{padding:0 9px}.pa button svg{display:none}}
+
+/* ---------- الدرس الجاي ---------- */
+.next{display:flex;align-items:center;gap:14px;border-radius:var(--r);padding:14px 16px;background:linear-gradient(90deg,rgba(135,36,87,.35),rgba(255,60,64,.18));border:1px solid rgba(255,90,93,.35)}
+.next .flame{width:34px;height:40px;animation:flick 1.6s ease-in-out infinite}
+.next b{display:block;font-size:16px;line-height:1.4}
+.next .cd{font-family:var(--display);font-size:24px;line-height:1.2;color:#fff;white-space:nowrap}
+.next .cd small{font-family:var(--font);font-size:12px;color:var(--ink-2);display:block;text-align:center}
+.next.now{background:var(--dawn);border-color:transparent}
+@keyframes flick{0%,100%{transform:scale(1) rotate(-2deg)}50%{transform:scale(1.08) rotate(2deg)}}
+/* ---------- سماك ---------- */
+.sky-card{position:relative;overflow:hidden;border-radius:var(--r);border:1px solid var(--line);background:radial-gradient(120% 100% at 50% 110%,#1C1F86 0%,#0A0748 55%,#05031C 100%)}
+.sky-card svg{display:block;width:100%;height:auto}
+.sky-card .cap{position:absolute;inset:auto 0 0 0;padding:12px 16px;display:flex;justify-content:space-between;align-items:end;gap:10px;background:linear-gradient(0deg,rgba(5,3,28,.85),rgba(5,3,28,0))}
+.sky-card .cap b{font-family:var(--display);font-size:22px}
+.star-on{animation:tw 2.8s ease-in-out infinite}
+@keyframes tw{0%,100%{opacity:1}50%{opacity:.55}}
+/* ---------- هدف الحلقة ---------- */
+.goal .bar{height:14px;border-radius:14px;background:var(--mist);overflow:hidden;margin:10px 0 6px;position:relative}
+.goal .bar span{display:block;height:100%;background:var(--dawn);border-radius:14px;transition:width .6s}
+.goal .gt{font-family:var(--display);font-size:20px;line-height:1.4}
+/* ---------- ألقاب الأسبوع ---------- */
+.titles{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.ttl{border-radius:16px;border:1px solid var(--line);background:var(--card);padding:12px 8px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:4px}
+.ttl .avatar{width:40px;height:40px}
+.ttl small{font-size:12px;color:var(--red);font-weight:700;line-height:1.3}
+.ttl b{font-size:14px;line-height:1.3}
+/* ---------- الصندوق ---------- */
+.boxbtn{display:flex;align-items:center;gap:14px;width:100%;text-align:start;border-radius:var(--r);padding:14px 16px;border:1.5px dashed rgba(255,200,87,.6);background:rgba(255,200,87,.08);color:#fff}
+.boxbtn svg{width:46px;height:46px;flex:none;animation:shake 2.4s ease-in-out infinite}
+@keyframes shake{0%,80%,100%{transform:rotate(0)}84%{transform:rotate(-9deg)}88%{transform:rotate(8deg)}92%{transform:rotate(-6deg)}96%{transform:rotate(4deg)}}
+.gift{width:120px;height:120px;margin:0 auto;display:block}
+.gift.open{animation:pop .5s cubic-bezier(.2,1.6,.4,1)}
+.prize{border-radius:20px;padding:20px;text-align:center;background:linear-gradient(160deg,rgba(255,200,87,.16),rgba(255,90,93,.12));border:1px solid rgba(255,200,87,.45)}
+.prize .k{color:var(--gold);font-weight:700;font-size:14px}
+.prize p{font-family:var(--display);font-size:22px;line-height:1.6;margin:8px 0 0}
+.shield-pill{display:inline-flex;align-items:center;gap:6px;font-size:13px;color:var(--ink-2)}
+.shield-pill svg{width:18px;height:18px}
+/* ---------- بطاقة الستوري ---------- */
+.story{aspect-ratio:9/16;max-height:66vh;margin:0 auto;border-radius:22px;overflow:hidden;position:relative;background:radial-gradient(120% 60% at 50% 105%,#2B2690 0%,#0A0748 50%,#05031C 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;text-align:center;padding:24px;color:#fff}
+.story .logo{width:96px}
+.story .flame{width:96px;height:112px}
+.story .big{font-family:var(--display);font-size:64px;line-height:1}
+.story h3{font-size:24px}
+.story .arc{position:absolute;left:50%;bottom:-120px;width:340px;height:200px;transform:translateX(-50%);border-radius:50%;border:10px solid transparent;background:var(--dawn) border-box;-webkit-mask:linear-gradient(#000 0 0) padding-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude}
+.ctl-row{display:flex;gap:10px;flex-wrap:wrap}
+.ctl-row > *{flex:1;min-width:130px}
+select.field{width:100%;height:52px;border-radius:14px;border:1.5px solid var(--line);background:rgba(255,255,255,.07);padding:0 14px;font-size:16px;color:#fff}
+select.field option{color:#100B71}
 /* ---------- sheet / toast / celebrate ---------- */
 .scrim{position:fixed;inset:0;z-index:40;background:rgba(7,5,46,.55);display:flex;align-items:flex-end;justify-content:center;animation:fade .2s}
-.sheet{width:100%;max-width:560px;max-height:88vh;overflow:auto;background:linear-gradient(180deg,#15115A,#0B0838);border-top:1px solid var(--line);border-radius:24px 24px 0 0;padding:10px max(16px,env(safe-area-inset-right,0px)) calc(24px + env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px));animation:up .25s ease-out}
+.sheet{width:100%;max-width:560px;max-height:88vh;overflow:auto;background:linear-gradient(180deg,#120E52,#05031C);border-top:1px solid var(--line);border-radius:24px 24px 0 0;padding:10px max(16px,env(safe-area-inset-right,0px)) calc(24px + env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px));animation:up .25s ease-out}
 .sheet .grab{width:44px;height:5px;border-radius:5px;background:var(--line);margin:0 auto 14px}
 .sheet h3{font-size:22px;margin-bottom:6px}
 @keyframes up{from{transform:translateY(40px);opacity:0}}
@@ -290,6 +338,8 @@ canvas.confetti{position:fixed;inset:0;z-index:55;pointer-events:none}
   <symbol id="i-plus" viewBox="0 0 24 24"><path stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M12 5v14M5 12h14"/></symbol>
   <symbol id="i-search" viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path stroke="currentColor" stroke-width="1.8" stroke-linecap="round" d="M15.5 15.5 20 20"/><rect x="9.3" y="9.3" width="2.4" height="2.4" fill="#FF3C40" transform="rotate(35 10.5 10.5)"/></symbol>
   <symbol id="i-refresh" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M20 11a8 8 0 0 0-14.5-4.5M4 4v3h3M4 13a8 8 0 0 0 14.5 4.5M20 20v-3h-3"/></symbol>
+  <symbol id="i-gift" viewBox="0 0 48 48"><rect x="6" y="18" width="36" height="26" rx="4" fill="url(#g-medal)"/><rect x="3" y="12" width="42" height="10" rx="3" fill="#FF5A5D"/><rect x="21" y="12" width="6" height="32" fill="#FFC857"/><path d="M24 12c-4-8-14-8-12-2 1 3 7 3 12 2zM24 12c4-8 14-8 12-2-1 3-7 3-12 2z" fill="none" stroke="#FFC857" stroke-width="3"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 2.5 4 5.5v6c0 5 3.4 8.6 8 10 4.6-1.4 8-5 8-10v-6z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><rect x="10.8" y="9.8" width="2.4" height="2.4" fill="#FF5A5D" transform="rotate(35 12 11)"/></symbol>
   <symbol id="i-crown" viewBox="0 0 26 20"><path fill="#FF3C40" d="M2 6l6 5 5-9 5 9 6-5-2 12H4z"/></symbol>
 </defs></svg>
 
@@ -334,13 +384,15 @@ function seed(){
       else if (x < prof[si] + .25) att[l.id][s.id] = { s:"a", t: base + 3600000 };
     });
   });
-  return { v:2, demo:true, adminCode:"0000", students, lessons, att };
+  return { v:2, demo:true, adminCode:"0000", students, lessons, att,
+    schedule:{ day:3, time:"20:00" }, planned:12, goal:{ text:"طلعة بر للحلقة كاملة", target:40 }, boxes:{} };
 }
 
 let S = lsGet(KEY) || seed();
 let session = lsGet(SKEY);
 const save = () => lsSet(KEY, S);
 if (!lsGet(KEY)) save();
+S.schedule ||= { day:3, time:"20:00" }; S.planned ||= 12; S.goal ||= { text:"طلعة بر للحلقة كاملة", target:40 }; S.boxes ||= {};
 
 /* ==================== الحسابات ==================== */
 const lessonsSorted = () => [...S.lessons].sort((a,b) => a.n - b.n);
@@ -353,10 +405,10 @@ const lastLesson = () => lessonsSorted().slice(-1)[0];
 function streakOf(sid){
   const ls = lessonsSorted(); let n = 0, i = ls.length - 1;
   if (i >= 0 && !markOf(ls[i].id, sid)) i--;
-  for (; i >= 0 && isAtt(ls[i].id, sid); i--) n++;
+  for (; i >= 0; i--){ const a = S.att[ls[i].id]?.[sid]; if (a?.s === "p") n++; else if (a?.s === "a" && a.shield) continue; else break; }
   return n;
 }
-function bestStreak(sid){ let b=0,c=0; lessonsSorted().forEach(l => { if (isAtt(l.id,sid)) b = Math.max(b, ++c); else c = 0; }); return b; }
+function bestStreak(sid){ let b=0,c=0; lessonsSorted().forEach(l => { const a = S.att[l.id]?.[sid]; if (a?.s === "p") b = Math.max(b, ++c); else if (!(a?.s === "a" && a.shield)) c = 0; }); return b; }
 const totalOf = sid => S.lessons.filter(l => isAtt(l.id, sid)).length;
 const absentOf = sid => S.lessons.filter(l => markOf(l.id, sid) === "a").length;
 const monthKey = d => d.slice(0,7);
@@ -445,6 +497,86 @@ function medalSVG(b, on=true, glyphOverride){
   const flameB = /^s\d/.test(b.id);
   return `<svg class="medal" viewBox="0 0 52 52" aria-hidden="true"><circle cx="26" cy="26" r="24" fill="${on?"url(#g-medal)":"var(--line)"}"/><circle cx="26" cy="26" r="18.5" fill="none" stroke="rgba(255,255,255,.35)" stroke-width="1.2"/>${flameB?`<svg x="15" y="11" width="22" height="26" viewBox="0 0 46 54"><use href="#i-flame"/></svg><text x="26" y="45" text-anchor="middle" font-size="10" font-weight="700" fill="#fff" font-family="inherit">${glyph}</text>`:`<text x="26" y="33" text-anchor="middle" font-size="${glyph.length>1?16:20}" font-weight="700" fill="#fff" font-family="inherit">${glyph}</text>`}</svg>`;
 }
+
+
+/* ==================== المحفّزات ==================== */
+const DAYS = ["الأحد","الاثنين","الثلاثاء","الأربعاء","الخميس","الجمعة","السبت"];
+function nextLessonAt(){
+  const [h,m] = (S.schedule.time || "20:00").split(":").map(Number), now = new Date();
+  for (let k = -1; k < 8; k++){ const d = new Date(now); d.setDate(now.getDate()+k); d.setHours(h,m,0,0);
+    if (d.getDay() === S.schedule.day && d.getTime() + 2*3600e3 > now.getTime()) return d; }
+  return null;
+}
+function countdown(){
+  const d = nextLessonAt(); if (!d) return null; const ms = d - Date.now();
+  if (ms <= 0) return { now:true, d };
+  const dd = Math.floor(ms/864e5), hh = Math.floor(ms%864e5/36e5), mm = Math.floor(ms%36e5/6e4);
+  return { d, dd, hh, mm, txt: dd ? (dd===1 ? "يوم" : dd===2 ? "يومين" : `${ar(dd)} أيام`) : hh ? (hh===1 ? "ساعة" : hh===2 ? "ساعتين" : `${ar(hh)} ساعات`) : `${ar(mm)} دقيقة` };
+}
+
+// درع الشعلة: واحد كل شهر، وزيادة من الصناديق
+const thisMonth = () => monthKey(todayISO());
+function shieldsOf(sid){
+  const used = Object.entries(S.att).flatMap(([lid,a]) => a[sid]?.shield ? [{ k:a[sid].shield, m: monthKey(lessonById(lid)?.date || todayISO()) }] : []);
+  const monthlyFree = used.some(u => u.k === "m" && u.m === thisMonth()) ? 0 : 1;
+  const extra = Object.values(S.boxes[sid] || {}).filter(x => x === "shield").length - used.filter(u => u.k === "x").length;
+  return { monthlyFree, extra: Math.max(0, extra), total: monthlyFree + Math.max(0, extra) };
+}
+
+// صندوق المفاجأة: صندوق لكل درس حضرته
+const FACTS = [
+  "أبو بكر الصديق أول من أسلم من الرجال الأحرار.",
+  "عمر بن الخطاب أول من دوّن الدواوين في الإسلام.",
+  "عمر بن الخطاب أول من جعل التاريخ يبدأ من الهجرة.",
+  "عثمان بن عفان لُقّب بذي النورين لزواجه من ابنتي النبي ﷺ رقية ثم أم كلثوم.",
+  "علي بن أبي طالب أول من أسلم من الصبيان.",
+  "معركة اليرموك كانت سنة ١٥هـ بقيادة خالد بن الوليد.",
+  "معركة القادسية انتصر فيها المسلمون بقيادة سعد بن أبي وقاص.",
+  "أبو بكر الصديق جمع القرآن في صحف بعد معركة اليمامة.",
+];
+const TITLES = ["نجم الليل","حارس الأفق","رفيق الفجر","صاحب الهمّة"];
+function boxPrize(sid, lid){
+  const r = rng([...(sid+lid)].reduce((h,c) => h*31 + c.charCodeAt(0) | 0, 7))();
+  if (r < .12) return "shield";
+  if (r < .32) return "gold";
+  if (r < .44) return "title:" + TITLES[Math.floor(r*1000) % TITLES.length];
+  return "fact:" + Math.floor(r*1000) % FACTS.length;
+}
+const unopened = sid => lessonsSorted().filter(l => isAtt(l.id, sid) && !(S.boxes[sid] || {})[l.id]);
+const titlesOf = sid => [...new Set(Object.values(S.boxes[sid] || {}).filter(x => x.startsWith("title:")).map(x => x.slice(6)))];
+const isGold = (sid, lid) => (S.boxes[sid] || {})[lid] === "gold";
+
+// سماك: نجمة لكل درس، والنجوم تتصل لما تحضر ورا بعض
+function skySVG(sid, big){
+  const N = Math.max(S.planned, S.lessons.length), ls = lessonsSorted(), W = 360, H = big ? 300 : 210;
+  const r = rng(91); const pts = [];
+  for (let i = 0; i < N; i++){ const t = N === 1 ? .5 : i/(N-1); pts.push([28 + t*(W-56), H*.62 - Math.sin(Math.PI*t)*H*.42 + (r()-.5)*H*.22]); }
+  let g = "";
+  for (let i = 0; i < 70; i++) g += `<circle cx="${(r()*W).toFixed(1)}" cy="${(r()*H).toFixed(1)}" r="${(r()*.9+.2).toFixed(2)}" fill="#fff" opacity="${(r()*.35+.08).toFixed(2)}"/>`;
+  g += `<path d="M-20 ${H} Q ${W/2} ${H*.62} ${W+20} ${H}" fill="none" stroke="url(#sky-arc)" stroke-width="3" opacity=".9"/>`;
+  for (let i = 1; i < N; i++){ const a = ls[i-1], b = ls[i]; if (a && b && isAtt(a.id,sid) && isAtt(b.id,sid)) g += `<line x1="${pts[i-1][0].toFixed(1)}" y1="${pts[i-1][1].toFixed(1)}" x2="${pts[i][0].toFixed(1)}" y2="${pts[i][1].toFixed(1)}" stroke="rgba(255,255,255,.55)" stroke-width="1.2"/>`; }
+  pts.forEach(([x,y],i) => { const l = ls[i];
+    if (!l) { g += `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="2.2" fill="none" stroke="rgba(169,166,214,.35)" stroke-dasharray="1.5 2"/>`; return; }
+    if (isAtt(l.id, sid)) { const gold = isGold(sid, l.id), c = gold ? "#FFC857" : "#fff";
+      g += `<g class="star-on" style="animation-delay:${(i*.37%2.8).toFixed(2)}s"><circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="9" fill="url(#${gold?"glow-g":"glow"})"/><path transform="translate(${x.toFixed(1)} ${y.toFixed(1)})" d="M0-6 1.5-1.5 6 0 1.5 1.5 0 6-1.5 1.5-6 0-1.5-1.5Z" fill="${c}"/></g>`; }
+    else if (markOf(l.id, sid) === "a" && S.att[l.id][sid].shield) g += `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="3.5" fill="none" stroke="#A9A6D6" stroke-width="1.4"/>`;
+    else g += `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="2.6" fill="rgba(169,166,214,.3)"/>`;
+  });
+  return `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="سماك: ${totalOf(sid)} نجمة من ${N}"><defs>
+    <radialGradient id="glow"><stop offset="0" stop-color="#fff" stop-opacity=".9"/><stop offset=".4" stop-color="#FF8A8C" stop-opacity=".35"/><stop offset="1" stop-color="#FF3C40" stop-opacity="0"/></radialGradient>
+    <radialGradient id="glow-g"><stop offset="0" stop-color="#FFE3A3"/><stop offset=".45" stop-color="#FFC857" stop-opacity=".45"/><stop offset="1" stop-color="#FFC857" stop-opacity="0"/></radialGradient>
+    <linearGradient id="sky-arc" x1="0" x2="1"><stop offset="0" stop-color="#5B57B0"/><stop offset=".5" stop-color="#872457"/><stop offset="1" stop-color="#FF3C40"/></linearGradient></defs>${g}</svg>`;
+}
+
+// ألقاب الأسبوع: من آخر درس
+function weekTitles(){
+  const l = lastLesson(); const out = [];
+  if (l) { const firsts = Object.entries(S.att[l.id] || {}).filter(([,v]) => v.s === "p").sort((a,b) => a[1].t - b[1].t); if (firsts[0]) out.push({ t:"أول الواصلين", s: S.students.find(x => x.id === firsts[0][0]) }); }
+  const st = S.students.map(s => ({ s, n: streakOf(s.id) })).sort((a,b) => b.n - a.n)[0]; if (st && st.n) out.push({ t:"أطول شعلة", s: st.s, n: st.n });
+  const ch = ranked(monthCounts())[0]; if (ch && ch.n) out.push({ t:"بطل الشهر", s: ch.s });
+  return out.filter(x => x.s);
+}
+function goalProgress(){ const ls = S.lessons.filter(l => monthKey(l.date) === thisMonth()); const n = ls.reduce((t,l) => t + countOf(l.id,"p"), 0); return { n, target: S.goal.target, pct: Math.min(100, Math.round(100*n/Math.max(1,S.goal.target))) }; }
 
 /* ==================== الحالة والتنقل ==================== */
 let tab = "home";
@@ -538,30 +670,41 @@ function lessonRow(l, me){
     </div></li>`;
 }
 
+function nextCard(me){
+  const c = countdown(); if (!c) return "";
+  const st = streakOf(me.id), last = lastLesson(), pending = last && !markOf(last.id, me.id);
+  if (c.now) return `<div class="next now">${flame()}<div class="grow"><b>الدرس الحين!</b><span class="small">${pending ? "سجّل حضورك تحت وولّع شعلتك" : "حيّاك، شعلتك ماشية"}</span></div></div>`;
+  return `<div class="next">${flame(st ? "" : "off")}<div class="grow"><b>الدرس الجاي ${DAYS[c.d.getDay()]}</b><span class="small muted">${st >= 2 ? `شعلتك ${ar(st)}، لا تخليها تطفي` : st === 1 ? "احضر وتبدأ سلسلتك" : "احضر وولّع أول شعلة"}</span></div><div class="cd" id="cd">${c.txt}<small>باقي</small></div></div>`;
+}
 function stHome(me){
   const ls = lessonsSorted();
   const pending = ls.filter(l => !markOf(l.id, me.id)).length;
   const tot = totalOf(me.id), lv = levelOf(me.id), eb = earned(me.id);
   const nextB = BADGES.find(b => !eb.includes(b.id));
-  const ticks = ls.map(l => isAtt(l.id, me.id) ? "y" : markOf(l.id, me.id) === "a" ? "n" : "f");
-  return `<section class="stack"><div class="sec-h"><h2>الدروس</h2>${pending ? `<span class="chip red">${ar(pending)} ما سجّلته</span>` : `<span class="chip ok">سجّلت الكل</span>`}</div>
+  const ub = unopened(me.id), gp = goalProgress(), wt = weekTitles(), sh = shieldsOf(me.id);
+  const N = Math.max(S.planned, ls.length);
+  return `${nextCard(me)}
+    ${ub.length ? `<button class="boxbtn" id="open-box"><svg viewBox="0 0 48 48" aria-hidden="true"><use href="#i-gift"/></svg><div class="grow"><b>عندك ${ub.length===1?"صندوق":ar(ub.length)+" صناديق"} ما فتحته</b><div class="small muted">كل حضور يعطيك صندوق. وش فيه؟ افتحه وشوف</div></div></button>` : ""}
+    <section class="stack"><div class="sec-h"><h2>الدروس</h2>${pending ? `<span class="chip red">${ar(pending)} ما سجّلته</span>` : `<span class="chip ok">سجّلت الكل</span>`}</div>
       <ol class="lessons">${ls.map(l => lessonRow(l, me)).join("")}</ol>
-      ${ls.length ? "" : `<p class="muted" style="text-align:center">ما فيه دروس للحين. يضيفها المشرف</p>`}</section>
-    <section class="stack"><div class="sec-h"><h2>رحلتك في أفق</h2></div>
-      <div class="card ruler">${ruler(ticks, { progress: ls.length ? tot/ls.length : 0, big: ar(tot)+" من "+ar(ls.length), small:"درس حضرته", id:"st", label:"حضرت "+tot+" من "+ls.length })}
-        <div class="legend"><span><i style="background:var(--ink)"></i>حاضر</span><span><i style="background:var(--navy-300)"></i>غايب</span></div>
-      </div>
-      <div class="card level">${medalSVG({id:"lv"}, true, ar(lv.i+1))}
+      ${ls.length ? "" : `<p class="muted" style="text-align:center">ما فيه دروس للحين. يضيفها المشرف</p>`}
+      <div class="shield-pill">${ic("i-shield")}عندك ${ar(sh.total)} ${sh.total===1?"درع":"دروع"} للشعلة · لو غبت بعذر يحمي شعلتك</div></section>
+    <section class="stack"><div class="sec-h"><h2>سماك</h2><span class="chip">${ar(tot)} نجمة من ${ar(N)}</span></div>
+      <div class="sky-card">${skySVG(me.id)}<div class="cap"><div><b>${tot >= N ? "سماك كاملة" : `باقي ${ar(N - tot)} نجمة`}</b><div class="small muted">كل درس تحضره يضوي نجمة، والنجوم ورا بعض تتصل</div></div></div></div></section>
+    <section class="card goal"><span class="eyebrow">هدف الحلقة هالشهر</span><div class="gt" style="margin-top:6px">${esc(S.goal.text)}</div>
+      <div class="bar"><span style="width:${gp.pct}%"></span></div>
+      <div class="row small" style="justify-content:space-between"><span class="muted">${gp.n >= gp.target ? "تحقق الهدف! 🎉" : `باقي ${ar(gp.target - gp.n)} حضور ويتحقق`}</span><span class="num">${ar(gp.n)} / ${ar(gp.target)}</span></div>
+      <p class="small muted" style="margin:6px 0 0">كل حضور منك يقرّب الحلقة كلها للهدف.</p></section>
+    ${wt.length ? `<section class="stack"><div class="sec-h"><h2>ألقاب الأسبوع</h2></div><div class="titles">${wt.map(x => `<div class="ttl"><span class="avatar">${initials(x.s.name)}</span><small>${x.t}</small><b>${firstName(x.s.name)}${x.n?" · "+ar(x.n):""}</b></div>`).join("")}</div></section>` : ""}
+    <section class="card level">${medalSVG({id:"lv"}, true, ar(lv.i+1))}
         <div class="grow"><b>مرتبتك: ${lv.name}</b> <span class="muted small">· ${lv.desc}</span>
           <div class="bar"><span style="width:${lv.pct}%"></span></div>
-          <div class="muted small">${lv.next ? `باقي ${ar(lv.next.n - lv.t)} ${lv.next.n-lv.t===1?"درس":"دروس"} وتوصل «${lv.next.name}»` : "وصلت آخر مرتبة"}</div></div></div>
-    </section>
+          <div class="muted small">${lv.next ? `باقي ${ar(lv.next.n - lv.t)} ${lv.next.n-lv.t===1?"درس":"دروس"} وتوصل «${lv.next.name}»` : "وصلت آخر مرتبة"}</div></div></section>
     ${nextB ? `<section class="stack"><div class="sec-h"><h2>وسامك الجاي</h2><button class="link" data-tab="badges">كل الأوسمة</button></div>
       <div class="card row">${medalSVG(nextB,false)}<div class="grow"><b>${nextB.name}</b><div class="muted small">${nextB.how}</div></div></div></section>` : ""}
     <section class="stack"><div class="sec-h"><h2>أبطال ${monthName()}</h2><button class="link" data-tab="rank">الترتيب كامل</button></div>
       ${lbRows(ranked(monthCounts()).slice(0,3), me.id)}</section>`;
 }
-
 function lbRows(rows, meId){
   return `<div class="lb">${rows.map(r => `<div class="lb-row ${r.s.id===meId?"me":""} ${r.pos===1&&r.n?"top1":""}">
     <span class="pos">${r.pos===1&&r.n ? `<svg width="22" height="17" viewBox="0 0 26 20" aria-label="بطل الشهر"><use href="#i-crown"/></svg>` : ar(r.pos)}</span>
@@ -584,6 +727,8 @@ function stBadges(me){
   const eb = earned(me.id), lv = levelOf(me.id);
   return `<section class="stack"><div class="sec-h"><h2>أوسمتي</h2><span class="chip solid">${ar(eb.length)} من ${ar(BADGES.length)}</span></div>
     <div class="badges">${BADGES.map(b => { const on = eb.includes(b.id); return `<button class="badge ${on?"":"locked"}" data-badge="${b.id}">${medalSVG(b,on)}<b>${b.name}</b><small>${on?"حصّلته":b.how}</small></button>`; }).join("")}</div>
+    <div class="sec-h" style="margin-top:8px"><h2>ألقابك</h2><span class="chip">${ar(titlesOf(me.id).length)} من ${ar(TITLES.length)}</span></div>
+    <div class="card" style="display:flex;gap:8px;flex-wrap:wrap">${TITLES.map(t => titlesOf(me.id).includes(t) ? `<span class="chip red">${t}</span>` : `<span class="chip" style="opacity:.45">؟؟؟</span>`).join("")}<p class="small muted" style="margin:6px 0 0;width:100%">الألقاب النادرة تطلع لك من صناديق المفاجأة.</p></div>
     <div class="sec-h" style="margin-top:8px"><h2>المراتب</h2></div>
     <div class="card list">${LEVELS.map((L,i) => `<div class="li"><span class="dot ${i<=lv.i?"y":"n"}"></span><div class="grow"><div class="nm">${L.name}</div><div class="sub">${L.n===0?"من أول درس":"من "+ar(L.n)+" دروس"} · ${L.desc}</div></div>${i===lv.i?`<span class="chip red">أنت هنا</span>`:""}</div>`).join("")}</div>
   </section>`;
@@ -593,43 +738,84 @@ function bindStudent(me){
   bindDemo();
   $("#logout").onclick = () => setSession(null);
   document.querySelectorAll("[data-tab]").forEach(b => b.onclick = () => go(b.dataset.tab));
+  const ob = $("#open-box"); if (ob) ob.onclick = () => openBox(me);
+  clearInterval(window.__cd); window.__cd = setInterval(() => { const c = countdown(), e = $("#cd"); if (e && c && !c.now) e.firstChild.textContent = c.txt; }, 30000);
   document.querySelectorAll("[data-badge]").forEach(b => b.onclick = () => {
     const B = BADGES.find(x => x.id === b.dataset.badge), on = earned(me.id).includes(B.id);
-    sheet(`<div style="text-align:center" class="stack">${medalSVG(B,on).replace('class="medal"','class="medal" style="width:96px;height:96px;margin:0 auto"')}<h3>${B.name}</h3><p class="muted" style="margin:0">${B.how}</p>${on?`<span class="chip ok" style="margin:0 auto">حصّلته ✓</span>`:`<span class="chip" style="margin:0 auto">للحين ما حصّلته</span>`}<button class="btn block" onclick="closeSheet()">تمام</button></div>`);
+    sheet(`<div style="text-align:center" class="stack">${medalSVG(B,on).replace('class="medal"','class="medal" style="width:96px;height:96px;margin:0 auto"')}<h3>${B.name}</h3><p class="muted" style="margin:0">${B.how}</p>${on?`<span class="chip ok" style="margin:0 auto">حصّلته ✓</span><button class="btn dawn block" id="mk-card">سوّ بطاقة للستوري</button>`:`<span class="chip" style="margin:0 auto">للحين ما حصّلته</span>`}<button class="btn ghost block" onclick="closeSheet()">تمام</button></div>`, () => {
+      const mk = $("#mk-card"); if (mk) mk.onclick = () => storyCard(me, { big:"", title:B.name, sub:"وسام جديد في أفق", medal:B });
+    });
   });
   document.querySelectorAll("[data-mark]").forEach(b => b.onclick = () => {
     const lid = b.dataset.l, m = b.dataset.mark, prev = S.att[lid]?.[me.id];
-    if (prev?.s === m) return;
     const before = earned(me.id), prevStreak = streakOf(me.id);
-    (S.att[lid] ||= {})[me.id] = { s:m, t: Date.now() }; save();
-    if (m === "p") {
-      const st = streakOf(me.id), nb = earned(me.id).filter(x => !before.includes(x)).map(id => BADGES.find(x => x.id === id));
-      if (st > prevStreak || nb.length) return celebrate(st, prevStreak, nb);
-      render(); toast("سجّلناك حاضر ✓");
-    } else {
+    const doMark = (shield) => {
+      (S.att[lid] ||= {})[me.id] = { s:m, t: Date.now(), ...(shield ? { shield } : {}) }; save();
+      if (m === "p") {
+        const st = streakOf(me.id), nb = earned(me.id).filter(x => !before.includes(x)).map(id => BADGES.find(x => x.id === id));
+        return celebrate(st, prevStreak, nb, me, lid);
+      }
       render();
+      if (shield) return toast("استخدمت الدرع 🛡️ شعلتك ما طفت");
       toast(prevStreak && streakOf(me.id) < prevStreak ? "سجّلناك غايب. الشعلة طفت، ولّعها الدرس الجاي" : "سجّلناك غايب. الدرس الجاي لا يفوتك",
         () => { if (prev) S.att[lid][me.id] = prev; else delete S.att[lid][me.id]; save(); render(); });
+    };
+    if (prev?.s === m) return;
+    if (m === "a") {
+      // لو الغياب بيطفّي الشعلة وعنده درع، نسأله
+      const test = { ...S.att[lid] }; S.att[lid] = { ...test, [me.id]: { s:"a", t:Date.now() } }; const after = streakOf(me.id); S.att[lid] = test;
+      const sh = shieldsOf(me.id);
+      if (after < prevStreak && sh.total) return sheet(`<div class="stack" style="text-align:center">${flame()}<h3>شعلتك ${ar(prevStreak)} بتطفي!</h3><p class="muted" style="margin:0">عندك ${ar(sh.total)} ${sh.total===1?"درع":"دروع"}. إذا غيابك بعذر، استخدم الدرع وتبقى شعلتك.</p>
+        <button class="btn dawn block" id="use-sh">${ic("i-shield")} احمِ شعلتي</button><button class="btn ghost block" id="no-sh">لا، سجّلني غايب</button></div>`, () => {
+          $("#use-sh").onclick = () => { closeSheet(); doMark(sh.monthlyFree ? "m" : "x"); };
+          $("#no-sh").onclick = () => { closeSheet(); doMark(); };
+        });
     }
+    doMark();
   });
 }
-
-function celebrate(st, prev, newBadges){
+function celebrate(st, prev, newBadges, me, lid){
   const msg = st <= 1 ? ["ولّعت شعلة!","احضر الدرس الجاي وتبدأ سلسلتك"]
     : st === 2 ? ["بدأت السلسلة!","شعلتين ورا بعض، كمّل"]
     : st < 5 ? ["الشعلة تكبر!", ar(st) + " دروس ورا بعض"]
     : ["ما شاء الله تبارك الله!", ar(st) + " دروس ورا بعض، أنت قدوة"];
   const c = document.createElement("div"); c.className = "celebrate"; c.setAttribute("role","dialog"); c.setAttribute("aria-modal","true");
-  c.innerHTML = `<div class="box">${flame()}<div class="big num" id="cnt">${ar(prev)}</div><h2>${msg[0]}</h2><p>${msg[1]}</p>
+  const hasBox = me && lid && !(S.boxes[me.id] || {})[lid];
+  c.innerHTML = `<div class="box">${flame()}<div class="big num" id="cnt">${ar(prev)}</div><h2>${msg[0]}</h2><p>${msg[1]}</p><p style="margin-top:4px">ونجمة جديدة ضوت في سماك ⭐</p>
     ${newBadges.length ? `<p style="color:#FFC2C3;margin-top:8px">وسام جديد</p><div class="newb">${newBadges.map(b => `<div class="badge">${medalSVG(b,true)}<b>${b.name}</b></div>`).join("")}</div>` : ""}
-    <button class="btn" id="cel-ok">تمام</button></div>`;
+    ${hasBox ? `<button class="btn dawn" id="cel-box" style="color:#fff">🎁 افتح صندوق المفاجأة</button>` : ""}
+    <div class="row" style="justify-content:center;flex-wrap:wrap"><button class="btn ghost" id="cel-card" style="color:#fff;background:rgba(255,255,255,.12);margin-top:10px">بطاقة للستوري</button><button class="btn" id="cel-ok">تمام</button></div></div>`;
   document.body.appendChild(c);
   setTimeout(() => { const e = $("#cnt"); if (e) e.textContent = ar(st); }, 450);
   confetti();
   $("#cel-ok").onclick = () => { c.remove(); render(); };
-  $("#cel-ok").focus();
+  $("#cel-card").onclick = () => { c.remove(); render(); storyCard(me, { big: ar(st), title: st > 1 ? "شعلات ورا بعض" : "حاضر في أفق", sub: "أنا حاضر، وأنت؟" }); };
+  const bx = $("#cel-box"); if (bx) bx.onclick = () => { c.remove(); render(); openBox(me, lid); };
+  (bx || $("#cel-ok")).focus();
 }
-
+function openBox(me, lid){
+  lid ||= unopened(me.id)[0]?.id; if (!lid) return;
+  const l = lessonById(lid);
+  sheet(`<div class="stack" style="text-align:center"><span class="eyebrow" style="margin:0 auto">صندوق الدرس ${ar(l.n)}</span><svg class="gift" id="gift" viewBox="0 0 48 48" style="animation:shake 1.2s ease-in-out infinite"><use href="#i-gift"/></svg><button class="btn dawn block big" id="do-open">افتحه</button></div>`, () => {
+    $("#do-open").onclick = () => {
+      const p = boxPrize(me.id, lid); (S.boxes[me.id] ||= {})[lid] = p; save(); confetti();
+      let k, t;
+      if (p === "shield") { k = "نادر! درع شعلة 🛡️"; t = "لو غبت بعذر، الدرع يحمي شعلتك من الانطفاء"; }
+      else if (p === "gold") { k = "نجمة ذهبية ⭐"; t = "نجمة هالدرس صارت ذهبية في سماك"; }
+      else if (p.startsWith("title:")) { k = "لقب نادر 👑"; t = "«" + p.slice(6) + "»"; }
+      else { k = "فائدة الصندوق 💡"; t = FACTS[+p.slice(5)]; }
+      const left = unopened(me.id).length;
+      $("#scrim .sheet").innerHTML = `<div class="grab"></div><div class="stack"><div class="prize"><div class="k">${k}</div><p>${esc(t)}</p></div>
+        ${left ? `<button class="btn dawn block" id="next-box">افتح الصندوق الجاي (${ar(left)})</button>` : ""}<button class="btn block" id="box-ok">تمام</button></div>`;
+      $("#box-ok").onclick = () => { closeSheet(); render(); };
+      const nb = $("#next-box"); if (nb) nb.onclick = () => { render(); openBox(me); };
+    };
+  });
+}
+function storyCard(me, o){
+  sheet(`<div class="story">${logo(true)}<div class="arc"></div>${o.medal ? medalSVG(o.medal,true).replace('class="medal"','class="medal" style="width:110px;height:110px"') : flame()}${o.big ? `<div class="big">${o.big}</div>` : ""}<h3>${esc(o.title)}</h3><p style="margin:0;color:#A9A6D6">${esc(firstName(me.name))} · ${esc(o.sub)}</p></div>
+    <p class="small muted" style="text-align:center">صوّر الشاشة وشاركها في الستوري أو الواتساب</p><button class="btn block" onclick="closeSheet()">تمام</button>`);
+}
 function confetti(){
   if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
   const cv = document.createElement("canvas"); cv.className = "confetti"; document.body.appendChild(cv);
@@ -656,6 +842,7 @@ function adLessons(){
   const ls = lessonsSorted(), N = S.students.length;
   return `<section class="stack">
     <button class="btn dawn block big" id="add-ls">${ic("i-plus")} أضف درس</button>
+    ${(() => { const gp = goalProgress(); return `<div class="card goal"><span class="eyebrow">هدف الحلقة هالشهر</span><div class="gt" style="margin-top:6px">${esc(S.goal.text)}</div><div class="bar"><span style="width:${gp.pct}%"></span></div><div class="row small" style="justify-content:space-between"><span class="muted">تعدّله من الإعدادات ⚙︎</span><span class="num">${ar(gp.n)} / ${ar(gp.target)}</span></div></div>`; })()}
     <ol class="lessons">${ls.map(l => { const p = countOf(l.id,"p"), a = countOf(l.id,"a"), none = N - p - a;
       return `<li><button class="lesson admin" data-ls="${l.id}"><span class="ln num">${ar(l.n)}</span><div class="grow"><div class="lt">${esc(l.title)}</div><div class="ld">${fmtDate(l.date)}</div>
         <div class="counts"><span class="chip ok">${ar(p)} حاضر</span>${a?`<span class="chip red">${ar(a)} غايب</span>`:""}${none?`<span class="chip">${ar(none)} ما سجّلوا</span>`:""}</div></div></button></li>`; }).reverse().join("")}</ol>
@@ -799,16 +986,23 @@ function studentSheet(sid){
 
 function openSettings(){
   sheet(`<h3>الإعدادات</h3><form id="set-f" class="stack">
+      <div><label class="lbl">موعد الدرس الأسبوعي (للعدّاد)</label><div class="ctl-row"><select class="field" id="set-day">${DAYS.map((d,i) => `<option value="${i}" ${i===S.schedule.day?"selected":""}>${d}</option>`).join("")}</select><input class="field" id="set-time" type="time" value="${S.schedule.time}"></div></div>
+      <div><label class="lbl" for="set-goal">هدف الحلقة هالشهر (الجائزة)</label><input class="field" id="set-goal" value="${esc(S.goal.text)}"></div>
+      <div class="ctl-row"><div><label class="lbl" for="set-target">كم حضور يحتاج الهدف؟</label><input class="field" id="set-target" inputmode="numeric" value="${S.goal.target}"></div>
+        <div><label class="lbl" for="set-planned">كم درس في الدورة؟</label><input class="field" id="set-planned" inputmode="numeric" value="${S.planned}"></div></div>
       <div><label class="lbl" for="set-ac">رمز المشرف</label><input class="field code-input" id="set-ac" inputmode="numeric" maxlength="6" value="${esc(S.adminCode)}"></div>
       <button class="btn block" type="submit">احفظ</button>
       ${S.demo ? `<button type="button" class="btn ghost block" id="reset">رجّع البيانات التجريبية من جديد</button>` : ""}
     </form>`, () => {
-    $("#set-f").onsubmit = e => { e.preventDefault(); const v = toLatin($("#set-ac").value); if (v.length < 4) return toast("الرمز ٤ أرقام على الأقل"); if (S.students.some(s => s.code === v)) return toast("هذا رمز طالب، اختر غيره"); S.adminCode = v; save(); closeSheet(); toast("تغيّر رمز المشرف"); };
+    $("#set-f").onsubmit = e => { e.preventDefault(); const v = toLatin($("#set-ac").value);
+      if (v.length < 4) return toast("رمز المشرف ٤ أرقام على الأقل"); if (S.students.some(s => s.code === v)) return toast("هذا رمز طالب، اختر غيره");
+      S.adminCode = v; S.schedule = { day:+$("#set-day").value, time:$("#set-time").value || "20:00" };
+      S.goal = { text: $("#set-goal").value.trim() || S.goal.text, target: Math.max(1, +toLatin($("#set-target").value) || S.goal.target) };
+      S.planned = Math.max(1, +toLatin($("#set-planned").value) || S.planned);
+      save(); closeSheet(); render(); toast("انحفظ"); };
     const r = $("#reset"); if (r) r.onclick = () => { S = seed(); save(); closeSheet(); setSession({ role:"admin" }); toast("رجعت البيانات التجريبية"); };
   });
 }
-
-/* تحديث تلقائي لو تغيّرت البيانات من تبويب ثاني */
 window.addEventListener("storage", e => { if (e.key === KEY) { S = lsGet(KEY) || S; if (!$("#scrim") && !$(".celebrate")) render(); } });
 render();
 </script>
