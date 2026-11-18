@@ -1,0 +1,848 @@
+<title>أُفُق</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;700&family=Noto+Naskh+Arabic:wght@700&display=swap">
+<style>
+/* أفق: هوية الإصدار الثاني ٢٠٢٦. هيدر كحلي بالمدارات والقوس، تحته محتوى على ورق، وتبويبات سفلية للجوال أولاً */
+:root{
+  --navy:#100B71; --navy-900:#0A0748; --navy-950:#07052E; --navy-700:#2B2690; --navy-500:#5B57B0; --navy-300:#A9A6D6; --navy-100:#E4E3F3; --navy-50:#F3F2FA;
+  --red:#FF3C40; --red-600:#D6282D; --red-100:#FFE3E3; --plum:#872457; --blush:#FFEEEE;
+  --ink:#14113F; --ink-2:#57546F; --line:#E6E2EC; --bg:#FBF9FA; --mist:#F6F1F4; --card:#FFFFFF;
+  --hero:#100B71; --hero-2:#0A0748; --primary:#100B71; --on-primary:#FFFFFF; --primary-hover:#2B2690;
+  --chip:#F3F2FA; --chip-ink:#100B71; --ok:#1F7A55; --ok-bg:#E6F4EE;
+  --dawn:linear-gradient(90deg,#100B71 0%,#872457 50%,#FF3C40 100%);
+  --font:"Thmanyah Sans","IBM Plex Sans Arabic",system-ui,sans-serif;
+  --display:"Thmanyah Serif Display","Noto Naskh Arabic","IBM Plex Sans Arabic",serif;
+  --r-sm:12px; --r:18px; --pill:999px; --slant:-11.9deg;
+  --shadow:0 8px 24px rgba(16,11,113,.08);
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --ink:#F3F2FA; --ink-2:#A9A6D6; --line:#2A2570; --bg:#0B0838; --mist:#120E45; --card:#16124F;
+  --hero:#100B71; --hero-2:#07052E; --primary:#F3F2FA; --on-primary:#100B71; --primary-hover:#E4E3F3;
+  --red:#FF5A5D; --red-100:#3A1640; --blush:#2A1446; --chip:#221D63; --chip-ink:#E4E3F3; --ok:#5FD3A0; --ok-bg:#123C3A;
+  --shadow:0 8px 24px rgba(0,0,0,.3); color-scheme:dark }}
+:root[data-theme="dark"]{
+  --ink:#F3F2FA; --ink-2:#A9A6D6; --line:#2A2570; --bg:#0B0838; --mist:#120E45; --card:#16124F;
+  --hero:#100B71; --hero-2:#07052E; --primary:#F3F2FA; --on-primary:#100B71; --primary-hover:#E4E3F3;
+  --red:#FF5A5D; --red-100:#3A1640; --blush:#2A1446; --chip:#221D63; --chip-ink:#E4E3F3; --ok:#5FD3A0; --ok-bg:#123C3A;
+  --shadow:0 8px 24px rgba(0,0,0,.3); color-scheme:dark }
+
+*{box-sizing:border-box}
+html,body{min-height:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font);font-size:16px;line-height:1.7;-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:30;background:var(--hero)}
+button,input,select{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:3px solid rgba(255,60,64,.45);outline-offset:2px}
+h1,h2,h3{font-family:var(--display);font-weight:700;line-height:1.35;margin:0;text-wrap:balance}
+.num{font-family:var(--display);font-variant-numeric:tabular-nums}
+.app{max-width:560px;margin:0 auto;min-height:100vh;display:flex;flex-direction:column;background:var(--bg)}
+.wrap{padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+
+/* ---------- logo ---------- */
+.logo{display:inline-block;position:relative;aspect-ratio:478/378}
+.logo svg{position:absolute;inset:0;width:100%;height:100%}
+.logo .a{fill:url(#lg-dawn)} .logo .l{fill:var(--navy)}
+.logo.white .a,.logo.white .l{fill:#fff}
+
+/* ---------- hero / header ---------- */
+.hero{position:relative;overflow:hidden;background:radial-gradient(120% 90% at 50% 100%,var(--hero) 0%,var(--hero-2) 100%);color:#fff;padding-block:14px 26px}
+.hero .orbits{position:absolute;inset:auto -40% -60% -40%;height:150%;pointer-events:none;opacity:.55}
+.hero .rise{position:absolute;left:50%;bottom:-150px;width:440px;height:220px;transform:translateX(-50%);border-radius:50%;border:12px solid transparent;background:var(--dawn) border-box;-webkit-mask:linear-gradient(#000 0 0) padding-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;opacity:.95;pointer-events:none}
+.hero > *{position:relative}
+.topbar{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:48px}
+.topbar .logo{width:56px}
+.iconbtn{display:inline-grid;place-items:center;width:42px;height:42px;border-radius:var(--pill);border:0;background:rgba(255,255,255,.1);color:#fff}
+.iconbtn:hover{background:rgba(255,255,255,.18)}
+.iconbtn svg{width:22px;height:22px}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:500;color:var(--red)}
+.eyebrow::before{content:"";width:8px;height:8px;background:currentColor;transform:rotate(35deg);border-radius:1px}
+.hero .eyebrow{color:#FFC2C3}
+.hello{margin-top:10px}
+.hello small{display:block;color:var(--navy-300);font-size:15px}
+.hello h1{font-size:30px;color:#fff}
+
+/* demo banner */
+.demo{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;background:var(--blush);color:var(--ink);font-size:13px;padding-block:8px}
+.demo b{color:var(--red)}
+.demo button{border:1px solid var(--line);background:var(--card);border-radius:var(--pill);padding:4px 12px;font-size:13px;font-weight:500}
+
+/* ---------- main ---------- */
+main{flex:1;padding-block:20px 110px;display:flex;flex-direction:column;gap:22px}
+.sec-h{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.sec-h h2{font-size:21px;display:flex;align-items:center;gap:10px}
+.sec-h h2::after{content:"";width:22px;height:4px;border-radius:4px;background:var(--red);transform:rotate(var(--slant))}
+.link{border:0;background:none;color:var(--ink-2);font-size:14px;font-weight:500;padding:4px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:18px}
+.muted{color:var(--ink-2)}
+.small{font-size:14px}
+.row{display:flex;align-items:center;gap:12px}
+.stack{display:flex;flex-direction:column;gap:12px}
+.grow{flex:1;min-width:0}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:48px;padding:0 24px;border-radius:var(--pill);border:0;font-size:17px;font-weight:700;background:var(--primary);color:var(--on-primary);transition:background .15s,transform .1s}
+.btn:hover{background:var(--primary-hover)}
+.btn:active{transform:scale(.98)}
+.btn.dawn{background:var(--dawn);color:#fff}
+.btn.ghost{background:var(--mist);color:var(--ink)}
+.btn.outline{background:transparent;border:1.5px solid var(--primary);color:var(--primary)}
+.btn.danger{background:var(--red-600);color:#fff}
+.btn.block{width:100%}
+.btn.big{height:60px;font-size:20px}
+.btn[disabled]{opacity:.45;pointer-events:none}
+.btn svg{width:20px;height:20px}
+
+.chip{display:inline-flex;align-items:center;gap:6px;padding:3px 12px;border-radius:var(--pill);background:var(--chip);color:var(--chip-ink);font-size:13px;font-weight:500;white-space:nowrap}
+.chip.red{background:var(--red-100);color:var(--red)}
+.chip.red::before{content:"";width:7px;height:7px;background:currentColor;transform:rotate(35deg)}
+.chip.ok{background:var(--ok-bg);color:var(--ok)}
+.chip.solid{background:var(--primary);color:var(--on-primary)}
+
+input.field{width:100%;height:52px;border-radius:14px;border:1.5px solid var(--line);background:var(--card);padding:0 16px;font-size:17px}
+input.field:focus{outline:none;border-color:var(--navy-500);box-shadow:0 0 0 4px rgba(91,87,176,.18)}
+label.lbl{display:block;font-size:13px;font-weight:500;color:var(--ink-2);margin-bottom:6px}
+
+/* ---------- login ---------- */
+.login .hero{padding-block:36px 150px;text-align:center}
+.login .hero .logo{width:150px}
+.login .hero h1{font-size:32px;margin-top:18px}
+.login .hero p{margin:4px 0 0;color:var(--navy-300)}
+.login-card{margin-top:-110px;position:relative;z-index:2;box-shadow:var(--shadow)}
+.code-input{text-align:center;letter-spacing:.5em;font-size:28px!important;height:64px!important;font-family:var(--display);direction:ltr}
+.err{color:var(--red);font-size:14px;min-height:22px;text-align:center}
+.try{display:flex;gap:8px;flex-wrap:wrap;justify-content:center}
+.try button{border:1px dashed var(--navy-300);background:transparent;border-radius:var(--pill);padding:4px 14px;font-size:13px;color:var(--ink-2)}
+footer.foot{text-align:center;font-size:13px;color:var(--ink-2);padding-block:22px}
+
+/* ---------- streak ---------- */
+.streak{display:flex;align-items:center;gap:14px;margin-top:16px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);border-radius:var(--r);padding:12px 16px}
+.flame{width:46px;height:54px;flex:none}
+.flame.off{filter:grayscale(1) opacity(.5)}
+.streak .n{font-size:38px;line-height:1;color:#fff}
+.streak .t{font-size:14px;color:var(--navy-300);line-height:1.5}
+.streak .t b{color:#fff;font-weight:700;display:block;font-size:16px}
+.rank-pill{margin-inline-start:auto;text-align:center;font-size:12px;color:var(--navy-300)}
+.rank-pill b{display:block;font-family:var(--display);font-size:20px;color:#fff;line-height:1.2}
+
+/* ---------- check-in ---------- */
+.checkin{position:relative;overflow:hidden}
+.checkin h3{font-size:22px}
+.checkin .meta{display:flex;gap:8px;flex-wrap:wrap;margin:6px 0 16px}
+.pin{display:flex;gap:10px;justify-content:center;direction:ltr;margin-bottom:12px}
+.pin input{width:56px;height:64px;border-radius:14px;border:1.5px solid var(--line);background:var(--card);text-align:center;font-size:28px;font-family:var(--display)}
+.pin input:focus{outline:none;border-color:var(--navy-500);box-shadow:0 0 0 4px rgba(91,87,176,.18)}
+.done{display:flex;align-items:center;gap:14px;background:var(--ok-bg);color:var(--ok);border-radius:14px;padding:14px 16px;font-weight:700}
+.done svg{width:30px;height:30px;flex:none}
+.done small{display:block;font-weight:400;opacity:.85}
+.closed{display:flex;align-items:center;gap:12px;background:var(--mist);border-radius:14px;padding:14px 16px;color:var(--ink-2)}
+.closed svg{width:26px;height:26px;flex:none}
+.pulse{width:10px;height:10px;background:var(--red);transform:rotate(35deg);animation:pulse 1.4s infinite}
+@keyframes pulse{50%{opacity:.25}}
+
+/* ---------- horizon ruler ---------- */
+.ruler svg{width:100%;height:auto;display:block}
+.ruler .legend{display:flex;justify-content:center;gap:16px;font-size:13px;color:var(--ink-2);flex-wrap:wrap}
+.ruler .legend i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-inline-end:6px;vertical-align:middle}
+.ruler-center{text-anchor:middle}
+
+/* ---------- badges ---------- */
+.badges{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.badge{border:1px solid var(--line);background:var(--card);border-radius:16px;padding:14px 8px 12px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:6px;cursor:pointer}
+.medal{width:52px;height:52px;flex:none}
+.badge b{font-size:14px;line-height:1.4}
+.badge small{font-size:12px;color:var(--ink-2);line-height:1.4}
+.badge.locked .medal{filter:grayscale(1);opacity:.3}
+.badge.locked b{color:var(--ink-2)}
+.badge.new{border-color:var(--red);box-shadow:0 0 0 3px var(--red-100)}
+
+/* ---------- level ---------- */
+.level{display:flex;align-items:center;gap:14px}
+.level .bar{height:10px;border-radius:10px;background:var(--mist);overflow:hidden;margin-top:6px}
+.level .bar span{display:block;height:100%;background:var(--dawn);border-radius:10px}
+
+/* ---------- leaderboard ---------- */
+.lb{display:flex;flex-direction:column;gap:8px}
+.lb-row{display:flex;align-items:center;gap:12px;padding:10px 14px;border-radius:14px;background:var(--card);border:1px solid var(--line)}
+.lb-row.me{border-color:var(--navy-500);box-shadow:0 0 0 3px rgba(91,87,176,.15)}
+.lb-row .pos{width:30px;text-align:center;font-family:var(--display);font-size:20px;color:var(--ink-2)}
+.lb-row.top1{background:linear-gradient(90deg,rgba(16,11,113,.06),rgba(255,60,64,.10))}
+.lb-row .cnt{font-family:var(--display);font-size:20px}
+.lb-row .fl{display:inline-flex;align-items:center;gap:2px;font-size:13px;color:var(--red);font-weight:700}
+.lb-row .fl svg{width:14px;height:16px}
+.avatar{width:38px;height:38px;border-radius:50%;display:grid;place-items:center;background:var(--chip);color:var(--chip-ink);font-weight:700;font-size:15px;flex:none}
+.podium{display:grid;grid-template-columns:1fr 1.15fr 1fr;align-items:end;gap:8px;text-align:center}
+.podium .p{background:var(--card);border:1px solid var(--line);border-radius:16px 16px 10px 10px;padding:12px 6px}
+.podium .p .avatar{margin:0 auto 6px;width:46px;height:46px;font-size:17px}
+.podium .p b{display:block;font-size:14px;line-height:1.4}
+.podium .p.first{padding-block:18px 14px;background:var(--hero);color:#fff;border:0}
+.podium .p.first .avatar{background:#fff;color:var(--navy);width:56px;height:56px}
+.podium .crown{display:block;margin:0 auto 4px;width:26px;height:20px}
+
+/* ---------- history ---------- */
+.hist{display:flex;flex-direction:column}
+.hist .h{display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid var(--line)}
+.hist .h:last-child{border-bottom:0}
+.dot{width:12px;height:12px;transform:rotate(35deg);border-radius:2px;flex:none}
+.dot.y{background:var(--navy)} .dot.n{background:var(--line)} .dot.f{background:transparent;border:1.5px dashed var(--navy-300)} .dot.c{background:var(--red)}
+:root[data-theme="dark"] .dot.y{background:#A9A6D6}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .dot.y{background:#A9A6D6}}
+
+/* ---------- tabs ---------- */
+.tabs{position:fixed;left:0;right:0;bottom:0;z-index:20;background:var(--card);border-top:1px solid var(--line);padding-bottom:env(safe-area-inset-bottom,0px)}
+.tabs .in{max-width:560px;margin:0 auto;display:grid;grid-auto-flow:column;grid-auto-columns:1fr;padding-left:max(8px,env(safe-area-inset-left,0px));padding-right:max(8px,env(safe-area-inset-right,0px))}
+.tabs button{border:0;background:none;display:flex;flex-direction:column;align-items:center;gap:2px;padding:10px 0 8px;font-size:12px;font-weight:500;color:var(--ink-2);position:relative}
+.tabs button svg{width:24px;height:24px}
+.tabs button[aria-current="page"]{color:var(--ink)}
+.tabs button[aria-current="page"]::before{content:"";position:absolute;top:0;width:28px;height:3px;border-radius:3px;background:var(--red)}
+
+/* ---------- admin ---------- */
+.seg{display:flex;background:var(--mist);border-radius:var(--pill);padding:4px}
+.seg button{flex:1;border:0;background:none;border-radius:var(--pill);padding:8px 10px;font-size:14px;font-weight:500;color:var(--ink-2)}
+.seg button[aria-pressed="true"]{background:var(--card);color:var(--ink);box-shadow:0 1px 4px rgba(16,11,113,.12)}
+.list{display:flex;flex-direction:column}
+.li{display:flex;align-items:center;gap:12px;padding:11px 4px;border-bottom:1px solid var(--line);background:none;border-left:0;border-right:0;border-top:0;width:100%;text-align:start}
+.li:last-child{border-bottom:0}
+.li .nm{font-weight:500;line-height:1.4}
+.li .sub{font-size:13px;color:var(--ink-2)}
+.toggle-att{width:40px;height:40px;border-radius:50%;border:1.5px solid var(--line);background:var(--card);display:grid;place-items:center;flex:none;color:var(--ink-2)}
+.toggle-att.on{background:var(--primary);border-color:var(--primary);color:var(--on-primary)}
+.toggle-att svg{width:20px;height:20px}
+.bigpin{display:flex;align-items:center;justify-content:space-between;gap:12px;background:var(--hero);color:#fff;border-radius:16px;padding:14px 18px}
+.bigpin .d{font-family:var(--display);font-size:40px;letter-spacing:.3em;direction:ltr;line-height:1.1}
+.bigpin small{color:var(--navy-300);display:block;font-size:13px}
+.kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.kpi{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:12px;text-align:center}
+.kpi .num{font-size:28px;line-height:1.2;display:block}
+.kpi small{font-size:12px;color:var(--ink-2)}
+.bars{display:flex;align-items:flex-end;gap:6px;height:140px;padding-top:8px;direction:ltr}
+.bars .b{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:4px;height:100%;min-width:0}
+.bars .b span{display:block;width:100%;max-width:28px;border-radius:6px 6px 2px 2px;background:var(--navy-500)}
+.bars .b.cur span{background:var(--red)}
+.bars .b small{font-size:11px;color:var(--ink-2)}
+.bars .b em{font-style:normal;font-size:11px;color:var(--ink);font-weight:700}
+.search{position:relative}
+.search svg{position:absolute;inset-inline-start:14px;top:50%;transform:translateY(-50%);width:20px;height:20px;color:var(--ink-2)}
+.search input{padding-inline-start:44px}
+.code-tag{font-family:var(--display);direction:ltr;letter-spacing:.12em;background:var(--mist);border-radius:8px;padding:0 8px;font-size:15px}
+.switch{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.sw{width:52px;height:30px;border-radius:30px;border:0;background:var(--line);position:relative;flex:none;transition:background .2s}
+.sw::after{content:"";position:absolute;top:3px;inset-inline-start:3px;width:24px;height:24px;border-radius:50%;background:#fff;transition:inset-inline-start .2s;box-shadow:0 1px 3px rgba(0,0,0,.2)}
+.sw[aria-checked="true"]{background:var(--ok)}
+.sw[aria-checked="true"]::after{inset-inline-start:25px}
+textarea.field{width:100%;min-height:120px;border-radius:14px;border:1.5px solid var(--line);background:var(--card);padding:12px 16px;font-size:16px;resize:vertical}
+
+/* ---------- sheet / toast / celebrate ---------- */
+.scrim{position:fixed;inset:0;z-index:40;background:rgba(7,5,46,.55);display:flex;align-items:flex-end;justify-content:center;animation:fade .2s}
+.sheet{width:100%;max-width:560px;max-height:88vh;overflow:auto;background:var(--bg);border-radius:24px 24px 0 0;padding:10px max(16px,env(safe-area-inset-right,0px)) calc(24px + env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px));animation:up .25s ease-out}
+.sheet .grab{width:44px;height:5px;border-radius:5px;background:var(--line);margin:0 auto 14px}
+.sheet h3{font-size:22px;margin-bottom:6px}
+@keyframes up{from{transform:translateY(40px);opacity:0}}
+@keyframes fade{from{opacity:0}}
+.toast{position:fixed;left:50%;bottom:calc(90px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);z-index:60;background:var(--ink);color:var(--bg);padding:10px 18px;border-radius:var(--pill);font-size:15px;font-weight:500;display:flex;gap:12px;align-items:center;box-shadow:var(--shadow);animation:up .2s;max-width:calc(100% - 32px)}
+.toast button{border:0;background:none;color:var(--red);font-weight:700;padding:0}
+.celebrate{position:fixed;inset:0;z-index:50;display:grid;place-items:center;background:radial-gradient(100% 70% at 50% 100%,#100B71,#07052E);color:#fff;text-align:center;padding:24px;animation:fade .25s}
+.celebrate .box{max-width:360px;display:flex;flex-direction:column;align-items:center;gap:10px}
+.celebrate .flame{width:110px;height:128px;animation:pop .6s cubic-bezier(.2,1.6,.4,1)}
+.celebrate .big{font-family:var(--display);font-size:72px;line-height:1}
+.celebrate h2{font-size:28px}
+.celebrate p{margin:0;color:var(--navy-300)}
+.celebrate .newb{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin:8px 0}
+.celebrate .newb .badge{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.2);color:#fff;width:120px}
+.celebrate .newb .badge small{color:var(--navy-300)}
+.celebrate .btn{background:#fff;color:#100B71;margin-top:10px;min-width:180px}
+@keyframes pop{from{transform:scale(.3);opacity:0}}
+canvas.confetti{position:fixed;inset:0;z-index:55;pointer-events:none}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+@media (min-width:600px){.app{border-inline:1px solid var(--line)}}
+</style>
+
+<!--SPRITE-->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <linearGradient id="g-flame" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#872457"/><stop offset=".55" stop-color="#FF3C40"/><stop offset="1" stop-color="#FF8A6D"/></linearGradient>
+  <linearGradient id="g-medal" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#100B71"/><stop offset=".5" stop-color="#872457"/><stop offset="1" stop-color="#FF3C40"/></linearGradient>
+  <symbol id="i-flame" viewBox="0 0 46 54"><path fill="url(#g-flame)" d="M23 2c2 9 12 13 14 25 1.8 11-5.6 25-14 25S7.2 45 8 34c.6-7.6 5-10.8 6.4-17 3.4 3 4 6.6 4 9.6C22.6 22 24.4 12 23 2z"/><path fill="#FFD9CF" d="M23.4 30c1.4 4.6 6.6 6.6 6.6 12.4 0 5-3.4 8.6-7 8.6s-7-3.2-7-8c0-3.6 2.4-5.4 3.4-8.4 1.6 1.6 2 3 2 4.6 1.8-2.4 2.6-5.2 2-9.2z"/></symbol>
+  <symbol id="i-home" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M4 10.5 12 4l8 6.5V19a1 1 0 0 1-1 1h-4.5v-5h-5v5H5a1 1 0 0 1-1-1z"/><rect x="11" y="1.2" width="2.4" height="2.4" fill="#FF3C40" transform="rotate(35 12.2 2.4)"/></symbol>
+  <symbol id="i-trophy" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M7 4h10v5a5 5 0 0 1-10 0zM7 6H4v1a3 3 0 0 0 3 3M17 6h3v1a3 3 0 0 1-3 3M12 14v4M8 20h8"/><rect x="10.8" y="6" width="2.4" height="2.4" fill="#FF3C40" transform="rotate(35 12 7.2)"/></symbol>
+  <symbol id="i-medal" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M8 3l2.5 6M16 3l-2.5 6"/><circle cx="12" cy="15" r="6" fill="none" stroke="currentColor" stroke-width="1.8"/><rect x="10.8" y="13.8" width="2.4" height="2.4" fill="#FF3C40" transform="rotate(35 12 15)"/></symbol>
+  <symbol id="i-cal" viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="15" rx="3" fill="none" stroke="currentColor" stroke-width="1.8"/><path stroke="currentColor" stroke-width="1.8" stroke-linecap="round" d="M8 3v4M16 3v4M3.5 10h17"/><rect x="7" y="13" width="2.6" height="2.6" fill="#FF3C40" transform="rotate(35 8.3 14.3)"/></symbol>
+  <symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6M15.5 4.8a3.5 3.5 0 0 1 0 6.4M17.5 14.4c2 .8 3.5 3 3.5 5.6"/><rect x="7.8" y="1" width="2.4" height="2.4" fill="#FF3C40" transform="rotate(35 9 2.2)"/></symbol>
+  <symbol id="i-book" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M3 5.5h6a3 3 0 0 1 3 3V20a2.5 2.5 0 0 0-2.5-2.5H3zM21 5.5h-6a3 3 0 0 0-3 3V20a2.5 2.5 0 0 1 2.5-2.5H21z"/><rect x="16.8" y="1.6" width="2.4" height="2.4" fill="#FF3C40" transform="rotate(35 18 2.8)"/></symbol>
+  <symbol id="i-chart" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" d="M4 20h16M7 16v-4M12 16V8M17 16v-6"/><rect x="15.8" y="3.6" width="2.4" height="2.4" fill="#FF3C40" transform="rotate(35 17 4.8)"/></symbol>
+  <symbol id="i-gear" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3" fill="none" stroke="currentColor" stroke-width="1.8"/><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" d="M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3M5.3 5.3l2.1 2.1M16.6 16.6l2.1 2.1M5.3 18.7l2.1-2.1M16.6 7.4l2.1-2.1"/></symbol>
+  <symbol id="i-out" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M10 4H6a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h4M15 8l-4 4 4 4M11 12h10"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" d="M5 12.5l4.5 4.5L19 7.5"/></symbol>
+  <symbol id="i-check-c" viewBox="0 0 30 30"><circle cx="15" cy="15" r="14" fill="currentColor"/><path fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" d="M9 15.5l4 4 8-8.5"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24"><rect x="5" y="10" width="14" height="10" rx="2.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path fill="none" stroke="currentColor" stroke-width="1.8" d="M8 10V7a4 4 0 0 1 8 0v3"/><rect x="10.8" y="13.8" width="2.4" height="2.4" fill="#FF3C40" transform="rotate(35 12 15)"/></symbol>
+  <symbol id="i-copy" viewBox="0 0 24 24"><rect x="8" y="8" width="12" height="12" rx="2.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path fill="none" stroke="currentColor" stroke-width="1.8" d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24"><path stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M12 5v14M5 12h14"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path stroke="currentColor" stroke-width="1.8" stroke-linecap="round" d="M15.5 15.5 20 20"/><rect x="9.3" y="9.3" width="2.4" height="2.4" fill="#FF3C40" transform="rotate(35 10.5 10.5)"/></symbol>
+  <symbol id="i-refresh" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M20 11a8 8 0 0 0-14.5-4.5M4 4v3h3M4 13a8 8 0 0 0 14.5 4.5M20 20v-3h-3"/></symbol>
+  <symbol id="i-crown" viewBox="0 0 26 20"><path fill="#FF3C40" d="M2 6l6 5 5-9 5 9 6-5-2 12H4z"/></symbol>
+</defs></svg>
+
+<div class="app" id="app"></div>
+
+<script>
+"use strict";
+/* ==================== التخزين ====================
+   النسخة هذي تجريبية: البيانات محفوظة في جهازك (localStorage).
+   للتشغيل الحقيقي مع الطلاب نبدّل طبقة Store بقاعدة بيانات مجانية (Firebase) بدون ما نغيّر الواجهة. */
+const KEY = "ofoq-demo-v1", SKEY = "ofoq-session-v1";
+const lsGet = k => { try { return JSON.parse(localStorage.getItem(k)); } catch (e) { return null; } };
+const lsSet = (k, v) => { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} };
+
+const DAY = 864e5;
+const iso = d => { const x = new Date(d); x.setHours(0,0,0,0); return x.toISOString().slice(0,10); };
+const todayISO = () => iso(Date.now());
+function rng(seed){ return () => { seed |= 0; seed = seed + 0x6D2B79F5 | 0; let t = Math.imul(seed ^ seed >>> 15, 1 | seed); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
+const uid = () => Math.random().toString(36).slice(2, 9);
+const pin4 = () => String(Math.floor(1000 + Math.random()*9000));
+
+function seed(){
+  const r = rng(26);
+  const names = ["عبدالله الحربي","محمد العتيبي","فيصل القحطاني","سعود الشمري","عبدالرحمن الدوسري","تركي المطيري","خالد الزهراني","نواف السبيعي","يوسف الغامدي","عمر العنزي","سلمان الشهري","بدر الرشيدي","ريان العمري","حمد السهلي"];
+  const titles = ["أبو بكر الصديق: قبل الخلافة","أبو بكر الصديق: من الخلافة إلى الوفاة","عمر بن الخطاب: قبل الخلافة","عمر بن الخطاب: الفتوحات","عمر بن الخطاب: الدواوين والإدارة","عثمان بن عفان","علي بن أبي طالب","الحرب العالمية الأولى","الحرب العالمية الثانية","كيف تقرأ التاريخ؟","الدولة العباسية","لقاء الختام"];
+  // دروس أسبوعية: ٨ قبل، درس اليوم، و٣ بعد
+  const lessons = titles.map((t,i) => ({ id:"L"+(i+1), title:t, date: iso(Date.now() + (i-8)*7*DAY), open:false, requirePin:true, pin:pin4() }));
+  const used = new Set(["0000"]);
+  const students = names.map((n,i) => { let c = i===0 ? "1234" : ""; while(!c || used.has(c)) c = pin4(); used.add(c); return { id:"S"+(i+1), name:n, code:c }; });
+  const att = {};
+  const prof = students.map((s,i) => i===0 ? .95 : .45 + r()*.5);
+  lessons.slice(0,8).forEach((l,li) => {
+    att[l.id] = {};
+    const base = new Date(l.date+"T19:30:00").getTime();
+    let order = 0;
+    students.forEach((s,si) => {
+      if (si===0){ if (li!==4) att[l.id][s.id] = base + (order++)*40000; return; } // عبدالله: غاب مرة وحدة عشان يبيّن «العودة»
+      if (r() < prof[si]) att[l.id][s.id] = base + (order++)*40000 + Math.floor(r()*60000);
+    });
+  });
+  const cur = lessons[8]; cur.open = true; att[cur.id] = {};
+  // كم واحد حضّر الحين في درس اليوم
+  const now = Date.now();
+  [2,4,5,7,10].forEach((si,k) => att[cur.id]["S"+si] = now - (6-k)*60000);
+  return { v:1, demo:true, course:"أُفُق", adminCode:"0000", students, lessons, att, current:cur.id };
+}
+
+let S = lsGet(KEY) || seed();
+let session = lsGet(SKEY);
+const save = () => lsSet(KEY, S);
+if (!lsGet(KEY)) save();
+
+/* ==================== الحسابات ==================== */
+const lessonsSorted = () => [...S.lessons].sort((a,b) => a.date.localeCompare(b.date));
+const lessonById = id => S.lessons.find(l => l.id === id);
+const curLesson = () => lessonById(S.current);
+const isAtt = (lid, sid) => !!(S.att[lid] && S.att[lid][sid]);
+// الدروس اللي صار وقتها (قبل اليوم أو اليوم أو المفتوحة)
+const pastLessons = () => lessonsSorted().filter(l => l.date <= todayISO() || l.open);
+
+function streakOf(sid){
+  const ls = pastLessons(); let n = 0;
+  for (let i = ls.length-1; i >= 0; i--){
+    const l = ls[i];
+    if (isAtt(l.id, sid)) n++;
+    else if (i === ls.length-1 && (l.open || l.date === todayISO())) continue; // درس اليوم ما خلص: ما يكسر السلسلة
+    else break;
+  }
+  return n;
+}
+function bestStreak(sid){ let b=0,c=0; pastLessons().forEach(l => { if (isAtt(l.id,sid)) { c++; b=Math.max(b,c); } else if (!(l.open||l.date===todayISO())) c=0; }); return b; }
+const totalOf = sid => S.lessons.filter(l => isAtt(l.id, sid)).length;
+const monthKey = d => d.slice(0,7);
+function monthCounts(mk = monthKey(todayISO())){
+  const ls = S.lessons.filter(l => monthKey(l.date) === mk);
+  return S.students.map(s => ({ s, n: ls.filter(l => isAtt(l.id, s.id)).length, streak: streakOf(s.id) }))
+    .sort((a,b) => b.n - a.n || b.streak - a.streak || a.s.name.localeCompare(b.s.name, "ar"));
+}
+function ranked(rows){ let pos=0, prev=null; return rows.map((r,i) => { if (r.n !== prev){ pos = i+1; prev = r.n; } return {...r, pos}; }); }
+function rateOf(sid){ const p = pastLessons().filter(l => !l.open || isAtt(l.id,sid)); return p.length ? Math.round(100*p.filter(l => isAtt(l.id,sid)).length/p.length) : 0; }
+function checkinOrder(lid, sid){ const a = S.att[lid] || {}; const t = a[sid]; if (!t) return 0; return Object.values(a).filter(x => x <= t).length; }
+
+const LEVELS = [
+  { n:0,  name:"فجر",   desc:"بداية الرحلة" },
+  { n:3,  name:"شروق",  desc:"طلع نورك" },
+  { n:6,  name:"ضحى",   desc:"ثابت ومستمر" },
+  { n:9,  name:"ظهيرة", desc:"في كبد السماء" },
+  { n:12, name:"الأفق كامل", desc:"ما فاتك شي" },
+];
+function levelOf(sid){ const t = totalOf(sid); let i = 0; LEVELS.forEach((L,k) => { if (t >= L.n) i = k; }); const nxt = LEVELS[i+1]; return { ...LEVELS[i], i, t, next: nxt, pct: nxt ? Math.round(100*(t-LEVELS[i].n)/(nxt.n-LEVELS[i].n)) : 100 }; }
+
+const BADGES = [
+  { id:"first",  name:"أول خطوة",    how:"احضر أول درس",                 test: s => totalOf(s) >= 1 },
+  { id:"s3",     name:"شعلة ٣",      how:"احضر ٣ دروس ورا بعض",          test: s => bestStreak(s) >= 3 },
+  { id:"s5",     name:"شعلة ٥",      how:"احضر ٥ دروس ورا بعض",          test: s => bestStreak(s) >= 5 },
+  { id:"s10",    name:"شعلة ١٠",     how:"احضر ١٠ دروس ورا بعض",         test: s => bestStreak(s) >= 10 },
+  { id:"early",  name:"المبكّر",      how:"كن من أول ٣ يحضّرون في درس",    test: s => S.lessons.some(l => { const o = checkinOrder(l.id, s); return o>0 && o<=3; }) },
+  { id:"champ",  name:"بطل الشهر",   how:"أكثر واحد حضور في الشهر",       test: s => { const r = ranked(monthCounts()); const me = r.find(x => x.s.id===s); return me && me.pos===1 && me.n>0; } },
+  { id:"full",   name:"شهر كامل",    how:"احضر كل دروس شهر (٣ دروس وأكثر)", test: s => { const by = {}; pastLessons().filter(l=>!l.open).forEach(l => (by[monthKey(l.date)] ||= []).push(l)); return Object.values(by).some(ls => ls.length>=3 && ls.every(l => isAtt(l.id,s))); } },
+  { id:"back",   name:"العودة",      how:"ارجع تحضر بعد غياب",            test: s => { let missed=false; for (const l of pastLessons()){ if (isAtt(l.id,s)){ if (missed) return true; } else if (!l.open && totalOf(s)>0) missed = true; } return false; } },
+  { id:"half",   name:"نص الطريق",   how:"احضر نص دروس الدورة",           test: s => totalOf(s) >= Math.ceil(S.lessons.length/2) },
+];
+const earned = sid => BADGES.filter(b => b.test(sid)).map(b => b.id);
+
+/* ==================== أدوات ==================== */
+const $ = (s, el=document) => el.querySelector(s);
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;" }[c]));
+const ar = n => Number(n).toLocaleString("ar-SA");
+const toLatin = s => String(s).replace(/[٠-٩]/g, d => "٠١٢٣٤٥٦٧٨٩".indexOf(d)).replace(/[۰-۹]/g, d => "۰۱۲۳۴۵۶۷۸۹".indexOf(d)).replace(/\D/g,"");
+const fmtDate = d => new Date(d+"T12:00:00").toLocaleDateString("ar-SA-u-ca-gregory", { weekday:"long", day:"numeric", month:"long" });
+const fmtShort = d => new Date(d+"T12:00:00").toLocaleDateString("ar-SA-u-ca-gregory", { day:"numeric", month:"short" });
+const fmtTime = t => new Date(t).toLocaleTimeString("ar-SA", { hour:"numeric", minute:"2-digit" });
+const monthName = () => new Date().toLocaleDateString("ar-SA-u-ca-gregory", { month:"long" });
+const initials = n => esc(String(n).trim().charAt(0));
+const firstName = n => esc(String(n).trim().split(/\s+/)[0]);
+const ic = (id, cls="") => `<svg class="${cls}" aria-hidden="true"><use href="#${id}"/></svg>`;
+const flame = (cls="") => `<svg class="flame ${cls}" viewBox="0 0 46 54" aria-hidden="true"><use href="#i-flame"/></svg>`;
+const logo = (white=false, style="") => `<span class="logo ${white?"white":""}" style="${style}" role="img" aria-label="أفق"><svg><use class="a" href="#logo-arc"/></svg><svg><use class="l" href="#logo-letters"/></svg></span>`;
+async function copyText(t){ try { await navigator.clipboard.writeText(t); toast("انتسخ ✓"); } catch(e){ sheet(`<h3>انسخه من هنا</h3><textarea class="field" id="cp" readonly>${esc(t)}</textarea>`); const ta=$("#cp"); ta.focus(); ta.select(); } }
+let toastT;
+function toast(msg, undo){ document.querySelectorAll(".toast").forEach(t => t.remove()); clearTimeout(toastT);
+  const t = document.createElement("div"); t.className = "toast"; t.setAttribute("role","status"); t.innerHTML = `<span>${msg}</span>` + (undo ? `<button>تراجع</button>` : "");
+  if (undo) t.querySelector("button").onclick = () => { undo(); t.remove(); };
+  document.body.appendChild(t); toastT = setTimeout(() => t.remove(), 3200); }
+function sheet(html, onMount){ closeSheet(); const s = document.createElement("div"); s.className = "scrim"; s.id = "scrim";
+  s.innerHTML = `<div class="sheet" role="dialog" aria-modal="true"><div class="grab"></div>${html}</div>`;
+  s.addEventListener("click", e => { if (e.target === s) closeSheet(); }); document.body.appendChild(s); onMount && onMount(s); }
+function closeSheet(){ const s = $("#scrim"); s && s.remove(); }
+document.addEventListener("keydown", e => { if (e.key === "Escape") closeSheet(); });
+
+/* مسطرة الأفق: قوس فيه علامة لكل درس */
+function ruler(ticks, opts={}){
+  const W=340, H=150, cx=W/2, cy=136, rx=150, ry=118, n=ticks.length;
+  const pt = (t, k=1) => [cx - rx*k*Math.cos(Math.PI*t), cy - ry*k*Math.sin(Math.PI*t)];
+  const prog = Math.max(0, Math.min(1, opts.progress ?? 0));
+  const [ex,ey] = pt(prog);
+  let g = `<defs><linearGradient id="rg${opts.id||""}" gradientUnits="userSpaceOnUse" x1="${cx-rx}" x2="${cx+rx}"><stop offset="0" stop-color="#100B71"/><stop offset=".5" stop-color="#872457"/><stop offset="1" stop-color="#FF3C40"/></linearGradient></defs>`;
+  [0.55,0.75].forEach(k => g += `<ellipse cx="${cx}" cy="${cy}" rx="${rx*k}" ry="${ry*k}" fill="none" stroke="var(--line)" stroke-width="1"/>`);
+  g += `<path d="M${cx-rx} ${cy} A${rx} ${ry} 0 0 1 ${cx+rx} ${cy}" fill="none" stroke="var(--mist)" stroke-width="12" stroke-linecap="round"/>`;
+  if (prog > 0) g += `<path d="M${cx-rx} ${cy} A${rx} ${ry} 0 0 1 ${ex.toFixed(1)} ${ey.toFixed(1)}" fill="none" stroke="url(#rg${opts.id||""})" stroke-width="12" stroke-linecap="round"/>`;
+  ticks.forEach((tk,i) => {
+    const t = n===1 ? .5 : i/(n-1); const [x1,y1] = pt(t,1.09); const [x2,y2] = pt(t, tk==="y"?1.2:1.15);
+    const col = tk==="y" ? "var(--ink)" : tk==="c" ? "#FF3C40" : "var(--navy-300)";
+    g += `<line x1="${x1.toFixed(1)}" y1="${y1.toFixed(1)}" x2="${x2.toFixed(1)}" y2="${y2.toFixed(1)}" stroke="${col}" stroke-width="${tk==="y"||tk==="c"?2.4:1.4}" stroke-linecap="round" opacity="${tk==="f"?.5:1}"/>`;
+  });
+  if (prog > 0) g += `<rect x="${(ex-6).toFixed(1)}" y="${(ey-6).toFixed(1)}" width="12" height="12" fill="#FF3C40" transform="rotate(35 ${ex.toFixed(1)} ${ey.toFixed(1)})"/>`;
+  g += `<text x="${cx}" y="${cy-30}" class="ruler-center num" font-size="40" fill="var(--ink)">${opts.big ?? ""}</text><text x="${cx}" y="${cy-2}" class="ruler-center" font-size="14" fill="var(--ink-2)">${opts.small ?? ""}</text>`;
+  return `<svg viewBox="-12 -12 ${W+24} ${H+12}" role="img" aria-label="${esc(opts.label||"")}">${g}</svg>`;
+}
+
+function orbits(){ let s = `<svg class="orbits" viewBox="0 0 800 500" preserveAspectRatio="xMidYMax slice" aria-hidden="true">`; for (let i=1;i<=9;i++) s += `<ellipse cx="400" cy="500" rx="${i*52}" ry="${i*40}" fill="none" stroke="rgba(169,166,214,.22)" stroke-width="1"/>`; return s + `</svg>`; }
+
+function medalSVG(b, on=true){
+  const glyph = { first:"١", s3:"٣", s5:"٥", s10:"١٠", early:"◆", champ:"♛", full:"٣٠", back:"↺", half:"½" }[b.id] || "◆";
+  return `<svg class="medal" viewBox="0 0 52 52" aria-hidden="true"><circle cx="26" cy="26" r="24" fill="${on?"url(#g-medal)":"var(--line)"}"/><circle cx="26" cy="26" r="18.5" fill="none" stroke="rgba(255,255,255,.35)" stroke-width="1.2"/>${b.id.startsWith("s")?`<g transform="translate(15 12) scale(.48)"><use href="#i-flame"/></g><text x="26" y="44" text-anchor="middle" font-size="10" font-weight="700" fill="#fff" font-family="IBM Plex Sans Arabic">${glyph}</text>`:`<text x="26" y="33" text-anchor="middle" font-size="${glyph.length>1?17:20}" font-weight="700" fill="#fff" font-family="Noto Naskh Arabic, serif">${glyph}</text>`}</svg>`;
+}
+
+/* ==================== الحالة والتنقل ==================== */
+let tab = "home";
+function setSession(s){ session = s; lsSet(SKEY, s); tab = "home"; render(); window.scrollTo(0,0); }
+function go(t){ tab = t; render(); window.scrollTo(0,0); }
+
+function render(){
+  const app = $("#app");
+  if (!session) { app.innerHTML = viewLogin(); bindLogin(); return; }
+  if (session.role === "admin") { app.innerHTML = demoBar() + adminView(); bindAdmin(); }
+  else {
+    const me = S.students.find(s => s.id === session.id);
+    if (!me) { setSession(null); return; }
+    app.innerHTML = demoBar() + studentView(me); bindStudent(me);
+  }
+}
+
+function demoBar(){
+  if (!S.demo) return "";
+  const other = session.role === "admin" ? "شوف شاشة الطالب" : "شوف شاشة المشرف";
+  return `<div class="demo wrap"><span><b>نسخة تجريبية</b> · الأسماء والأرقام أمثلة</span><button id="demo-switch">${other}</button></div>`;
+}
+function bindDemo(){ const b = $("#demo-switch"); if (b) b.onclick = () => setSession(session.role === "admin" ? { role:"student", id:"S1" } : { role:"admin" }); }
+
+/* ==================== الدخول ==================== */
+function viewLogin(){
+  return `<div class="login">
+    <header class="hero wrap">${orbits()}<div class="rise"></div>
+      ${logo(true,"width:150px")}
+      <h1>أهلاً بك في أُفُق</h1><p>أدخل رمزك وكمّل رحلتك</p>
+    </header>
+    <div class="wrap"><form class="card login-card stack" id="login-f" autocomplete="off">
+      <label class="lbl" for="code" style="text-align:center">رمزك الخاص</label>
+      <input class="field code-input" id="code" inputmode="numeric" maxlength="6" placeholder="••••" aria-describedby="login-err">
+      <div class="err" id="login-err" role="alert"></div>
+      <button class="btn block big" type="submit">ادخل</button>
+      ${S.demo ? `<div class="try"><span class="muted small" style="width:100%;text-align:center">للتجربة:</span><button type="button" data-c="1234">طالب ١٢٣٤</button><button type="button" data-c="0000">مشرف ٠٠٠٠</button></div>` : ""}
+    </form></div>
+    <footer class="foot wrap">رمزك ضايع؟ اطلبه من مشرف الحلقة</footer>
+  </div>`;
+}
+function bindLogin(){
+  const f = $("#login-f"), inp = $("#code"), err = $("#login-err");
+  const tryCode = c => {
+    c = toLatin(c);
+    if (!c) { err.textContent = "اكتب رمزك أول"; return; }
+    if (c === S.adminCode) return setSession({ role:"admin" });
+    const s = S.students.find(x => x.code === c);
+    if (s) return setSession({ role:"student", id:s.id });
+    err.textContent = "الرمز غلط، تأكد منه وجرّب مرة ثانية"; inp.select();
+  };
+  f.onsubmit = e => { e.preventDefault(); tryCode(inp.value); };
+  inp.oninput = () => { err.textContent = ""; };
+  document.querySelectorAll(".try button").forEach(b => b.onclick = () => { inp.value = b.dataset.c; tryCode(b.dataset.c); });
+}
+
+/* ==================== الطالب ==================== */
+function studentView(me){
+  const st = streakOf(me.id), r = ranked(monthCounts()), mine = r.find(x => x.s.id === me.id);
+  const tabs = [["home","الرئيسية","i-home"],["rank","الترتيب","i-trophy"],["badges","أوسمتي","i-medal"],["log","سجلّي","i-cal"]];
+  let body = "";
+  if (tab === "home") body = stHome(me, st);
+  if (tab === "rank") body = stRank(me, r);
+  if (tab === "badges") body = stBadges(me);
+  if (tab === "log") body = stLog(me);
+  return `<header class="hero wrap">${orbits()}
+      <div class="topbar">${logo(true,"width:56px")}<button class="iconbtn" id="logout" aria-label="خروج">${ic("i-out")}</button></div>
+      <div class="hello"><small>هلا والله</small><h1>${firstName(me.name)}</h1></div>
+      <div class="streak">${flame(st ? "" : "off")}
+        <div><span class="n num">${ar(st)}</span></div>
+        <div class="t"><b>${st===0 ? "ابدأ شعلتك اليوم" : st===1 ? "شعلة وحدة" : "شعلات ورا بعض"}</b>${streakLine(st)}</div>
+        <div class="rank-pill">ترتيبك<b>${mine && mine.n ? ar(mine.pos) : "–"}</b>في ${monthName()}</div>
+      </div>
+    </header>
+    <main class="wrap">${body}</main>
+    <nav class="tabs" aria-label="التنقل"><div class="in">${tabs.map(([k,l,i]) => `<button data-tab="${k}" ${tab===k?'aria-current="page"':""}>${ic(i)}${l}</button>`).join("")}</div></nav>`;
+}
+function streakLine(n){
+  if (n === 0) return "احضر الدرس الجاي وتولع أول شعلة";
+  if (n === 1) return "احضر الجاي وتبدأ السلسلة";
+  if (n < 3) return "باقي " + ar(3-n) + " عن وسام شعلة ٣";
+  if (n < 5) return "باقي " + ar(5-n) + " عن وسام شعلة ٥";
+  if (n < 10) return "باقي " + ar(10-n) + " عن وسام شعلة ١٠";
+  return "ما شاء الله، لا توقف";
+}
+
+function checkinCard(me){
+  const l = curLesson();
+  if (!l) return `<div class="card closed">${ic("i-cal")}<span>ما فيه درس محدد الحين</span></div>`;
+  const att = isAtt(l.id, me.id);
+  let inner;
+  if (att) inner = `<div class="done">${ic("i-check-c")}<div>حضورك مسجّل<small>الساعة ${fmtTime(S.att[l.id][me.id])} · ترتيبك في الحضور ${ar(checkinOrder(l.id, me.id))}</small></div></div>`;
+  else if (!l.open) inner = `<div class="closed">${ic("i-lock")}<div><b>التحضير مقفل</b><br><span class="small">يفتحه المشرف وقت الدرس</span></div></div>`;
+  else inner = `<form id="ci" class="stack">
+      ${l.requirePin ? `<label class="lbl" style="text-align:center;margin:0">اكتب رمز الدرس اللي على الشاشة</label><div class="pin">${[0,1,2,3].map(i => `<input inputmode="numeric" maxlength="1" aria-label="رقم ${i+1}" data-i="${i}">`).join("")}</div>` : ""}
+      <div class="err" id="ci-err" role="alert" style="min-height:0"></div>
+      <button class="btn dawn block big" type="submit">${ic("i-check")} حضّرني</button></form>`;
+  return `<section class="card checkin" aria-labelledby="ci-h">
+    <div class="row" style="justify-content:space-between"><span class="eyebrow">درس اليوم</span>${l.open && !att ? `<span class="chip red">التحضير مفتوح</span>` : ""}</div>
+    <h3 id="ci-h" style="margin-top:6px">${esc(l.title)}</h3>
+    <div class="meta"><span class="chip">${fmtDate(l.date)}</span><span class="chip">${ar(Object.keys(S.att[l.id]||{}).length)} حضروا</span></div>
+    ${inner}</section>`;
+}
+
+function stHome(me){
+  const ls = lessonsSorted(), cur = curLesson();
+  const ticks = ls.map(l => isAtt(l.id, me.id) ? "y" : (cur && l.id===cur.id) ? "c" : (l.date > todayISO() ? "f" : "n"));
+  const tot = totalOf(me.id), lv = levelOf(me.id), eb = earned(me.id);
+  const nextB = BADGES.find(b => !eb.includes(b.id));
+  return `${checkinCard(me)}
+    <section class="stack"><div class="sec-h"><h2>رحلتك في أفق</h2></div>
+      <div class="card ruler">${ruler(ticks, { progress: tot/ls.length, big: ar(tot)+" من "+ar(ls.length), small:"درس حضرته", id:"st", label:"حضرت "+tot+" من "+ls.length })}
+        <div class="legend"><span><i style="background:var(--ink)"></i>حضرت</span><span><i style="background:var(--navy-300)"></i>فاتك</span><span><i style="background:#FF3C40"></i>اليوم</span></div>
+      </div>
+      <div class="card level">${medalSVG({id:"x"}, true).replace("◆", ar(lv.i+1))}
+        <div class="grow"><b>مرتبتك: ${lv.name}</b> <span class="muted small">· ${lv.desc}</span>
+          <div class="bar"><span style="width:${lv.pct}%"></span></div>
+          <div class="muted small">${lv.next ? `باقي ${ar(lv.next.n - lv.t)} ${lv.next.n-lv.t===1?"درس":"دروس"} وتوصل «${lv.next.name}»` : "وصلت آخر مرتبة"}</div></div></div>
+    </section>
+    ${nextB ? `<section class="stack"><div class="sec-h"><h2>وسامك الجاي</h2><button class="link" data-tab="badges">كل الأوسمة</button></div>
+      <div class="card row">${medalSVG(nextB,false)}<div class="grow"><b>${nextB.name}</b><div class="muted small">${nextB.how}</div></div></div></section>` : ""}
+    <section class="stack"><div class="sec-h"><h2>أبطال ${monthName()}</h2><button class="link" data-tab="rank">الترتيب كامل</button></div>
+      ${lbRows(ranked(monthCounts()).slice(0,3), me.id)}</section>`;
+}
+
+function lbRows(rows, meId){
+  return `<div class="lb">${rows.map(r => `<div class="lb-row ${r.s.id===meId?"me":""} ${r.pos===1&&r.n?"top1":""}">
+    <span class="pos">${r.pos===1&&r.n ? `<svg width="22" height="17" aria-label="بطل الشهر"><use href="#i-crown"/></svg>` : ar(r.pos)}</span>
+    <span class="avatar">${initials(r.s.name)}</span>
+    <div class="grow"><div style="font-weight:500;line-height:1.4">${esc(r.s.name)}${r.s.id===meId?" <span class='chip'>أنت</span>":""}</div>
+      ${r.streak ? `<span class="fl">${ic("i-flame")}${ar(r.streak)}</span>` : `<span class="muted small">بدون شعلة</span>`}</div>
+    <span class="cnt">${ar(r.n)}</span></div>`).join("")}</div>`;
+}
+
+function stRank(me, r){
+  const top = r.slice(0,3), rest = r;
+  const p = (x, cls) => x ? `<div class="p ${cls}">${cls==="first"?`<svg class="crown" viewBox="0 0 26 20"><use href="#i-crown"/></svg>`:""}<span class="avatar">${initials(x.s.name)}</span><b>${firstName(x.s.name)}</b><span class="num" style="font-size:22px">${ar(x.n)}</span><div class="small" style="opacity:.75">${cls==="first"?"بطل الشهر":"حضور"}</div></div>` : "<div></div>";
+  return `<section class="stack"><div class="sec-h"><h2>ترتيب ${monthName()}</h2><span class="chip">بعدد الحضور</span></div>
+      <div class="podium">${p(top[1],"")}${p(top[0],"first")}${p(top[2],"")}</div>
+      <p class="muted small" style="margin:0">أكثر واحد يحضر في الشهر ياخذ وسام «بطل الشهر». لو تعادلوا، يتقدّم صاحب الشعلة الأطول.</p>
+      ${lbRows(rest, me.id)}</section>`;
+}
+
+function stBadges(me){
+  const eb = earned(me.id);
+  return `<section class="stack"><div class="sec-h"><h2>أوسمتي</h2><span class="chip solid">${ar(eb.length)} من ${ar(BADGES.length)}</span></div>
+    <div class="badges">${BADGES.map(b => { const on = eb.includes(b.id); return `<button class="badge ${on?"":"locked"}" data-badge="${b.id}">${medalSVG(b,on)}<b>${b.name}</b><small>${on?"حصّلته":b.how}</small></button>`; }).join("")}</div>
+    <div class="sec-h" style="margin-top:8px"><h2>المراتب</h2></div>
+    <div class="card list">${LEVELS.map((L,i) => { const lv = levelOf(me.id); return `<div class="li"><span class="dot ${i<=lv.i?"y":"n"}"></span><div class="grow"><div class="nm">${L.name}</div><div class="sub">${L.n===0?"من أول درس":"من "+ar(L.n)+" دروس"} · ${L.desc}</div></div>${i===lv.i?`<span class="chip red">أنت هنا</span>`:""}</div>`; }).join("")}</div>
+  </section>`;
+}
+
+function stLog(me){
+  const ls = lessonsSorted().reverse();
+  const done = totalOf(me.id), past = pastLessons().filter(l => !l.open).length;
+  return `<section class="stack"><div class="sec-h"><h2>سجلّي</h2></div>
+    <div class="kpis"><div class="kpi"><span class="num">${ar(done)}</span><small>حضرت</small></div><div class="kpi"><span class="num">${ar(rateOf(me.id))}٪</span><small>نسبة حضورك</small></div><div class="kpi"><span class="num">${ar(bestStreak(me.id))}</span><small>أطول شعلة</small></div></div>
+    <div class="card hist">${ls.map(l => { const a = isAtt(l.id, me.id), fut = l.date > todayISO() && !l.open, cur = l.id === S.current;
+      return `<div class="h"><span class="dot ${a?"y":fut?"f":cur?"c":"n"}"></span><div class="grow"><div style="font-weight:500;line-height:1.4">${esc(l.title)}</div><div class="muted small">${fmtDate(l.date)}</div></div>
+      ${a ? `<span class="chip ok">حضرت</span>` : fut ? `<span class="chip">قادم</span>` : cur ? `<span class="chip red">اليوم</span>` : `<span class="chip" style="opacity:.7">فاتك</span>`}</div>`; }).join("")}</div>
+    <p class="muted small" style="margin:0">فاتك درس بالغلط وأنت حاضر؟ كلّم المشرف يعدّله لك.</p></section>`;
+}
+
+function bindStudent(me){
+  bindDemo();
+  $("#logout").onclick = () => setSession(null);
+  document.querySelectorAll("[data-tab]").forEach(b => b.onclick = () => go(b.dataset.tab));
+  document.querySelectorAll("[data-badge]").forEach(b => b.onclick = () => {
+    const B = BADGES.find(x => x.id === b.dataset.badge), on = earned(me.id).includes(B.id);
+    sheet(`<div style="text-align:center" class="stack">${medalSVG(B,on).replace('class="medal"','class="medal" style="width:96px;height:96px;margin:0 auto"')}<h3>${B.name}</h3><p class="muted" style="margin:0">${B.how}</p>${on?`<span class="chip ok" style="margin:0 auto">حصّلته ✓</span>`:`<span class="chip" style="margin:0 auto">للحين ما حصّلته</span>`}<button class="btn block" onclick="closeSheet()">تمام</button></div>`);
+  });
+  const f = $("#ci"); if (!f) return;
+  const pins = [...f.querySelectorAll(".pin input")];
+  pins.forEach((p,i) => {
+    p.oninput = () => { p.value = toLatin(p.value).slice(-1); if (p.value && pins[i+1]) pins[i+1].focus(); };
+    p.onkeydown = e => { if (e.key === "Backspace" && !p.value && pins[i-1]) pins[i-1].focus(); };
+    p.onpaste = e => { const t = toLatin((e.clipboardData||window.clipboardData).getData("text")); if (t.length>=4){ e.preventDefault(); pins.forEach((q,k) => q.value = t[k]||""); pins[3].focus(); } };
+  });
+  f.onsubmit = e => {
+    e.preventDefault();
+    const l = curLesson(); if (!l || !l.open) return render();
+    if (l.requirePin) {
+      const v = pins.map(p => p.value).join("");
+      if (v.length < 4) { $("#ci-err").textContent = "اكتب الأرقام الأربعة"; return; }
+      if (v !== l.pin) { $("#ci-err").textContent = "رمز الدرس غلط. شوفه مرة ثانية على الشاشة"; pins.forEach(p => p.value=""); pins[0].focus(); return; }
+    }
+    const before = earned(me.id), prevStreak = streakOf(me.id);
+    (S.att[l.id] ||= {})[me.id] = Date.now(); save();
+    const st = streakOf(me.id), nb = earned(me.id).filter(x => !before.includes(x));
+    celebrate(st, prevStreak, nb.map(id => BADGES.find(b => b.id === id)));
+  };
+}
+
+function celebrate(st, prev, newBadges){
+  const msg = st === 1 ? ["ولّعت أول شعلة!","احضر الدرس الجاي وتبدأ سلسلتك"]
+    : st === 2 ? ["بدأت السلسلة!","شعلتين ورا بعض، كمّل"]
+    : st < 5 ? ["الشعلة تكبر!", st + " دروس ورا بعض"]
+    : ["ما شاء الله تبارك الله!", st + " دروس ورا بعض، أنت قدوة"];
+  const c = document.createElement("div"); c.className = "celebrate"; c.setAttribute("role","dialog"); c.setAttribute("aria-modal","true");
+  c.innerHTML = `<div class="box">${flame()}<div class="big" id="cnt">${ar(prev)}</div><h2>${msg[0]}</h2><p>${msg[1].replace(/\d+/g, d => ar(d))}</p>
+    ${newBadges.length ? `<p style="color:#FFC2C3;margin-top:8px">وسام جديد</p><div class="newb">${newBadges.map(b => `<div class="badge">${medalSVG(b,true)}<b>${b.name}</b></div>`).join("")}</div>` : ""}
+    <button class="btn" id="cel-ok">تمام</button></div>`;
+  document.body.appendChild(c);
+  setTimeout(() => { const e = $("#cnt"); if (e) e.textContent = ar(st); }, 450);
+  confetti();
+  $("#cel-ok").onclick = () => { c.remove(); render(); };
+  $("#cel-ok").focus();
+}
+
+function confetti(){
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  const cv = document.createElement("canvas"); cv.className = "confetti"; document.body.appendChild(cv);
+  const dpr = Math.min(2, window.devicePixelRatio||1), W = innerWidth, H = innerHeight; cv.width = W*dpr; cv.height = H*dpr; const x = cv.getContext("2d"); x.scale(dpr,dpr);
+  const cols = ["#FF3C40","#FFC2C3","#872457","#A9A6D6","#FFFFFF","#FF6A6D"];
+  const ps = Array.from({length:140}, () => ({ x: W/2 + (Math.random()-.5)*80, y: H*.42, vx:(Math.random()-.5)*12, vy:-Math.random()*13-4, s:4+Math.random()*7, r:Math.random()*6, vr:(Math.random()-.5)*.3, c:cols[Math.floor(Math.random()*cols.length)], sl:Math.random()<.35 }));
+  let f = 0; (function tick(){ x.clearRect(0,0,W,H); ps.forEach(p => { p.vy += .32; p.vx *= .99; p.x += p.vx; p.y += p.vy; p.r += p.vr; x.save(); x.translate(p.x,p.y); x.rotate(p.r); x.fillStyle = p.c; if (p.sl) x.fillRect(-p.s, -1.5, p.s*2, 3); else x.fillRect(-p.s/2,-p.s/2,p.s,p.s); x.restore(); }); if (++f < 170) requestAnimationFrame(tick); else cv.remove(); })();
+}
+
+/* ==================== المشرف ==================== */
+let adSeg = "in", adQuery = "";
+function adminView(){
+  const tabs = [["home","اليوم","i-home"],["students","الطلاب","i-users"],["lessons","الدروس","i-book"],["reports","التقارير","i-chart"]];
+  const l = curLesson();
+  let body = tab==="home" ? adHome() : tab==="students" ? adStudents() : tab==="lessons" ? adLessons() : adReports();
+  return `<header class="hero wrap" style="padding-bottom:18px">${orbits()}
+      <div class="topbar">${logo(true,"width:56px")}<div class="row" style="gap:8px"><button class="iconbtn" id="settings" aria-label="الإعدادات">${ic("i-gear")}</button><button class="iconbtn" id="logout" aria-label="خروج">${ic("i-out")}</button></div></div>
+      <div class="hello"><small>لوحة المشرف</small><h1>${tab==="home" ? (l ? esc(l.title) : "ما فيه درس اليوم") : {students:"الطلاب",lessons:"الدروس",reports:"التقارير"}[tab]}</h1></div>
+    </header>
+    <main class="wrap">${body}</main>
+    <nav class="tabs" aria-label="التنقل"><div class="in">${tabs.map(([k,lb,i]) => `<button data-tab="${k}" ${tab===k?'aria-current="page"':""}>${ic(i)}${lb}</button>`).join("")}</div></nav>`;
+}
+
+function adHome(){
+  const l = curLesson();
+  if (!l) return `<div class="card stack" style="text-align:center"><p class="muted" style="margin:0">حدد درس اليوم من «الدروس» أو أضف درس جديد</p><button class="btn" data-tab="lessons">روح للدروس</button></div>`;
+  const a = S.att[l.id] || {}, n = Object.keys(a).length, N = S.students.length;
+  const inS = S.students.filter(s => a[s.id]).sort((x,y) => a[x.id]-a[y.id]);
+  const outS = S.students.filter(s => !a[s.id]).sort((x,y) => x.name.localeCompare(y.name,"ar"));
+  const list = adSeg === "in" ? inS : outS;
+  return `<section class="card stack">
+      <div class="row" style="justify-content:space-between"><span class="chip">${fmtDate(l.date)}</span>${l.open ? `<span class="chip red">مفتوح الحين</span>` : `<span class="chip">مقفل</span>`}</div>
+      <div class="ruler">${ruler(S.students.map(s => a[s.id] ? "y" : "f"), { progress: N ? n/N : 0, big: ar(n)+" / "+ar(N), small:"حضّروا", id:"ad", label:n+" من "+N+" حضّروا" })}</div>
+      <button class="btn block big ${l.open?"outline":"dawn"}" id="toggle-open">${l.open ? "أقفل التحضير" : "افتح التحضير"}</button>
+      ${l.open && l.requirePin ? `<div class="bigpin"><div><small>رمز الدرس، اعرضه للطلاب</small><span class="d">${l.pin}</span></div><button class="iconbtn" id="new-pin" aria-label="رمز جديد">${ic("i-refresh")}</button></div>` : ""}
+      <div class="switch"><div><b>اطلب رمز الدرس</b><div class="muted small">يمنع أحد يحضّر وهو مو موجود</div></div><button class="sw" id="sw-pin" role="switch" aria-checked="${l.requirePin}" aria-label="اطلب رمز الدرس"></button></div>
+    </section>
+    <section class="stack">
+      <div class="seg" role="group"><button data-seg="in" aria-pressed="${adSeg==="in"}">حضروا (${ar(inS.length)})</button><button data-seg="out" aria-pressed="${adSeg==="out"}">ما حضروا (${ar(outS.length)})</button></div>
+      <div class="card list" style="padding-block:4px">${list.length ? list.map(s => `<div class="li"><span class="avatar">${initials(s.name)}</span><div class="grow"><div class="nm">${esc(s.name)}</div><div class="sub">${a[s.id] ? "الساعة " + fmtTime(a[s.id]) + (a[s.id]===true?"":"") : (streakOf(s.id) ? "عنده شعلة " + ar(streakOf(s.id)) + " بتنطفي" : "")}</div></div>
+        <button class="toggle-att ${a[s.id]?"on":""}" data-att="${s.id}" aria-label="${a[s.id]?"شيل حضور":"حضّر"} ${esc(s.name)}">${ic("i-check")}</button></div>`).join("") : `<p class="muted" style="text-align:center;margin:12px 0">${adSeg==="in" ? "ما أحد حضّر للحين" : "كلهم حضروا، ما شاء الله"}</p>`}</div>
+      <p class="muted small" style="margin:0">اضغط علامة ✓ عشان تحضّر أحد بنفسك أو تشيل حضوره.</p>
+      <button class="btn ghost block" id="copy-roll">${ic("i-copy")} انسخ الكشف للواتساب</button>
+    </section>`;
+}
+
+function adStudents(){
+  const q = adQuery.trim();
+  const list = S.students.filter(s => !q || s.name.includes(q) || s.code.includes(toLatin(q))).sort((a,b) => a.name.localeCompare(b.name,"ar"));
+  return `<section class="stack">
+    <div class="row"><div class="search grow">${ic("i-search")}<input class="field" id="q" placeholder="دوّر باسم أو رمز" value="${esc(adQuery)}"></div><button class="btn" id="add-st" style="padding:0 18px;height:52px">${ic("i-plus")} أضف</button></div>
+    <div class="muted small">${ar(S.students.length)} طالب · اضغط على أي طالب تشوف تفاصيله</div>
+    <div class="card list" style="padding-block:4px">${list.map(s => { const st = streakOf(s.id); return `<button class="li" data-st="${s.id}"><span class="avatar">${initials(s.name)}</span><div class="grow"><div class="nm">${esc(s.name)}</div><div class="sub">حضور ${ar(rateOf(s.id))}٪ ${st?`· <span style="color:var(--red)">شعلة ${ar(st)}</span>`:""}</div></div><span class="code-tag">${s.code}</span></button>`; }).join("") || `<p class="muted" style="text-align:center">ما فيه نتائج</p>`}</div>
+    <button class="btn ghost block" id="copy-codes">${ic("i-copy")} انسخ كل الرموز</button>
+  </section>`;
+}
+
+function adLessons(){
+  const ls = lessonsSorted();
+  return `<section class="stack">
+    <button class="btn block" id="add-ls">${ic("i-plus")} أضف درس</button>
+    <div class="card list" style="padding-block:4px">${ls.map(l => { const n = Object.keys(S.att[l.id]||{}).length, cur = l.id===S.current;
+      return `<button class="li" data-ls="${l.id}"><span class="dot ${cur?"c":l.date>todayISO()?"f":"y"}"></span><div class="grow"><div class="nm">${esc(l.title)}</div><div class="sub">${fmtDate(l.date)}${l.date<=todayISO()||l.open?" · "+ar(n)+" حضروا":""}</div></div>${cur?`<span class="chip red">درس اليوم</span>`:""}</button>`; }).join("")}</div>
+  </section>`;
+}
+
+function adReports(){
+  const past = pastLessons(), N = S.students.length;
+  const avg = past.length ? Math.round(100 * past.reduce((t,l) => t + Object.keys(S.att[l.id]||{}).length, 0) / (past.length*N||1)) : 0;
+  const streaks = S.students.map(s => ({ s, st: streakOf(s.id) })).sort((a,b) => b.st-a.st);
+  const closed = past.filter(l => !l.open).slice(-2);
+  const risk = closed.length === 2 ? S.students.filter(s => closed.every(l => !isAtt(l.id,s.id))) : [];
+  const max = Math.max(1, ...past.map(l => Object.keys(S.att[l.id]||{}).length));
+  const champs = ranked(monthCounts()).filter(r => r.n).slice(0,3);
+  return `<section class="stack">
+    <div class="kpis"><div class="kpi"><span class="num">${ar(avg)}٪</span><small>متوسط الحضور</small></div><div class="kpi"><span class="num">${ar(N)}</span><small>طالب</small></div><div class="kpi"><span class="num">${ar(streaks[0]?.st||0)}</span><small>أطول شعلة</small></div></div>
+    <div class="sec-h"><h2>الحضور في كل درس</h2></div>
+    <div class="card"><div class="bars">${past.map((l,i) => { const n = Object.keys(S.att[l.id]||{}).length; return `<div class="b ${l.id===S.current?"cur":""}" title="${esc(l.title)}"><em>${ar(n)}</em><span style="height:${Math.max(4, 100*n/max)}%"></span><small>${ar(i+1)}</small></div>`; }).join("")}</div><div class="muted small" style="text-align:center">رقم الدرس · الأحمر درس اليوم</div></div>
+    <div class="sec-h"><h2>يحتاجون متابعة</h2><span class="chip red">${ar(risk.length)}</span></div>
+    <div class="card list" style="padding-block:4px">${risk.length ? risk.map(s => `<div class="li"><span class="avatar">${initials(s.name)}</span><div class="grow"><div class="nm">${esc(s.name)}</div><div class="sub">غاب آخر درسين</div></div><span class="code-tag">${s.code}</span></div>`).join("") : `<p class="muted" style="text-align:center;margin:12px 0">ما فيه أحد غاب آخر درسين</p>`}</div>
+    <div class="sec-h"><h2>أبطال ${monthName()}</h2></div>
+    ${champs.length ? lbRows(champs, "") : `<p class="muted">ما فيه حضور هالشهر للحين</p>`}
+    <div class="sec-h"><h2>أطول الشعلات</h2></div>
+    <div class="card list" style="padding-block:4px">${streaks.filter(x => x.st).slice(0,5).map(x => `<div class="li"><span class="fl" style="display:inline-flex;color:var(--red)">${flame().replace('class="flame "','class="flame" style="width:22px;height:26px"')}</span><div class="grow nm">${esc(x.s.name)}</div><span class="num" style="font-size:20px">${ar(x.st)}</span></div>`).join("")}</div>
+    <button class="btn ghost block" id="copy-report">${ic("i-copy")} انسخ التقرير للواتساب</button>
+  </section>`;
+}
+
+function bindAdmin(){
+  bindDemo();
+  $("#logout").onclick = () => setSession(null);
+  $("#settings").onclick = openSettings;
+  document.querySelectorAll("[data-tab]").forEach(b => b.onclick = () => go(b.dataset.tab));
+  const l = curLesson();
+  if (tab === "home" && l) {
+    $("#toggle-open").onclick = () => { l.open = !l.open; if (l.open && !l.pin) l.pin = pin4(); save(); render(); toast(l.open ? "انفتح التحضير" : "انقفل التحضير"); };
+    const np = $("#new-pin"); if (np) np.onclick = () => { l.pin = pin4(); save(); render(); toast("رمز جديد: " + l.pin); };
+    $("#sw-pin").onclick = () => { l.requirePin = !l.requirePin; if (!l.pin) l.pin = pin4(); save(); render(); };
+    document.querySelectorAll("[data-seg]").forEach(b => b.onclick = () => { adSeg = b.dataset.seg; render(); });
+    document.querySelectorAll("[data-att]").forEach(b => b.onclick = () => {
+      const sid = b.dataset.att, a = (S.att[l.id] ||= {}), had = a[sid], name = S.students.find(s => s.id===sid).name;
+      if (had) delete a[sid]; else a[sid] = Date.now(); save(); render();
+      toast((had ? "شلت حضور " : "حضّرت ") + esc(firstName(name)), () => { if (had) a[sid] = had; else delete a[sid]; save(); render(); });
+    });
+    $("#copy-roll").onclick = () => {
+      const a = S.att[l.id] || {};
+      const inS = S.students.filter(s => a[s.id]), outS = S.students.filter(s => !a[s.id]);
+      copyText(`كشف حضور أفق\n${l.title}\n${fmtDate(l.date)}\n\nحضروا (${inS.length}):\n${inS.map((s,i) => `${i+1}. ${s.name}`).join("\n")}\n\nما حضروا (${outS.length}):\n${outS.map((s,i) => `${i+1}. ${s.name}`).join("\n")}`);
+    };
+  }
+  if (tab === "students") {
+    const q = $("#q"); q.oninput = () => { adQuery = q.value; const pos = q.selectionStart; render(); const n = $("#q"); n.focus(); n.setSelectionRange(pos,pos); };
+    $("#add-st").onclick = addStudents;
+    document.querySelectorAll("[data-st]").forEach(b => b.onclick = () => studentSheet(b.dataset.st));
+    $("#copy-codes").onclick = () => copyText("رموز دخول أفق\n\n" + [...S.students].sort((a,b) => a.name.localeCompare(b.name,"ar")).map(s => `${s.name}: ${s.code}`).join("\n"));
+  }
+  if (tab === "lessons") {
+    $("#add-ls").onclick = () => lessonSheet();
+    document.querySelectorAll("[data-ls]").forEach(b => b.onclick = () => lessonSheet(b.dataset.ls));
+  }
+  if (tab === "reports") {
+    $("#copy-report").onclick = () => {
+      const r = ranked(monthCounts()).filter(x => x.n).slice(0,5);
+      const closed = pastLessons().filter(l => !l.open).slice(-2);
+      const risk = closed.length===2 ? S.students.filter(s => closed.every(l => !isAtt(l.id,s.id))) : [];
+      copyText(`تقرير أفق · ${monthName()}\n\nأبطال الشهر:\n${r.map(x => `${x.pos}. ${x.s.name} (${x.n} حضور)`).join("\n")}\n\nيحتاجون متابعة (غابوا آخر درسين):\n${risk.map(s => "• " + s.name).join("\n") || "ما فيه أحد"}`);
+    };
+  }
+}
+
+function newCode(){ const used = new Set([S.adminCode, ...S.students.map(s => s.code)]); let c; do c = pin4(); while (used.has(c)); return c; }
+
+function addStudents(){
+  sheet(`<h3>أضف طلاب</h3><p class="muted small" style="margin:0 0 10px">اكتب كل اسم في سطر. تقدر تلصق القائمة كاملة من الواتساب، وكل طالب ياخذ رمز لحاله.</p>
+    <form id="add-f" class="stack"><textarea class="field" id="names" placeholder="محمد العتيبي&#10;فيصل القحطاني"></textarea><button class="btn block" type="submit">أضفهم</button></form>`, () => {
+    $("#names").focus();
+    $("#add-f").onsubmit = e => { e.preventDefault();
+      const names = $("#names").value.split(/\n/).map(x => x.replace(/^[\s\d٠-٩.\-–•)]+/,"").trim()).filter(Boolean);
+      if (!names.length) return;
+      const added = names.map(n => { const s = { id:"S"+uid(), name:n, code:newCode() }; S.students.push(s); return s; });
+      save(); closeSheet(); render();
+      sheet(`<h3>انضافوا ${ar(added.length)} ✓</h3><p class="muted small" style="margin:0 0 10px">أرسل لكل واحد رمزه:</p><div class="card list" style="padding-block:4px">${added.map(s => `<div class="li"><div class="grow nm">${esc(s.name)}</div><span class="code-tag">${s.code}</span></div>`).join("")}</div><div class="stack" style="margin-top:12px"><button class="btn block" id="cp-new">${ic("i-copy")} انسخ الرموز</button></div>`, () => {
+        $("#cp-new").onclick = () => copyText(added.map(s => `${s.name}: ${s.code}`).join("\n"));
+      });
+    };
+  });
+}
+
+function studentSheet(sid){
+  const s = S.students.find(x => x.id === sid); if (!s) return;
+  const ls = lessonsSorted().filter(l => l.date <= todayISO() || l.open);
+  sheet(`<div class="row" style="margin-bottom:10px"><span class="avatar" style="width:52px;height:52px;font-size:18px">${initials(s.name)}</span><div class="grow"><h3 style="margin:0">${esc(s.name)}</h3><div class="muted small">رمز الدخول <span class="code-tag">${s.code}</span></div></div></div>
+    <div class="kpis" style="margin-bottom:14px"><div class="kpi"><span class="num">${ar(rateOf(s.id))}٪</span><small>الحضور</small></div><div class="kpi"><span class="num">${ar(streakOf(s.id))}</span><small>الشعلة</small></div><div class="kpi"><span class="num">${ar(earned(s.id).length)}</span><small>أوسمة</small></div></div>
+    <label class="lbl">سجل الحضور (اضغط على درس تعدّله)</label>
+    <div class="card list" style="padding-block:4px;margin-bottom:14px">${ls.reverse().map(l => `<div class="li"><div class="grow"><div class="nm" style="font-size:15px">${esc(l.title)}</div><div class="sub">${fmtShort(l.date)}</div></div><button class="toggle-att ${isAtt(l.id,s.id)?"on":""}" data-tl="${l.id}" aria-label="عدّل حضور ${esc(l.title)}">${ic("i-check")}</button></div>`).join("")}</div>
+    <form id="ed-f" class="stack"><div><label class="lbl" for="ed-name">الاسم</label><input class="field" id="ed-name" value="${esc(s.name)}"></div>
+      <button class="btn block" type="submit">احفظ الاسم</button>
+      <div class="row"><button type="button" class="btn ghost grow" id="cp-code">${ic("i-copy")} انسخ الرمز</button><button type="button" class="btn ghost grow" id="re-code">${ic("i-refresh")} رمز جديد</button></div>
+      <button type="button" class="btn ghost block" id="del-st" style="color:var(--red)">احذف الطالب</button></form>`, () => {
+    document.querySelectorAll("[data-tl]").forEach(b => b.onclick = () => { const a = (S.att[b.dataset.tl] ||= {}); if (a[sid]) delete a[sid]; else a[sid] = Date.now(); save(); b.classList.toggle("on"); render(); });
+    $("#ed-f").onsubmit = e => { e.preventDefault(); const v = $("#ed-name").value.trim(); if (!v) return; s.name = v; save(); closeSheet(); render(); toast("انحفظ"); };
+    $("#cp-code").onclick = () => copyText(`${s.name}\nرمز دخول أفق: ${s.code}`);
+    $("#re-code").onclick = () => { s.code = newCode(); save(); studentSheet(sid); render(); toast("الرمز الجديد " + s.code); };
+    $("#del-st").onclick = () => sheet(`<h3>تحذف ${esc(s.name)}؟</h3><p class="muted">بينحذف هو وسجل حضوره، وما يقدر يدخل بعدها.</p><div class="row"><button class="btn ghost grow" onclick="closeSheet()">لا، رجوع</button><button class="btn danger grow" id="del-yes">إيه، احذفه</button></div>`, () => {
+      $("#del-yes").onclick = () => { S.students = S.students.filter(x => x.id !== sid); Object.values(S.att).forEach(a => delete a[sid]); save(); closeSheet(); render(); toast("انحذف"); };
+    });
+  });
+}
+
+function lessonSheet(lid){
+  const l = lid ? lessonById(lid) : null;
+  sheet(`<h3>${l ? "تعديل الدرس" : "درس جديد"}</h3>
+    <form id="ls-f" class="stack"><div><label class="lbl" for="ls-t">عنوان الدرس</label><input class="field" id="ls-t" value="${esc(l?.title||"")}" placeholder="مثال: عثمان بن عفان"></div>
+      <div><label class="lbl" for="ls-d">التاريخ</label><input class="field" id="ls-d" type="date" value="${l?.date || todayISO()}"></div>
+      <button class="btn block" type="submit">احفظ</button>
+      ${l && l.id !== S.current ? `<button type="button" class="btn dawn block" id="ls-cur">خلّه درس اليوم</button>` : ""}
+      ${l ? `<button type="button" class="btn ghost block" id="ls-del" style="color:var(--red)">احذف الدرس</button>` : ""}</form>`, () => {
+    $("#ls-t").focus();
+    $("#ls-f").onsubmit = e => { e.preventDefault(); const t = $("#ls-t").value.trim(), d = $("#ls-d").value; if (!t || !d) return;
+      if (l) { l.title = t; l.date = d; } else { const n = { id:"L"+uid(), title:t, date:d, open:false, requirePin:true, pin:pin4() }; S.lessons.push(n); if (!S.current) S.current = n.id; }
+      save(); closeSheet(); render(); toast("انحفظ"); };
+    const c = $("#ls-cur"); if (c) c.onclick = () => { S.lessons.forEach(x => x.open = false); S.current = l.id; save(); closeSheet(); go("home"); toast("صار درس اليوم"); };
+    const d = $("#ls-del"); if (d) d.onclick = () => sheet(`<h3>تحذف «${esc(l.title)}»؟</h3><p class="muted">بينحذف الدرس وحضوره.</p><div class="row"><button class="btn ghost grow" onclick="closeSheet()">رجوع</button><button class="btn danger grow" id="d-yes">احذفه</button></div>`, () => {
+      $("#d-yes").onclick = () => { S.lessons = S.lessons.filter(x => x.id !== l.id); delete S.att[l.id]; if (S.current === l.id) S.current = null; save(); closeSheet(); render(); };
+    });
+  });
+}
+
+function openSettings(){
+  sheet(`<h3>الإعدادات</h3><form id="set-f" class="stack">
+      <div><label class="lbl" for="set-ac">رمز المشرف</label><input class="field code-input" id="set-ac" inputmode="numeric" maxlength="6" value="${esc(S.adminCode)}"></div>
+      <button class="btn block" type="submit">احفظ</button>
+      ${S.demo ? `<button type="button" class="btn ghost block" id="reset">رجّع البيانات التجريبية من جديد</button>` : ""}
+    </form>`, () => {
+    $("#set-f").onsubmit = e => { e.preventDefault(); const v = toLatin($("#set-ac").value); if (v.length < 4) return toast("الرمز ٤ أرقام على الأقل"); if (S.students.some(s => s.code === v)) return toast("هذا رمز طالب، اختر غيره"); S.adminCode = v; save(); closeSheet(); toast("تغيّر رمز المشرف"); };
+    const r = $("#reset"); if (r) r.onclick = () => { S = seed(); save(); closeSheet(); setSession({ role:"admin" }); toast("رجعت البيانات التجريبية"); };
+  });
+}
+
+/* تحديث تلقائي لو تغيّرت البيانات من تبويب ثاني */
+window.addEventListener("storage", e => { if (e.key === KEY) { S = lsGet(KEY) || S; if (!$("#scrim") && !$(".celebrate")) render(); } });
+render();
+</script>
